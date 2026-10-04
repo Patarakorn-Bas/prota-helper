@@ -1,4 +1,4 @@
-ผู้ช่วย ProtaStructure v1.0 — วิธีติดตั้งบน GitHub Pages
+ผู้ช่วย ProtaStructure v1.1 — วิธีติดตั้งบน GitHub Pages
 1) สร้าง repository ใหม่ชื่อ  prota-helper  (Public)
 2) อัปโหลดทั้ง 5 ไฟล์ไว้ชั้นนอกสุด: index.html, manifest.json, sw.js, icon-192.png, icon-512.png
 3) Settings → Pages → Branch: main / (root) → Save

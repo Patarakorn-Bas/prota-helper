@@ -69,7 +69,8 @@ nav.list button[aria-current="true"] .ok{color:var(--hl)}
 .card h2{margin:2px 0 6px;font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.3}
 .why{color:var(--soft);margin:0 0 6px;max-width:70ch}
 h3{font-size:1rem;margin:18px 0 6px}
-ol.act{margin:0;padding-left:1.4em}
+ol.act{margin:0;padding-left:1.4em;list-style-type:decimal}
+body,ol,input,select,table{font-variant-numeric:lining-nums}
 ol.act li{padding:3px 0}
 ol.act li::marker{font-weight:700}
 .val{background:var(--hlbg);border-left:4px solid var(--hl);padding:10px 14px;border-radius:0 6px 6px 0;margin-top:14px}
@@ -103,7 +104,7 @@ td:last-child,th:last-child{text-align:right}
 </head>
 <body>
 <div class="top">
-  <div class="hd"><h1>ผู้ช่วย ProtaStructure · ออกแบบบ้าน 1–2 ชั้นทีละขั้น</h1><span class="ver">v1.0</span>
+  <div class="hd"><h1>ผู้ช่วย ProtaStructure · ออกแบบบ้าน 1–2 ชั้นทีละขั้น</h1><span class="ver">v1.1</span>
     <button id="btnInstall" class="inst" hidden>⬇ ติดตั้งแอป</button></div>
   <div class="pbar">
     <label for="proj">โครงการ</label><select id="proj"></select>
@@ -158,7 +159,7 @@ td:last-child,th:last-child{text-align:right}
         <p class="small">ค่าประมาณ ตรวจกับผู้ผลิตหรือตำราที่ใช้อ้างอิง</p>
       </div>
       <div class="card">
-        <h2 class="s">น้ำหนักรวมไว้เทียบแรงปฏิกิริยา (ขั้น E3)</h2>
+        <h2 class="s">น้ำหนักรวมไว้เทียบแรงปฏิกิริยา (ขั้น 5.3)</h2>
         <div class="field"><label>พื้นที่พื้นต่อชั้น (ม²)</label><input id="c_a" type="number"></div>
         <div class="field"><label>จำนวนชั้นพื้น (ไม่รวมหลังคา)</label><input id="c_n" type="number"></div>
         <div class="field"><label>ความยาวผนังรวมต่อชั้น (ม.)</label><input id="c_wl" type="number"></div>
@@ -347,6 +348,9 @@ const S=[
 ];
 
 const saveSt=saveAll;
+const PL=["A","B","C","D","E","F","G"];
+S.forEach(s=>{s.code=(PL.indexOf(s.id[0])+1)+"."+s.id.slice(1)});
+const num=t=>t.replace(/\b([A-G])(\d)\b/g,(_,a,n)=>(PL.indexOf(a)+1)+"."+n);
 const fill=s=>s.replace(/\{(\w+)\}/g,(_,k)=>`<span class="nb">${N(k)}</span>`);
 const stepOk=i=>S[i].g.every((_,j)=>st.g[S[i].id+j]);
 
@@ -355,19 +359,19 @@ function renderRail(){
   P.forEach((name,pi)=>{const idx=S.map((s,i)=>s.p===pi?i:-1).filter(i=>i>=0);
     const b=document.createElement("button");
     b.className=(S[st.cur].p===pi?"on ":"")+(idx.every(stepOk)?"full":"");
-    b.innerHTML=`<b>${"ABCDEFG"[pi]}</b><span>${name}</span>`;b.title=name;
+    b.innerHTML=`<b>${pi+1}</b><span>${name}</span>`;b.title=name;
     b.onclick=()=>{st.cur=idx[0];render()};r.appendChild(b)});
 }
 function renderList(){
   const n=document.getElementById("list");let h="";
-  P.forEach((name,pi)=>{h+=`<h4>${"ABCDEFG"[pi]} · ${name}</h4>`;
+  P.forEach((name,pi)=>{h+=`<h4>${pi+1} · ${name}</h4>`;
     S.forEach((s,i)=>{if(s.p!==pi)return;
-      h+=`<button data-i="${i}" ${i===st.cur?'aria-current="true"':''}><span class="k">${s.id}</span><span>${s.t}</span>${stepOk(i)?'<span class="ok">✓</span>':''}</button>`})});
+      h+=`<button data-i="${i}" ${i===st.cur?'aria-current="true"':''}><span class="k">${s.code}</span><span>${s.t}</span>${stepOk(i)?'<span class="ok">✓</span>':''}</button>`})});
   n.innerHTML=h;n.querySelectorAll("button").forEach(b=>b.onclick=()=>{st.cur=+b.dataset.i;render()});
 }
 function renderCard(){
   const s=S[st.cur],c=document.getElementById("card");
-  c.innerHTML=`<div class="code">${s.id} · ${P[s.p]} · ขั้นที่ ${st.cur+1} จาก ${S.length}</div>
+  c.innerHTML=num(`<div class="code">${s.code} · ${P[s.p]} · ขั้นที่ ${st.cur+1} จาก ${S.length}</div>
   <h2>${s.t}</h2>${s.w0?`<p class="why">${s.w0}</p>`:""}
   <h3>ทำในโปรแกรม / ทำก่อนเข้าโปรแกรม</h3><ol class="act">${s.a.map(x=>`<li>${x}</li>`).join("")}</ol>
   ${s.v?`<div class="val">ค่าของโครงการนี้: ${fill(s.v)}</div>`:""}
@@ -377,7 +381,7 @@ function renderCard(){
   <div class="foot"><button id="prev" ${st.cur===0?"disabled":""}>ย้อนกลับ</button>
   <span class="hint" id="hint"></span>
   <button class="go" id="next" ${st.cur===S.length-1?"disabled":""}>ขั้นถัดไป</button></div>
-  <p class="small">ชื่อเมนูอาจต่างเล็กน้อยตามเวอร์ชันของโปรแกรม ใช้ปุ่ม ← → บนคีย์บอร์ดเปลี่ยนขั้นได้</p>`;
+  <p class="small">ชื่อเมนูอาจต่างเล็กน้อยตามเวอร์ชันของโปรแกรม ใช้ปุ่ม ← → บนคีย์บอร์ดเปลี่ยนขั้นได้</p>`);
   const upd=()=>{document.getElementById("hint").textContent=stepOk(st.cur)?"ผ่านแล้ว ไปต่อได้":"ยังติ๊กเช็กไม่ครบ (ไปต่อได้ แต่ควรกลับมาทำ)"};upd();
   c.querySelectorAll(".gate input").forEach(el=>el.onchange=()=>{st.g[el.dataset.k]=el.checked;saveSt();upd();renderList();renderRail()});
   c.querySelector("#prev").onclick=()=>{st.cur--;render()};
