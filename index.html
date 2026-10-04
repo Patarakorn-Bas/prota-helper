@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B2A41">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ผู้ช่วย Prota">
+<link rel="icon" href="icon-192.png">
+<title>ผู้ช่วย ProtaStructure: ออกแบบบ้าน 1–2 ชั้น ทีละขั้น</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1EC;--sheet:#FAFBF8;--grid:#DCE3DA;--ink:#1B2A41;--soft:#55606E;
+  --red:#C8102E;--redbg:#FBE9EC;--hl:#F2D64B;--hlbg:#FBF4D2;--ok:#2F7D4F;--line:#C9D1C6;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#141A22;--sheet:#1B232E;--grid:#202A36;--ink:#E6EAF0;--soft:#9AA6B4;
+  --red:#FF6B7D;--redbg:#3A1E25;--hl:#C9A92E;--hlbg:#33301C;--ok:#5CC28A;--line:#2E3A48;}}
+:root[data-theme="dark"]{
+  --paper:#141A22;--sheet:#1B232E;--grid:#202A36;--ink:#E6EAF0;--soft:#9AA6B4;
+  --red:#FF6B7D;--redbg:#3A1E25;--hl:#C9A92E;--hlbg:#33301C;--ok:#5CC28A;--line:#2E3A48;}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;font-family:"TH SarabunPSK","Sarabun","Leelawadee UI",Tahoma,sans-serif;font-size:18px;color:var(--ink);line-height:1.65;
+  background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+.top{max-width:1100px;margin:0 auto;padding:18px 16px 0}
+h1{font-size:clamp(1.2rem,3.4vw,1.75rem);margin:0;line-height:1.3}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.tabs button{font-weight:600;padding:7px 14px;border:1.5px solid var(--ink);background:var(--sheet);border-radius:6px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--sheet)}
+.tabs .sp{flex:1}
+.hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.ver{font-size:.8rem;color:var(--soft);border:1px solid var(--line);border-radius:999px;padding:0 8px}
+.inst{margin-left:auto;font-weight:700;padding:6px 14px;border:0;border-radius:6px;background:var(--ok);color:#fff;cursor:pointer}
+.pbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:.95rem}
+.pbar select{padding:4px 8px;border:1.5px solid var(--ink);border-radius:6px;background:var(--sheet);max-width:240px}
+.pbar button{padding:4px 10px;border:1.5px solid var(--line);border-radius:6px;background:var(--sheet);cursor:pointer}
+.dlg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;padding:16px;z-index:9}
+.dlg>div{background:var(--sheet);border:1.5px solid var(--ink);border-radius:8px;padding:18px 20px;max-width:460px}
+.dlg button{margin-top:10px;padding:6px 16px;border:1.5px solid var(--ink);border-radius:6px;background:var(--ink);color:var(--sheet);cursor:pointer}
+main{max-width:1100px;margin:0 auto;padding:14px 16px 40px}
+/* phase rail */
+.rail{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px}
+.rail button{all:unset;cursor:pointer;font-size:.78rem;line-height:1.3;padding:6px 6px 4px;border-top:5px solid var(--line);color:var(--soft)}
+.rail button:focus-visible{outline:3px solid var(--hl)}
+.rail button.on{border-color:var(--ink);color:var(--ink);font-weight:600}
+.rail button.full{border-color:var(--ok)}
+.rail b{display:block;font-size:.85rem}
+@media (max-width:640px){.rail span{display:none}}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:16px;align-items:start}
+body.compact .wrap{grid-template-columns:1fr}
+body.compact nav.list{display:none}
+@media (max-width:820px){.wrap{grid-template-columns:1fr}nav.list{display:none}}
+nav.list{background:var(--sheet);border:1.5px solid var(--ink);border-radius:6px;max-height:75vh;overflow:auto;position:sticky;top:calc(10px + env(safe-area-inset-top,0px))}
+nav.list h4{margin:0;padding:8px 12px 2px;font-size:.8rem;color:var(--soft)}
+nav.list button{all:unset;box-sizing:border-box;display:flex;gap:8px;width:100%;padding:5px 12px;cursor:pointer;font-size:.9rem}
+nav.list button:focus-visible{outline:3px solid var(--hl);outline-offset:-3px}
+nav.list button[aria-current="true"]{background:var(--ink);color:var(--sheet)}
+nav.list .k{flex:0 0 34px;font-weight:600}
+nav.list .ok{margin-left:auto;color:var(--ok)}
+nav.list button[aria-current="true"] .ok{color:var(--hl)}
+.card{background:var(--sheet);border:1.5px solid var(--ink);border-radius:6px;padding:20px 22px}
+.code{font-weight:700;color:var(--soft);font-size:.9rem}
+.card h2{margin:2px 0 6px;font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.3}
+.why{color:var(--soft);margin:0 0 6px;max-width:70ch}
+h3{font-size:1rem;margin:18px 0 6px}
+ol.act{margin:0;padding-left:1.4em}
+ol.act li{padding:3px 0}
+ol.act li::marker{font-weight:700}
+.val{background:var(--hlbg);border-left:4px solid var(--hl);padding:10px 14px;border-radius:0 6px 6px 0;margin-top:14px}
+.val .nb{font-weight:700}
+.warn{background:var(--redbg);border-left:4px solid var(--red);padding:10px 14px;border-radius:0 6px 6px 0;margin-top:12px}
+.warn strong{color:var(--red)}
+.gate{border:1.5px dashed var(--ink);border-radius:6px;padding:10px 14px;margin-top:16px}
+.gate h3{margin:0 0 4px}
+.gate label{display:flex;gap:10px;align-items:flex-start;padding:4px 0;cursor:pointer}
+.gate input{margin-top:6px;width:18px;height:18px;accent-color:var(--ok);flex:0 0 auto}
+.foot{display:flex;gap:8px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.foot button{padding:9px 16px;border:1.5px solid var(--ink);border-radius:6px;background:transparent;cursor:pointer;font-weight:600}
+.foot button.go{background:var(--ink);color:var(--sheet)}
+.foot button:disabled{opacity:.35;cursor:default}
+.foot .hint{font-size:.85rem;color:var(--soft);flex:1;min-width:150px}
+.small{font-size:.85rem;color:var(--soft)}
+/* forms */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.field{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.field label{flex:1}
+.field input,.field select{width:150px;padding:4px 8px;border:1.5px solid var(--line);border-radius:4px;background:var(--paper);text-align:right}
+.field select{text-align:left;width:auto;max-width:200px}
+.out{font-size:1.15rem;font-weight:700;margin-top:8px}
+.out small{font-weight:400;font-size:.85rem;color:var(--soft)}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+td,th{padding:5px 8px;border-bottom:1px solid var(--line);text-align:left}
+td:last-child,th:last-child{text-align:right}
+.btnline{background:none;border:0;padding:0;color:var(--soft);text-decoration:underline;cursor:pointer;font-size:.85rem}
+.card h2.s{font-size:1.15rem}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="hd"><h1>ผู้ช่วย ProtaStructure · ออกแบบบ้าน 1–2 ชั้นทีละขั้น</h1><span class="ver">v1.0</span>
+    <button id="btnInstall" class="inst" hidden>⬇ ติดตั้งแอป</button></div>
+  <div class="pbar">
+    <label for="proj">โครงการ</label><select id="proj"></select>
+    <button id="pNew">+ ใหม่</button><button id="pDel">ลบ</button>
+    <button id="pExp">สำรองไฟล์</button><button id="pImp">เปิดไฟล์สำรอง</button>
+    <input type="file" id="pFile" accept=".json,application/json" hidden>
+  </div>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="steps">ขั้นตอน</button>
+    <button role="tab" aria-selected="false" data-tab="nb">สมุดข้อมูลโครงการ</button>
+    <button role="tab" aria-selected="false" data-tab="calc">เครื่องคิด</button>
+    <span class="sp"></span>
+    <button id="compact" aria-pressed="false" title="ซ่อนรายการ เหมาะกับวางหน้าต่างข้างโปรแกรม">โหมดแคบ</button>
+  </div>
+</div>
+<main>
+  <section id="steps">
+    <div class="rail" id="rail"></div>
+    <div class="wrap">
+      <nav class="list" id="list" aria-label="รายการขั้นตอน"></nav>
+      <article class="card" id="card" aria-live="polite"></article>
+    </div>
+  </section>
+
+  <section id="nb" hidden>
+    <div class="card">
+      <h2 class="s">สมุดข้อมูลโครงการ</h2>
+      <p class="why">กรอกครั้งเดียว ค่าจะไปแสดงในขั้นตอนที่ต้องใช้ (กล่องสีเหลือง) และในเครื่องคิด บันทึกอัตโนมัติในเบราว์เซอร์นี้</p>
+      <div class="grid2" id="nbf"></div>
+      <p class="small" style="margin-top:12px"><button class="btnline" id="nbReset">ล้างข้อมูลโครงการ</button></p>
+    </div>
+  </section>
+
+  <section id="calc" hidden>
+    <div class="grid2">
+      <div class="card">
+        <h2 class="s">น้ำหนักบนพื้น</h2>
+        <div class="field"><label>ความหนาพื้น (ม.)</label><input id="c_t" type="number" step="0.01"></div>
+        <div class="field"><label>ปูผิว + ฝ้า + งานระบบ (kN/m²)</label><input id="c_ff" type="number" step="0.1"></div>
+        <div class="field"><label>น้ำหนักจร (kN/m²)</label><input id="c_ll" type="number" step="0.1"></div>
+        <div class="out" id="o_slab"></div>
+      </div>
+      <div class="card">
+        <h2 class="s">ผนังลงคาน (kN/m)</h2>
+        <div class="field"><label>ผนัง (kN/m²)</label><select id="c_wt">
+          <option value="1.8">อิฐมอญครึ่งแผ่น ฉาบ 2 ด้าน ≈1.8</option>
+          <option value="3.6">อิฐมอญเต็มแผ่น ฉาบ 2 ด้าน ≈3.6</option>
+          <option value="1.0">อิฐมวลเบา 7.5 ซม. ฉาบ ≈1.0</option></select></div>
+        <div class="field"><label>ความสูงผนัง (ม.)</label><input id="c_wh" type="number" step="0.1"></div>
+        <div class="field"><label>ลดสำหรับช่องเปิด (%)</label><input id="c_wo" type="number" step="5" value="0"></div>
+        <div class="out" id="o_wall"></div>
+        <p class="small">ค่าประมาณ ตรวจกับผู้ผลิตหรือตำราที่ใช้อ้างอิง</p>
+      </div>
+      <div class="card">
+        <h2 class="s">น้ำหนักรวมไว้เทียบแรงปฏิกิริยา (ขั้น E3)</h2>
+        <div class="field"><label>พื้นที่พื้นต่อชั้น (ม²)</label><input id="c_a" type="number"></div>
+        <div class="field"><label>จำนวนชั้นพื้น (ไม่รวมหลังคา)</label><input id="c_n" type="number"></div>
+        <div class="field"><label>ความยาวผนังรวมต่อชั้น (ม.)</label><input id="c_wl" type="number"></div>
+        <div class="field"><label>คาน+เสา เผื่อ (% ของน้ำหนักพื้น)</label><input id="c_fr" type="number" value="35"></div>
+        <div class="field"><label>หลังคา (kN/m² ของพื้นที่หลังคา)</label><input id="c_rf" type="number" step="0.1"></div>
+        <div class="field"><label>พื้นที่หลังคา (ม²)</label><input id="c_ra" type="number"></div>
+        <div class="out" id="o_tot"></div>
+        <p class="small">ใช้ตรวจหยาบ ๆ เท่านั้น ถ้าผลรวมแรงปฏิกิริยา (กรณี DL+LL) ต่างจากนี้เกิน ~15–20% ให้กลับไปตรวจน้ำหนักที่ใส่</p>
+      </div>
+      <div class="card">
+        <h2 class="s">เทียบชุดตัวคูณ (ต่อ ม²)</h2>
+        <table><tbody id="o_combo"></tbody></table>
+        <p class="small">ใช้ชุดเดียวตามมาตรฐานที่อ้างอิงในรายการคำนวณ ห้ามผสม</p>
+        <h2 class="s" style="margin-top:16px">แปลงหน่วย</h2>
+        <div class="field"><label>kg/m² → kN/m²</label><input id="u1" type="number" value="150"></div><div class="out" id="o_u1"></div>
+        <div class="field"><label>ksc → MPa</label><input id="u2" type="number" value="240"></div><div class="out" id="o_u2"></div>
+        <div class="field"><label>ตัน → kN</label><input id="u3" type="number" value="10"></div><div class="out" id="o_u3"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ---------- project notebook fields ---------- */
+const NB=[
+ ["name","ชื่อโครงการ","text","บ้านพักอาศัย 2 ชั้น"],
+ ["floors","จำนวนชั้น","number","2"],
+ ["h","ความสูงชั้น (ม.)","number","3.00"],
+ ["ftg","ระดับท้องฐานราก (ม.)","number","-1.50"],
+ ["code","มาตรฐานออกแบบคอนกรีต","select","ACI 318|BS 8110|Eurocode 2"],
+ ["fc","fc′ ทรงกระบอก (ksc)","number","240"],
+ ["fy","เหล็กหลัก","select","SD40|SD30"],
+ ["fys","เหล็กปลอก","select","SR24 (RB)|SD40 (DB)"],
+ ["fnd","ชนิดฐานราก","select","ฐานรากบนเสาเข็ม|ฐานแผ่"],
+ ["qa","กำลังดินที่ยอมให้ (t/m²) ถ้าฐานแผ่","number",""],
+ ["pile","กำลังเสาเข็มต่อต้น (ตัน) ถ้าใช้เข็ม","number",""],
+ ["slab","ความหนาพื้น (ม.)","number","0.10"],
+ ["ff","ปูผิว+ฝ้า (kN/m²)","number","0.5"],
+ ["ll","น้ำหนักจรพื้น (kN/m²)","number","1.5"],
+ ["llr","น้ำหนักจรหลังคา (kN/m²)","number","0.3"],
+ ["roof","น้ำหนักหลังคา มุง+โครง (kN/m²)","number","0.6"],
+ ["wall","ผนังหลัก (kN/m²)","number","1.8"],
+ ["seis","อยู่ในพื้นที่ควบคุมแผ่นดินไหว?","select","ยังไม่ตรวจ|ใช่|ไม่ใช่"]
+];
+const defNb=()=>{const o={};NB.forEach(([k,,t,d])=>o[k]=t==="select"?d.split("|")[0]:d);return o};
+const newProj=name=>{const o={nb:defNb(),st:{cur:0,g:{}}};if(name)o.nb.name=name;return o};
+let DB=null;try{DB=JSON.parse(localStorage.getItem("ps-db")||"null")}catch(e){}
+if(!DB||!DB.list||!DB.list[DB.act]){DB={act:"p1",list:{p1:newProj()}};
+  try{const o=JSON.parse(localStorage.getItem("ps-nb")||"null"),t=JSON.parse(localStorage.getItem("ps-st")||"null");
+    if(o)Object.assign(DB.list.p1.nb,o);if(t)Object.assign(DB.list.p1.st,t)}catch(e){}}
+let nb,st;
+function bind(){const p=DB.list[DB.act];NB.forEach(([k,,t,d])=>{if(p.nb[k]===undefined)p.nb[k]=t==="select"?d.split("|")[0]:d});
+  p.st=Object.assign({cur:0,g:{}},p.st);nb=p.nb;st=p.st;if(st.cur>=S.length)st.cur=0}
+const saveAll=()=>{try{localStorage.setItem("ps-db",JSON.stringify(DB))}catch(e){}};
+const saveNb=saveAll;
+const N=k=>{const x=nb[k];return(x===""||x===undefined)?"(ยังไม่กรอก)":x};
+
+/* ---------- phases & steps ---------- */
+const P=["เตรียมงาน","ตั้งค่าโปรเจกต์","สร้างโมเดล","ใส่น้ำหนัก","วิเคราะห์","ออกแบบ","เอกสาร"];
+const S=[
+/* A */
+{p:0,id:"A1",t:"เตรียมแบบสถาปัตย์",w0:"โมเดลโครงสร้างจะดีได้เท่ากับแบบที่ใช้ตั้งต้น",
+ a:["ขอแบบสถาปัตย์เป็นไฟล์ DWG ครบทุกแปลน รูปด้าน รูปตัด","เปิดใน AutoCAD/โปรแกรม CAD แล้วบันทึกไฟล์ใหม่ เหลือเฉพาะเลเยอร์ กริด เสา ผนัง","ย้ายจุดตัดกริดมุมล่างซ้ายไปที่พิกัด 0,0 และตั้งหน่วยเป็นเมตร","แยกไฟล์ทีละชั้น เช่น plan-1F.dwg, plan-2F.dwg"],
+ g:["มีไฟล์ DWG ที่สะอาดครบทุกชั้น","กริดเริ่มที่ 0,0 หน่วยเมตร"]},
+{p:0,id:"A2",t:"ข้อมูลดินและฐานราก",w0:"เป็นข้อมูลที่ผิดแล้วอันตรายที่สุด",
+ a:["ขอผลเจาะสำรวจดิน หรือข้อมูลเสาเข็มที่ใช้ในย่านนั้นจากผู้รับเหมา/ผู้ผลิตเข็ม","ตัดสินใจชนิดฐานราก: บนเสาเข็ม หรือฐานแผ่","จดค่ากำลังดิน หรือชนิด ขนาด ความยาว และกำลังเข็มต่อต้น ลงในสมุดข้อมูล"],
+ v:"ชนิดฐานราก: {fnd} · กำลังดิน: {qa} t/m² · เข็ม: {pile} ตัน/ต้น",
+ x:"ห้ามเดาค่ากำลังดิน ในพื้นที่ดินอ่อน เช่น ภาคกลาง บ้าน 2 ชั้นส่วนใหญ่ต้องใช้เสาเข็ม",
+ g:["ได้ค่ากำลังดินหรือเสาเข็มจากแหล่งที่เชื่อถือได้","กรอกลงสมุดข้อมูลแล้ว"]},
+{p:0,id:"A3",t:"กำหนดเกณฑ์การออกแบบ",w0:"ตัดสินใจเรื่องมาตรฐาน วัสดุ น้ำหนัก ก่อนเปิดโปรแกรม แล้วยึดตลอดงาน",
+ a:["เลือกมาตรฐานออกแบบคอนกรีต (วิศวกรไทยส่วนใหญ่ใช้ ACI 318)","กำหนด fc′ (ระบุว่าทรงกระบอกหรือลูกบาศก์) และชั้นเหล็ก","กำหนดน้ำหนักจรตามกฎหมาย และน้ำหนักวัสดุปูผิว ผนัง หลังคา","ตรวจว่าที่ตั้งอยู่ในพื้นที่ควบคุมแผ่นดินไหวตามกฎกระทรวงหรือไม่","กรอกทั้งหมดในสมุดข้อมูลโครงการ"],
+ v:"มาตรฐาน {code} · fc′ {fc} ksc · เหล็กหลัก {fy} · ปลอก {fys} · LL {ll} kN/m² · แผ่นดินไหว: {seis}",
+ x:"ProtaStructure ไม่มีมาตรฐานคอนกรีตของไทยในรายการ ชื่ออย่าง “TIS 286-2561” ในอินโฟกราฟิกเดิมไม่มีอยู่จริง",
+ g:["เลือกมาตรฐานแล้ว","กรอกวัสดุและน้ำหนักในสมุดข้อมูลครบ","ตรวจเรื่องพื้นที่แผ่นดินไหวแล้ว"]},
+{p:0,id:"A4",t:"วางระบบโครงสร้างบนกระดาษ",w0:"รู้ก่อนว่าแรงเดินทางอย่างไร จะโมเดลได้ถูกและเร็ว",
+ a:["บนแปลนแต่ละชั้น ทำเครื่องหมายตำแหน่งเสา (เสาชั้นบนควรตรงกับเสาชั้นล่าง)","ลากแนวคานรอบพื้นทุกแผ่น และใต้ผนังทุกแนว","ระบุชนิดพื้น: หล่อในที่ หรือพื้นสำเร็จรูป และทิศทางพาด","ประมาณขนาดเบื้องต้น: คานลึก ≈ ช่วง/12 ถึง /10, เสาบ้าน 0.20–0.25 ม.","ระบุตำแหน่งบันได ถังน้ำ และของหนักพิเศษ"],
+ x:"ผนังที่ไม่มีคานรองรับ และเสาชั้นบนที่ไม่มีเสาชั้นล่าง (เสาลอย) คือต้นเหตุปัญหาที่พบบ่อยที่สุด",
+ g:["ทุกผนังมีคานรองรับ","ทุกแผ่นพื้นมีคานรอบ","ระบุเสาลอย (ถ้ามี) และคานที่รับเสานั้นแล้ว"]},
+/* B */
+{p:1,id:"B1",t:"สร้างโปรเจกต์ใหม่",w0:"",
+ a:["เปิด ProtaStructure → New Project","ตั้งชื่อโปรเจกต์และโฟลเดอร์เก็บไฟล์","เลือก project template ของประเทศ ระบบจะตั้งชุดมาตรฐานให้อัตโนมัติ","เลือกหน่วยงาน แนะนำ kN และ m แล้วไม่เปลี่ยนกลางทาง"],
+ v:"ชื่อโครงการ: {name}",
+ t2:"ครั้งแรกให้เปิด Sample Project ของโปรแกรมดูก่อน 10 นาที จะเข้าใจหน้าตาโมเดลที่เสร็จแล้ว",
+ g:["สร้างโปรเจกต์และตั้งหน่วยแล้ว"]},
+{p:1,id:"B2",t:"ตั้งค่าใน Settings Center",w0:"ตั้งมาตรฐานและวัสดุให้ตรงกับเกณฑ์ใน A3",
+ a:["เปิด Settings Center","หมวดออกแบบคอนกรีต: เลือกมาตรฐานตาม A3","หมวดวัสดุ: ตั้งกำลังคอนกรีตและเหล็กหลัก/เหล็กปลอก","ตั้งระยะหุ้มคอนกรีต (ดูค่าแนะนำด้านล่าง)","ตั้งขนาดเหล็กที่จะยอมให้โปรแกรมเลือก (ตัดขนาดที่หาซื้อยากออก)","หมวดลม/แผ่นดินไหว: ตามที่ตัดสินใจใน A3"],
+ v:"fc′ {fc} ksc ≈ ใส่เป็น MPa ดูแท็บเครื่องคิด · เหล็ก {fy} / {fys} · ระยะหุ้มทั่วไป: พื้น 2 ซม. คาน/เสา 3–4 ซม. ฐานรากที่หล่อติดดิน 7.5 ซม.",
+ x:"ระวังสับสน fc′ ทรงกระบอกกับลูกบาศก์ 240 ksc ลูกบาศก์ ≈ 200 ksc ทรงกระบอกเท่านั้น",
+ g:["มาตรฐานตรงกับ A3","วัสดุและระยะหุ้มตั้งแล้ว"]},
+/* C */
+{p:2,id:"C1",t:"สร้างกริด (Axis)",w0:"",
+ a:["นำเข้า DWG ชั้น 1 เป็นภาพอ้างอิง (reference/underlay)","สร้างแกนตามกริดในแบบ หรือแปลงเส้นกริดจาก DWG","ตั้งชื่อแกนให้ตรงแบบ (1,2,3… / A,B,C…)","วัดระยะระหว่างแกนเทียบกับแบบอีกครั้ง"],
+ g:["ระยะกริดตรงแบบทุกช่วง","ชื่อแกนตรงแบบ"]},
+{p:2,id:"C2",t:"สร้างชั้น (Storeys)",w0:"",
+ a:["เพิ่มชั้นตามจำนวนชั้นจริง + ชั้นหลังคา","ตั้งความสูงชั้นแต่ละชั้น","ตั้งระดับฐานราก/คานคอดิน"],
+ v:"{floors} ชั้น · สูงชั้นละ {h} ม. · ท้องฐานราก {ftg} ม.",
+ g:["ระดับทุกชั้นตรงกับรูปตัด"]},
+{p:2,id:"C3",t:"วางเสาชั้น 1",w0:"",
+ a:["เลือกคำสั่งเสา กำหนดขนาดเบื้องต้น","คลิกวางที่จุดตัดกริดตามแปลนที่ทำใน A4","เสาที่ไม่อยู่บนกริด ใช้การวางด้วยระยะ offset","ตรวจทิศทางหน้าตัด (เสาสี่เหลี่ยมผืนผ้าหมุนถูกด้าน)"],
+ g:["จำนวนเสาตรงกับแผนใน A4","เสาทุกต้นมีขนาดและทิศถูก"]},
+{p:2,id:"C4",t:"วางคานชั้น 1 (คานคอดินถ้าทำชั้นฐาน)",w0:"",
+ a:["เลือกคำสั่งคาน กำหนดขนาด","วางคานจากเสาถึงเสา หรือคานถึงคาน ให้ปลายต่อกันจริง","วางคานใต้แนวผนังทุกแนว","คานรับเสาลอยให้ระบุขนาดใหญ่ขึ้นไว้ก่อน"],
+ x:"ปลายคานที่ดูเหมือนต่อแต่ไม่ต่อจริง จะทำให้แรงไม่ถ่ายและผลวิเคราะห์ผิด ให้ซูมดูจุดต่อ",
+ g:["คานทุกตัวมีปลายต่อกับเสาหรือคาน","มีคานใต้ผนังทุกแนว"]},
+{p:2,id:"C5",t:"วางพื้น",w0:"",
+ a:["เลือกคำสั่งพื้น กำหนดความหนา","คลิกในช่องที่มีคานล้อมรอบ","พื้นสำเร็จรูป: ตั้งเป็นพื้นทางเดียวและทิศพาดให้ถูก","พื้นห้องน้ำ/ระเบียงที่ลดระดับ ให้ระบุ"],
+ v:"ความหนาพื้น {slab} ม.",
+ g:["ทุกช่องที่เป็นพื้นในแบบมีพื้นในโมเดล","ทิศพาดพื้นทางเดียวถูก"]},
+{p:2,id:"C6",t:"คัดลอกไปชั้น 2 แล้วแก้",w0:"",
+ a:["คัดลอกเสา คาน พื้น จากชั้น 1 ไปชั้น 2","ลบ/ย้ายส่วนที่ชั้น 2 ไม่มี และเพิ่มส่วนที่มีเฉพาะชั้น 2","ตรวจเสาลอยและคานที่รับ","ตรวจช่องบันไดและช่องเปิดพื้น"],
+ g:["ชั้น 2 ตรงตามแปลน","เสาลอยวางบนคานที่รับได้"]},
+{p:2,id:"C7",t:"บันไดและคานรับหลังคา",w0:"",
+ a:["บันได: มือใหม่แนะนำให้คิดเป็นน้ำหนักลงคานที่รองรับ แทนการโมเดลบันได","ชั้นหลังคา: วางคานรับหลังคา/คานรับโครงหลังคาตามแบบ","โครงเหล็กหลังคา (แป จันทัน) ออกแบบแยก แล้วนำแรงมาใส่บนคาน (ขั้น D4)"],
+ x:"อินโฟกราฟิกเดิมให้โมเดลโครงหลังคาทั้งหมดในโปรแกรม ทำได้แต่ซับซ้อนเกินไปสำหรับรอบแรก",
+ g:["มีคานรองรับบันไดและหลังคาครบ"]},
+{p:2,id:"C8",t:"วางฐานราก",w0:"วางชนิดและข้อมูลดิน ส่วนขนาดให้โปรแกรมออกแบบหลังวิเคราะห์",
+ a:["เลือกคำสั่งฐานรากตามชนิดใน A2","วางใต้เสาทุกต้นที่ลงถึงดิน","ใส่กำลังดิน หรือกำลังเสาเข็ม และจำนวน/ขนาดเข็มเริ่มต้น","ตรวจระดับท้องฐานราก","ดูโมเดล 3D หมุนตรวจทั้งหลังก่อนไปต่อ"],
+ v:"{fnd} · ดิน {qa} t/m² · เข็ม {pile} ตัน/ต้น · ท้องฐาน {ftg} ม.",
+ g:["เสาที่ลงดินทุกต้นมีฐานราก","ค่ากำลังดิน/เข็มตรงสมุดข้อมูล","ตรวจ 3D แล้วไม่มีชิ้นส่วนลอย"]},
+/* D */
+{p:3,id:"D1",t:"น้ำหนักตัวเอง",w0:"",
+ a:["ตรวจในการตั้งค่าว่าโปรแกรมคิดน้ำหนักตัวเองของคอนกรีตอัตโนมัติ","จำไว้ว่า ไม่ต้องใส่น้ำหนักพื้นคอนกรีตเองซ้ำอีก"],
+ x:"อินโฟกราฟิกเดิมใส่ “Slab 2.40 kN/m²” เพิ่ม ถ้าน้ำหนักตัวเองเปิดอยู่จะนับซ้ำ 2 เท่า",
+ g:["ยืนยันว่าน้ำหนักตัวเองคิดอัตโนมัติ"]},
+{p:3,id:"D2",t:"น้ำหนักบนพื้น (DL เพิ่ม + LL)",w0:"",
+ a:["เลือกพื้นทุกแผ่นของชั้น","ใส่น้ำหนักคงที่เพิ่ม (ปูผิว ฝ้า งานระบบ)","ใส่น้ำหนักจรตามประเภทการใช้งาน","ห้องที่ใช้งานต่างกัน (เช่น ห้องเก็บของ) ให้ใส่แยก"],
+ v:"DL เพิ่ม {ff} kN/m² · LL {ll} kN/m²",
+ g:["ทุกแผ่นพื้นมีน้ำหนักครบทั้ง DL และ LL"]},
+{p:3,id:"D3",t:"น้ำหนักผนังบนคาน",w0:"ผนังเป็นน้ำหนักแผ่ตามยาว หน่วย kN/m",
+ a:["คำนวณ: น้ำหนักผนังต่อ ม² × ความสูงผนัง (ใช้แท็บเครื่องคิด)","เลือกคานที่มีผนังวางอยู่","ใส่เป็น line load แบบ DL","ผนังชั้น 2 ที่วางบนพื้น (ไม่มีคาน) ใส่เป็นน้ำหนักบนพื้นแทน"],
+ v:"ผนัง {wall} kN/m² × สูง {h} ม. (หักความลึกคาน) — ดูค่าในแท็บเครื่องคิด",
+ x:"อินโฟกราฟิกเดิมใส่ผนังเป็น kN/m² ซึ่งผิดหน่วย",
+ g:["คานทุกตัวที่มีผนังมีน้ำหนักผนัง","หน่วยเป็น kN/m"]},
+{p:3,id:"D4",t:"น้ำหนักหลังคาและบันได",w0:"",
+ a:["หลังคา: (น้ำหนักหลังคา × พื้นที่ที่คานรับ) ÷ ความยาวคาน → kN/m หรือใส่เป็นแรงจุดตามตำแหน่งจันทัน","ใส่น้ำหนักจรหลังคาแยกเป็น LL","บันได: แรงปฏิกิริยาของบันไดลงคานที่รองรับ"],
+ v:"หลังคา DL {roof} kN/m² · LL หลังคา {llr} kN/m²",
+ g:["คานรับหลังคามีทั้ง DL และ LL","มีน้ำหนักบันไดแล้ว"]},
+{p:3,id:"D5",t:"ลมและแผ่นดินไหว",w0:"",
+ a:["ลม: ตั้งตามมาตรฐานลมที่เลือก (Prota มีตัวเลือก DPT ของไทย)","แผ่นดินไหว: ถ้าอยู่ในพื้นที่ควบคุม ตั้งพารามิเตอร์ตามมาตรฐานไทยที่โปรแกรมรองรับ","ถ้าไม่อยู่ในพื้นที่ควบคุม จดเหตุผลไว้ในรายการคำนวณ"],
+ v:"พื้นที่ควบคุมแผ่นดินไหว: {seis}",
+ g:["ตัดสินใจและตั้งค่าลม/แผ่นดินไหวแล้ว"]},
+{p:3,id:"D6",t:"ชุดผสมน้ำหนัก (Load Combinations)",w0:"",
+ a:["ให้โปรแกรมสร้างชุดผสมจากมาตรฐานที่เลือก","เปิดดูรายการ ตรวจตัวคูณว่าตรงกับมาตรฐานที่อ้างอิง","ลบชุดที่ไม่เกี่ยวข้อง (เช่น แผ่นดินไหว ถ้าไม่ใช้)"],
+ x:"ตารางในอินโฟกราฟิกเดิมเป็นชุด ACI 318/ASCE 7 แต่เขียนว่าเป็นมาตรฐานไทย ให้ยึดชุดที่ตรงกับมาตรฐานที่ระบุในรายการคำนวณจริง",
+ g:["ชุดผสมตรงมาตรฐานที่เลือก"]},
+/* E */
+{p:4,id:"E1",t:"ตรวจโมเดลก่อนวิเคราะห์",w0:"",
+ a:["รันคำสั่งตรวจโมเดล (model/building check)","อ่านคำเตือนทุกข้อ แก้ให้หมด โดยเฉพาะชิ้นส่วนไม่ต่อกัน ซ้อนทับ หรือไม่มีที่รองรับ","รันตรวจซ้ำจนไม่มี error"],
+ g:["ไม่มี error","อ่านและเข้าใจคำเตือนที่เหลือทุกข้อ"]},
+{p:4,id:"E2",t:"วิเคราะห์โครงสร้าง",w0:"",
+ a:["สั่งวิเคราะห์อาคาร (Building Analysis)","รอจนเสร็จ ถ้าล้มเหลว อ่านข้อความแล้วกลับไป E1"],
+ g:["วิเคราะห์สำเร็จ"]},
+{p:4,id:"E3",t:"ตรวจผลด้วยสามัญสำนึก",w0:"ขั้นที่กันความผิดพลาดใหญ่ได้ดีที่สุด",
+ a:["ดูผลรวมแรงปฏิกิริยาที่ฐาน (DL และ LL) เทียบกับน้ำหนักรวมในแท็บเครื่องคิด","ดูรูปการเสียรูป: ไม่มีส่วนไหนแอ่นผิดธรรมชาติ","ดูการแอ่นตัวของคานยาวและพื้น","ดูแรงในเสา: เสาชั้นล่างต้องรับแรงมากกว่าชั้นบน"],
+ x:"ถ้าต่างกันมาก สาเหตุหลักคือ น้ำหนักซ้ำ/ขาด ผิดหน่วย หรือชิ้นส่วนไม่ต่อกัน",
+ g:["แรงปฏิกิริยารวมใกล้กับที่คิดด้วยมือ","ไม่มีการเสียรูปผิดปกติ"]},
+/* F */
+{p:5,id:"F1",t:"ออกแบบพื้น",w0:"ออกแบบตามเส้นทางแรง: พื้น → คาน → เสา → ฐานราก",
+ a:["สั่งออกแบบพื้น","ดูพื้นที่ไม่ผ่าน (การแอ่น/เหล็กเกิน) → เพิ่มความหนาหรือเพิ่มคานซอย","ตรวจเหล็กเสริมขั้นต่ำและระยะห่าง"],
+ g:["พื้นผ่านทุกแผ่น"]},
+{p:5,id:"F2",t:"ออกแบบคาน",w0:"",
+ a:["สั่งออกแบบคานทุกชั้น","คานไม่ผ่าน: เพิ่มความลึกก่อน แล้วจึงเพิ่มเหล็ก","ตรวจจำนวนเหล็กใส่ได้ในความกว้างคาน และเหล็กปลอกไม่ถี่เกินทำงานได้","รวมคานที่ขนาดใกล้กันให้เป็นแบบเดียวกัน"],
+ g:["คานผ่านทุกตัว","เหล็กใส่ได้จริงในหน้าตัด"]},
+{p:5,id:"F3",t:"ออกแบบเสา",w0:"",
+ a:["สั่งออกแบบเสา","ตรวจเสาที่รับเสาลอยหรือคานยาวเป็นพิเศษ","ตรวจสัดส่วนเหล็ก (ไม่ต่ำหรือสูงเกินมาตรฐาน)"],
+ x:"ตัวอย่างในอินโฟกราฟิกเดิม เสา 0.25×0.25 ม. ใส่ 8-DB16 ผิดปกติสำหรับบ้าน ถ้าผลออกมาแบบนี้ให้ตรวจน้ำหนักหรือเพิ่มขนาดเสา",
+ g:["เสาผ่านทุกต้น","ปริมาณเหล็กสมเหตุสมผล"]},
+{p:5,id:"F4",t:"ออกแบบฐานราก",w0:"",
+ a:["สั่งออกแบบฐานราก","ตรวจแรงต่อเสาเข็ม/แรงดันดินไม่เกินค่าที่ยอมให้","ตรวจแรงเฉือนเจาะทะลุและความหนาฐาน","จัดกลุ่มฐานรากให้เหลือไม่กี่แบบ (F1, F2, F3…)"],
+ v:"ดิน {qa} t/m² · เข็ม {pile} ตัน/ต้น",
+ g:["ฐานรากผ่านทุกตัว","จัดกลุ่มแบบฐานรากแล้ว"]},
+{p:5,id:"F5",t:"วนปรับแก้",w0:"เปลี่ยนขนาดแล้วต้องวิเคราะห์ใหม่ เพราะน้ำหนักและความแข็งเปลี่ยน",
+ a:["ถ้าเปลี่ยนขนาดชิ้นส่วนใด ๆ → กลับไป E1 วิเคราะห์ใหม่ → ออกแบบใหม่","ทำจนทุกชิ้นส่วนผ่านโดยไม่ต้องแก้เพิ่ม","สุ่มคำนวณมือ คาน 1 ตัว เสา 1 ต้น เทียบกับโปรแกรม"],
+ g:["วิเคราะห์รอบสุดท้ายหลังแก้ขนาดแล้ว","คำนวณมือเทียบแล้วใกล้เคียง"]},
+/* G */
+{p:6,id:"G1",t:"แบบโครงสร้าง",w0:"",
+ a:["สร้างแบบด้วย ProtaDetails: แปลนฐานราก แปลนคาน แปลนพื้น","ตารางเสา ตารางคาน รายละเอียดฐานราก","เพิ่มหมายเหตุทั่วไป: มาตรฐาน วัสดุ ระยะหุ้ม","ส่งออก DWG/PDF แล้วตรวจกับแบบสถาปัตย์"],
+ g:["แบบครบทุกแผ่น","หมายเหตุทั่วไปถูกต้อง"]},
+{p:6,id:"G2",t:"รายการคำนวณ",w0:"",
+ a:["สร้างรายงานจากโปรแกรม","เพิ่มหน้าเกณฑ์การออกแบบ (จาก A3) และข้อมูลดิน (A2)","แนบผลคำนวณมือที่ใช้ตรวจ (F5)"],
+ g:["รายการคำนวณครบ"]},
+{p:6,id:"G3",t:"ตรวจรับรองโดยวิศวกร",w0:"",
+ a:["ให้วิศวกรโยธาผู้มีใบอนุญาตตรวจทั้งโมเดล แบบ และรายการคำนวณ","แก้ตามความเห็น แล้วให้ลงนามรับรองก่อนยื่นขออนุญาต"],
+ x:"โปรแกรมช่วยคำนวณ แต่ความรับผิดชอบทางกฎหมายเป็นของวิศวกรผู้ลงนาม",
+ g:["ผ่านการตรวจและลงนามแล้ว"]}
+];
+
+const saveSt=saveAll;
+const fill=s=>s.replace(/\{(\w+)\}/g,(_,k)=>`<span class="nb">${N(k)}</span>`);
+const stepOk=i=>S[i].g.every((_,j)=>st.g[S[i].id+j]);
+
+function renderRail(){
+  const r=document.getElementById("rail");r.innerHTML="";
+  P.forEach((name,pi)=>{const idx=S.map((s,i)=>s.p===pi?i:-1).filter(i=>i>=0);
+    const b=document.createElement("button");
+    b.className=(S[st.cur].p===pi?"on ":"")+(idx.every(stepOk)?"full":"");
+    b.innerHTML=`<b>${"ABCDEFG"[pi]}</b><span>${name}</span>`;b.title=name;
+    b.onclick=()=>{st.cur=idx[0];render()};r.appendChild(b)});
+}
+function renderList(){
+  const n=document.getElementById("list");let h="";
+  P.forEach((name,pi)=>{h+=`<h4>${"ABCDEFG"[pi]} · ${name}</h4>`;
+    S.forEach((s,i)=>{if(s.p!==pi)return;
+      h+=`<button data-i="${i}" ${i===st.cur?'aria-current="true"':''}><span class="k">${s.id}</span><span>${s.t}</span>${stepOk(i)?'<span class="ok">✓</span>':''}</button>`})});
+  n.innerHTML=h;n.querySelectorAll("button").forEach(b=>b.onclick=()=>{st.cur=+b.dataset.i;render()});
+}
+function renderCard(){
+  const s=S[st.cur],c=document.getElementById("card");
+  c.innerHTML=`<div class="code">${s.id} · ${P[s.p]} · ขั้นที่ ${st.cur+1} จาก ${S.length}</div>
+  <h2>${s.t}</h2>${s.w0?`<p class="why">${s.w0}</p>`:""}
+  <h3>ทำในโปรแกรม / ทำก่อนเข้าโปรแกรม</h3><ol class="act">${s.a.map(x=>`<li>${x}</li>`).join("")}</ol>
+  ${s.v?`<div class="val">ค่าของโครงการนี้: ${fill(s.v)}</div>`:""}
+  ${s.t2?`<div class="val">${s.t2}</div>`:""}
+  ${s.x?`<div class="warn"><strong>ระวัง</strong> ${s.x}</div>`:""}
+  <div class="gate"><h3>ตรวจก่อนไปต่อ</h3>${s.g.map((x,j)=>`<label><input type="checkbox" data-k="${s.id+j}" ${st.g[s.id+j]?"checked":""}><span>${x}</span></label>`).join("")}</div>
+  <div class="foot"><button id="prev" ${st.cur===0?"disabled":""}>ย้อนกลับ</button>
+  <span class="hint" id="hint"></span>
+  <button class="go" id="next" ${st.cur===S.length-1?"disabled":""}>ขั้นถัดไป</button></div>
+  <p class="small">ชื่อเมนูอาจต่างเล็กน้อยตามเวอร์ชันของโปรแกรม ใช้ปุ่ม ← → บนคีย์บอร์ดเปลี่ยนขั้นได้</p>`;
+  const upd=()=>{document.getElementById("hint").textContent=stepOk(st.cur)?"ผ่านแล้ว ไปต่อได้":"ยังติ๊กเช็กไม่ครบ (ไปต่อได้ แต่ควรกลับมาทำ)"};upd();
+  c.querySelectorAll(".gate input").forEach(el=>el.onchange=()=>{st.g[el.dataset.k]=el.checked;saveSt();upd();renderList();renderRail()});
+  c.querySelector("#prev").onclick=()=>{st.cur--;render()};
+  c.querySelector("#next").onclick=()=>{st.cur++;render();window.scrollTo({top:0})};
+}
+function render(){saveSt();renderRail();renderList();renderCard()}
+
+/* notebook form */
+function renderNb(){
+  const f=document.getElementById("nbf");
+  f.innerHTML=NB.map(([k,l,t,d])=>`<div class="field"><label for="nb_${k}">${l}</label>${t==="select"
+    ?`<select id="nb_${k}" data-k="${k}">${d.split("|").map(o=>`<option ${nb[k]===o?"selected":""}>${o}</option>`).join("")}</select>`
+    :`<input id="nb_${k}" data-k="${k}" type="${t}" step="any" value="${nb[k]??""}">`}</div>`).join("");
+  f.querySelectorAll("[data-k]").forEach(el=>el.oninput=el.onchange=()=>{nb[el.dataset.k]=el.value;saveNb();if(el.dataset.k==="name")renderProj();syncCalc();calc();renderCard()});
+}
+document.getElementById("nbReset").onclick=()=>{if(!confirm("ล้างข้อมูลโครงการนี้?"))return;const nm=nb.name;DB.list[DB.act].nb=defNb();DB.list[DB.act].nb.name=nm;bind();saveNb();renderNb();syncCalc();calc();renderCard()};
+
+/* calculators */
+const $=id=>document.getElementById(id),v=id=>parseFloat($(id).value)||0,f=x=>x.toFixed(2);
+function syncCalc(){$("c_t").value=nb.slab;$("c_ff").value=nb.ff;$("c_ll").value=nb.ll;$("c_wh").value=nb.h;$("c_n").value=nb.floors;$("c_rf").value=nb.roof}
+function calc(){
+  const sw=v("c_t")*24,D=sw+v("c_ff"),L=v("c_ll");
+  $("o_slab").innerHTML=`DL รวม ${f(D)} kN/m² <small>(น้ำหนักตัวเอง ${f(sw)} โปรแกรมคิดให้ · ใส่เองเฉพาะ ${f(v("c_ff"))})</small><br>LL ${f(L)} kN/m²`;
+  const w=v("c_wt")*v("c_wh")*(1-v("c_wo")/100);
+  $("o_wall").innerHTML=`${f(w)} kN/m <small>≈ ${Math.round(w*101.97)} kg/m</small>`;
+  const A=v("c_a"),n=v("c_n"),slabW=A*D*(1+v("c_fr")/100)*n,wallW=v("c_wl")*w*n,roofW=v("c_ra")*v("c_rf"),LL=A*L*n+v("c_ra")*(parseFloat(nb.llr)||0);
+  $("o_tot").innerHTML=A?`DL ≈ ${Math.round(slabW+wallW+roofW)} kN · LL ≈ ${Math.round(LL)} kN<br><small>รวม ≈ ${Math.round(slabW+wallW+roofW+LL)} kN ≈ ${Math.round((slabW+wallW+roofW+LL)/9.81)} ตัน</small>`:`<small>กรอกพื้นที่พื้นเพื่อคำนวณ</small>`;
+  $("o_combo").innerHTML=[["1.4D",1.4*D],["1.2D + 1.6L (ACI 318 ปัจจุบัน)",1.2*D+1.6*L],["1.4D + 1.7L (แนว ACI รุ่นเก่า)",1.4*D+1.7*L]].map(r=>`<tr><td>${r[0]}</td><td>${f(r[1])}</td></tr>`).join("");
+  $("o_u1").textContent=`= ${f(v("u1")*0.00981)} kN/m²`;$("o_u2").textContent=`= ${f(v("u2")*0.0981)} MPa`;$("o_u3").textContent=`= ${f(v("u3")*9.81)} kN`;
+}
+document.querySelectorAll("#calc input,#calc select").forEach(el=>el.oninput=el.onchange=calc);
+
+/* tabs, compact, keys */
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("[data-tab]").forEach(x=>x.setAttribute("aria-selected",x===b));
+  ["steps","nb","calc"].forEach(id=>$(id).hidden=id!==b.dataset.tab)});
+const cb=$("compact");let cp=false;try{cp=localStorage.getItem("ps-cp")==="1"}catch(e){}
+const setCp=()=>{document.body.classList.toggle("compact",cp);cb.setAttribute("aria-pressed",cp);cb.textContent=cp?"แสดงรายการ":"โหมดแคบ"};
+cb.onclick=()=>{cp=!cp;try{localStorage.setItem("ps-cp",cp?"1":"0")}catch(e){};setCp()};
+document.addEventListener("keydown",e=>{if($("steps").hidden||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.key==="ArrowRight"&&st.cur<S.length-1){st.cur++;render()}if(e.key==="ArrowLeft"&&st.cur>0){st.cur--;render()}});
+
+bind();
+/* projects */
+function renderProj(){const p=$("proj");p.innerHTML=Object.entries(DB.list).map(([id,o])=>`<option value="${id}" ${id===DB.act?"selected":""}>${(o.nb.name||"ไม่มีชื่อ").replace(/</g,"&lt;")}</option>`).join("")}
+function switchTo(id){DB.act=id;bind();saveAll();renderProj();renderNb();syncCalc();calc();render()}
+$("proj").onchange=e=>switchTo(e.target.value);
+$("pNew").onclick=()=>{const n=prompt("ชื่อโครงการใหม่","บ้านพักอาศัย");if(n===null)return;const id="p"+Date.now();DB.list[id]=newProj(n.trim()||"ไม่มีชื่อ");switchTo(id)};
+$("pDel").onclick=()=>{const ids=Object.keys(DB.list);if(ids.length<2){alert("ต้องมีอย่างน้อย 1 โครงการ");return}
+  if(!confirm(`ลบโครงการ “${nb.name}” ทั้งข้อมูลและความคืบหน้า?`))return;delete DB.list[DB.act];switchTo(Object.keys(DB.list)[0])};
+$("pExp").onclick=()=>{const data=JSON.stringify({app:"prota-helper",v:1,project:DB.list[DB.act]},null,1);
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:"application/json"}));
+  a.download=`prota-${(nb.name||"project").replace(/[\\/:*?"<>|\s]+/g,"_")}.json`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)};
+$("pImp").onclick=()=>$("pFile").click();
+$("pFile").onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();
+  r.onload=()=>{try{const o=JSON.parse(r.result);if(o.app!=="prota-helper"||!o.project||!o.project.nb)throw 0;
+    const id="p"+Date.now();DB.list[id]=o.project;switchTo(id)}catch(x){alert("ไฟล์นี้ไม่ใช่ไฟล์สำรองของแอปผู้ช่วย Prota")}};r.readAsText(file);e.target.value=""};
+/* install */
+let defI=null;const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+const ib=$("btnInstall");if(!standalone())ib.hidden=false;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();defI=e;ib.hidden=false});
+addEventListener("appinstalled",()=>{ib.hidden=true;defI=null});
+function dlg(html){const d=document.createElement("div");d.className="dlg";d.innerHTML=`<div>${html}<br><button>ตกลง</button></div>`;
+  d.querySelector("button").onclick=()=>d.remove();d.onclick=e=>{if(e.target===d)d.remove()};document.body.appendChild(d);d.querySelector("button").focus()}
+ib.onclick=()=>{if(defI){defI.prompt();defI.userChoice.then(()=>{defI=null});return}
+  const ua=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  if(!/github\.io$/.test(location.hostname)&&location.protocol==="https:"&&window.self!==window.top)
+    return dlg("<b>หน้านี้เป็นตัวอย่างบน claude.ai</b> ซึ่งติดตั้งไม่ได้<br>ให้อัปโหลดไฟล์ใน zip ขึ้น GitHub แล้วเปิดจาก <b>https://patarakorn-bas.github.io/prota-helper/</b>");
+  if(ios)return dlg("<b>iPad / iPhone</b><ol><li>เปิดหน้านี้ใน Safari</li><li>แตะปุ่มแชร์</li><li>เลือก “เพิ่มไปยังหน้าจอโฮม”</li></ol>");
+  dlg("<b>คอมพิวเตอร์</b><ol><li>ใช้ Chrome หรือ Edge</li><li>กดไอคอนติดตั้งที่ปลายช่องที่อยู่เว็บ หรือเมนู ⋮ → ติดตั้งแอป / แอป → ติดตั้งไซต์นี้เป็นแอป</li></ol>ถ้ายังไม่มีตัวเลือก ให้รีเฟรชหน้าแล้วรอสักครู่")};
+/* service worker: only when hosted on its own site */
+(function(){let top=false;try{top=window.self===window.top}catch(e){}
+  if(!top||location.protocol!=="https:"||!("serviceWorker" in navigator))return;
+  const l=document.createElement("link");l.rel="manifest";l.href="manifest.json";document.head.appendChild(l);
+  const a=document.createElement("link");a.rel="apple-touch-icon";a.href="icon-192.png";document.head.appendChild(a);
+  addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))})();
+renderProj();setCp();renderNb();syncCalc();calc();render();
+</script>
+</body>
+</html>
