@@ -25,9 +25,9 @@
   --red:#FF6B7D;--redbg:#3A1E25;--hl:#C9A92E;--hlbg:#33301C;--ok:#5CC28A;--line:#2E3A48;}
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;font-family:"TH SarabunPSK","Sarabun","Leelawadee UI",Tahoma,sans-serif;font-size:18px;color:var(--ink);line-height:1.65;
+body{margin:0;font-family:"Sarabun","TH SarabunPSK","Leelawadee UI",Tahoma,sans-serif;font-size:var(--fs,20px);font-feature-settings:"locl" 0;font-variant-numeric:lining-nums;color:var(--ink);line-height:1.65;
   background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
-button,input,select,textarea{font:inherit;color:inherit}
+button,input,select,textarea{font:inherit;color:inherit;font-feature-settings:"locl" 0}
 :focus-visible{outline:3px solid var(--hl);outline-offset:2px}
 .top{max-width:1100px;margin:0 auto;padding:18px 16px 0}
 h1{font-size:clamp(1.2rem,3.4vw,1.75rem);margin:0;line-height:1.3}
@@ -35,9 +35,9 @@ h1{font-size:clamp(1.2rem,3.4vw,1.75rem);margin:0;line-height:1.3}
 .tabs button{font-weight:600;padding:7px 14px;border:1.5px solid var(--ink);background:var(--sheet);border-radius:6px;cursor:pointer}
 .tabs button[aria-selected="true"]{background:var(--ink);color:var(--sheet)}
 .tabs .sp{flex:1}
-.hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.ver{font-size:.8rem;color:var(--soft);border:1px solid var(--line);border-radius:999px;padding:0 8px}
+.hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.ver{font-size:.85rem;color:var(--soft);border:1px solid var(--line);border-radius:999px;padding:0 8px}
 .inst{margin-left:auto;font-weight:700;padding:6px 14px;border:0;border-radius:6px;background:var(--ok);color:#fff;cursor:pointer}
-.pbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:.95rem}
+.pbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:1rem}
 .pbar select{padding:4px 8px;border:1.5px solid var(--ink);border-radius:6px;background:var(--sheet);max-width:240px}
 .pbar button{padding:4px 10px;border:1.5px solid var(--line);border-radius:6px;background:var(--sheet);cursor:pointer}
 .dlg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;padding:16px;z-index:9}
@@ -46,26 +46,26 @@ h1{font-size:clamp(1.2rem,3.4vw,1.75rem);margin:0;line-height:1.3}
 main{max-width:1100px;margin:0 auto;padding:14px 16px 40px}
 /* phase rail */
 .rail{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px}
-.rail button{all:unset;cursor:pointer;font-size:.78rem;line-height:1.3;padding:6px 6px 4px;border-top:5px solid var(--line);color:var(--soft)}
+.rail button{all:unset;cursor:pointer;font-size:.92rem;line-height:1.3;padding:6px 6px 4px;border-top:5px solid var(--line);color:var(--soft)}
 .rail button:focus-visible{outline:3px solid var(--hl)}
 .rail button.on{border-color:var(--ink);color:var(--ink);font-weight:600}
 .rail button.full{border-color:var(--ok)}
-.rail b{display:block;font-size:.85rem}
+.rail b{display:block;font-size:1rem}.rail i{font-style:normal;color:var(--soft);font-size:.85rem;display:block}
 @media (max-width:640px){.rail span{display:none}}
 .wrap{display:grid;grid-template-columns:270px 1fr;gap:16px;align-items:start}
 body.compact .wrap{grid-template-columns:1fr}
 body.compact nav.list{display:none}
 @media (max-width:820px){.wrap{grid-template-columns:1fr}nav.list{display:none}}
 nav.list{background:var(--sheet);border:1.5px solid var(--ink);border-radius:6px;max-height:75vh;overflow:auto;position:sticky;top:calc(10px + env(safe-area-inset-top,0px))}
-nav.list h4{margin:0;padding:8px 12px 2px;font-size:.8rem;color:var(--soft)}
-nav.list button{all:unset;box-sizing:border-box;display:flex;gap:8px;width:100%;padding:5px 12px;cursor:pointer;font-size:.9rem}
+nav.list h4{margin:0;padding:10px 12px 2px;font-size:.92rem;color:var(--soft)}
+nav.list button{all:unset;box-sizing:border-box;display:flex;gap:8px;width:100%;padding:6px 12px;cursor:pointer;font-size:1rem}
 nav.list button:focus-visible{outline:3px solid var(--hl);outline-offset:-3px}
 nav.list button[aria-current="true"]{background:var(--ink);color:var(--sheet)}
 nav.list .k{flex:0 0 34px;font-weight:600}
 nav.list .ok{margin-left:auto;color:var(--ok)}
 nav.list button[aria-current="true"] .ok{color:var(--hl)}
 .card{background:var(--sheet);border:1.5px solid var(--ink);border-radius:6px;padding:20px 22px}
-.code{font-weight:700;color:var(--soft);font-size:.9rem}
+.code{font-weight:700;color:var(--soft);font-size:1rem}
 .card h2{margin:2px 0 6px;font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.3}
 .why{color:var(--soft);margin:0 0 6px;max-width:70ch}
 h3{font-size:1rem;margin:18px 0 6px}
@@ -85,8 +85,8 @@ ol.act li::marker{font-weight:700}
 .foot button{padding:9px 16px;border:1.5px solid var(--ink);border-radius:6px;background:transparent;cursor:pointer;font-weight:600}
 .foot button.go{background:var(--ink);color:var(--sheet)}
 .foot button:disabled{opacity:.35;cursor:default}
-.foot .hint{font-size:.85rem;color:var(--soft);flex:1;min-width:150px}
-.small{font-size:.85rem;color:var(--soft)}
+.foot .hint{font-size:.95rem;color:var(--soft);flex:1;min-width:150px}
+.small{font-size:.95rem;color:var(--soft)}
 /* forms */
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
 .field{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line)}
@@ -94,37 +94,59 @@ ol.act li::marker{font-weight:700}
 .field input,.field select{width:150px;padding:4px 8px;border:1.5px solid var(--line);border-radius:4px;background:var(--paper);text-align:right}
 .field select{text-align:left;width:auto;max-width:200px}
 .out{font-size:1.15rem;font-weight:700;margin-top:8px}
-.out small{font-weight:400;font-size:.85rem;color:var(--soft)}
+.out small{font-weight:400;font-size:.95rem;color:var(--soft)}
 table{border-collapse:collapse;width:100%;font-size:.93rem}
 td,th{padding:5px 8px;border-bottom:1px solid var(--line);text-align:left}
 td:last-child,th:last-child{text-align:right}
-.btnline{background:none;border:0;padding:0;color:var(--soft);text-decoration:underline;cursor:pointer;font-size:.85rem}
-.card h2.s{font-size:1.15rem}
+.btnline{background:none;border:0;padding:0;color:var(--soft);text-decoration:underline;cursor:pointer;font-size:.95rem}
+.card h2.s{font-size:1.2rem}
+.tools{display:flex;gap:6px}
+.tools button{min-width:44px;padding:7px 10px;border:1.5px solid var(--line);border-radius:6px;background:var(--sheet);cursor:pointer;font-weight:600}
+.overall{display:flex;align-items:center;gap:10px;margin:-4px 0 12px;font-size:.95rem;color:var(--soft)}
+.overall .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}.overall .bar span{display:block;height:100%;background:var(--ok);transition:width .3s}
+.qbox{padding:8px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--sheet)}
+.qbox input{width:100%;padding:6px 10px;border:1.5px solid var(--line);border-radius:6px;background:var(--paper)}
+.empty{padding:10px 12px;color:var(--soft)}
+textarea.note{width:100%;min-height:80px;padding:8px 10px;border:1.5px solid var(--line);border-radius:6px;background:var(--paper);resize:vertical;line-height:1.5}
+dl.gl{margin:0}dl.gl dt{font-weight:700;margin-top:10px}dl.gl dd{margin:0 0 0 0;color:var(--ink)}dl.gl dt span{color:var(--soft);font-weight:400}
+.ts{border-bottom:1px dashed var(--line);padding:8px 0}.ts b{display:block}
+#print{display:none}
+@media print{
+  body{background:#fff;color:#000;font-size:14pt}
+  .top,main{display:none!important}
+  #print{display:block;padding:0 4mm}
+  #print h1{font-size:18pt}#print h2{font-size:14pt;margin:14px 0 4px;border-bottom:1px solid #000}
+  #print table{font-size:12pt}#print td,#print th{border-bottom:1px solid #999;text-align:left}
+  .dlg{display:none}
+}
 </style>
 </head>
 <body>
 <div class="top">
-  <div class="hd"><h1>ผู้ช่วย ProtaStructure · ออกแบบบ้าน 1–2 ชั้นทีละขั้น</h1><span class="ver">v1.1</span>
+  <div class="hd"><h1>ผู้ช่วย ProtaStructure · ออกแบบบ้าน 1–2 ชั้นทีละขั้น</h1><span class="ver">v2.0</span>
     <button id="btnInstall" class="inst" hidden>⬇ ติดตั้งแอป</button></div>
   <div class="pbar">
     <label for="proj">โครงการ</label><select id="proj"></select>
     <button id="pNew">+ ใหม่</button><button id="pDel">ลบ</button>
-    <button id="pExp">สำรองไฟล์</button><button id="pImp">เปิดไฟล์สำรอง</button>
+    <button id="pExp">สำรองไฟล์</button><button id="pImp">เปิดไฟล์สำรอง</button><button id="pPrint">พิมพ์สรุป</button>
     <input type="file" id="pFile" accept=".json,application/json" hidden>
   </div>
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true" data-tab="steps">ขั้นตอน</button>
     <button role="tab" aria-selected="false" data-tab="nb">สมุดข้อมูลโครงการ</button>
     <button role="tab" aria-selected="false" data-tab="calc">เครื่องคิด</button>
+    <button role="tab" aria-selected="false" data-tab="help">คำศัพท์ · แก้ปัญหา</button>
     <span class="sp"></span>
+    <span class="tools"><button id="fsDn" title="ตัวอักษรเล็กลง" aria-label="ตัวอักษรเล็กลง">ก−</button><button id="fsUp" title="ตัวอักษรใหญ่ขึ้น" aria-label="ตัวอักษรใหญ่ขึ้น">ก+</button><button id="thm" title="สลับธีมสว่าง/มืด">ธีม</button></span>
     <button id="compact" aria-pressed="false" title="ซ่อนรายการ เหมาะกับวางหน้าต่างข้างโปรแกรม">โหมดแคบ</button>
   </div>
 </div>
 <main>
   <section id="steps">
     <div class="rail" id="rail"></div>
+    <div class="overall"><span id="ovT"></span><div class="bar"><span id="ovB"></span></div></div>
     <div class="wrap">
-      <nav class="list" id="list" aria-label="รายการขั้นตอน"></nav>
+      <nav class="list" aria-label="รายการขั้นตอน"><div class="qbox"><input id="q" type="search" placeholder="ค้นหาขั้นตอน…"></div><div id="list"></div></nav>
       <article class="card" id="card" aria-live="polite"></article>
     </div>
   </section>
@@ -138,6 +160,12 @@ td:last-child,th:last-child{text-align:right}
     </div>
   </section>
 
+  <section id="help" hidden>
+    <div class="grid2">
+      <div class="card"><h2 class="s">คำศัพท์ที่จะเจอในโปรแกรม</h2><dl class="gl" id="gloss"></dl></div>
+      <div class="card"><h2 class="s">ปัญหาที่พบบ่อยและวิธีแก้</h2><div id="trouble"></div></div>
+    </div>
+  </section>
   <section id="calc" hidden>
     <div class="grid2">
       <div class="card">
@@ -181,6 +209,7 @@ td:last-child,th:last-child{text-align:right}
     </div>
   </section>
 </main>
+<div id="print"></div>
 
 <script>
 /* ---------- project notebook fields ---------- */
@@ -359,15 +388,16 @@ function renderRail(){
   P.forEach((name,pi)=>{const idx=S.map((s,i)=>s.p===pi?i:-1).filter(i=>i>=0);
     const b=document.createElement("button");
     b.className=(S[st.cur].p===pi?"on ":"")+(idx.every(stepOk)?"full":"");
-    b.innerHTML=`<b>${pi+1}</b><span>${name}</span>`;b.title=name;
+    b.innerHTML=`<b>${pi+1}</b><span>${name}</span><i>${idx.filter(stepOk).length}/${idx.length}</i>`;b.title=name;
     b.onclick=()=>{st.cur=idx[0];render()};r.appendChild(b)});
 }
 function renderList(){
-  const n=document.getElementById("list");let h="";
-  P.forEach((name,pi)=>{h+=`<h4>${pi+1} · ${name}</h4>`;
-    S.forEach((s,i)=>{if(s.p!==pi)return;
+  const n=document.getElementById("list");let h="";const q=($("q").value||"").trim().toLowerCase();
+  const hit=s=>!q||(s.code+" "+s.t+" "+s.a.join(" ")+" "+(s.x||"")).toLowerCase().includes(q);
+  P.forEach((name,pi)=>{const ss=S.filter(s=>s.p===pi&&hit(s));if(!ss.length)return;h+=`<h4>${pi+1} · ${name}</h4>`;
+    S.forEach((s,i)=>{if(s.p!==pi||!hit(s))return;
       h+=`<button data-i="${i}" ${i===st.cur?'aria-current="true"':''}><span class="k">${s.code}</span><span>${s.t}</span>${stepOk(i)?'<span class="ok">✓</span>':''}</button>`})});
-  n.innerHTML=h;n.querySelectorAll("button").forEach(b=>b.onclick=()=>{st.cur=+b.dataset.i;render()});
+  n.innerHTML=h||'<div class="empty">ไม่พบขั้นตอนที่ค้นหา</div>';n.querySelectorAll("button").forEach(b=>b.onclick=()=>{st.cur=+b.dataset.i;render()});
 }
 function renderCard(){
   const s=S[st.cur],c=document.getElementById("card");
@@ -378,16 +408,19 @@ function renderCard(){
   ${s.t2?`<div class="val">${s.t2}</div>`:""}
   ${s.x?`<div class="warn"><strong>ระวัง</strong> ${s.x}</div>`:""}
   <div class="gate"><h3>ตรวจก่อนไปต่อ</h3>${s.g.map((x,j)=>`<label><input type="checkbox" data-k="${s.id+j}" ${st.g[s.id+j]?"checked":""}><span>${x}</span></label>`).join("")}</div>
+  <h3>บันทึกของฉัน</h3><textarea class="note" id="note" placeholder="จดสิ่งที่ทำจริงในโปรแกรม ปัญหาที่เจอ หรือค่าที่ใช้"></textarea>
   <div class="foot"><button id="prev" ${st.cur===0?"disabled":""}>ย้อนกลับ</button>
   <span class="hint" id="hint"></span>
   <button class="go" id="next" ${st.cur===S.length-1?"disabled":""}>ขั้นถัดไป</button></div>
   <p class="small">ชื่อเมนูอาจต่างเล็กน้อยตามเวอร์ชันของโปรแกรม ใช้ปุ่ม ← → บนคีย์บอร์ดเปลี่ยนขั้นได้</p>`);
+  st.notes=st.notes||{};const nt=c.querySelector("#note");nt.value=st.notes[s.id]||"";nt.oninput=()=>{st.notes[s.id]=nt.value;saveSt()};
   const upd=()=>{document.getElementById("hint").textContent=stepOk(st.cur)?"ผ่านแล้ว ไปต่อได้":"ยังติ๊กเช็กไม่ครบ (ไปต่อได้ แต่ควรกลับมาทำ)"};upd();
-  c.querySelectorAll(".gate input").forEach(el=>el.onchange=()=>{st.g[el.dataset.k]=el.checked;saveSt();upd();renderList();renderRail()});
+  c.querySelectorAll(".gate input").forEach(el=>el.onchange=()=>{st.g[el.dataset.k]=el.checked;saveSt();upd();renderList();renderRail();renderOverall()});
   c.querySelector("#prev").onclick=()=>{st.cur--;render()};
   c.querySelector("#next").onclick=()=>{st.cur++;render();window.scrollTo({top:0})};
 }
-function render(){saveSt();renderRail();renderList();renderCard()}
+function renderOverall(){const n=S.filter((_,i)=>stepOk(i)).length;$("ovT").textContent=`ผ่านแล้ว ${n} จาก ${S.length} ขั้น (${Math.round(n/S.length*100)}%)`;$("ovB").style.width=(n/S.length*100)+"%"}
+function render(){saveSt();renderRail();renderList();renderCard();renderOverall()}
 
 /* notebook form */
 function renderNb(){
@@ -417,7 +450,7 @@ document.querySelectorAll("#calc input,#calc select").forEach(el=>el.oninput=el.
 /* tabs, compact, keys */
 document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("[data-tab]").forEach(x=>x.setAttribute("aria-selected",x===b));
-  ["steps","nb","calc"].forEach(id=>$(id).hidden=id!==b.dataset.tab)});
+  ["steps","nb","calc","help"].forEach(id=>$(id).hidden=id!==b.dataset.tab)});
 const cb=$("compact");let cp=false;try{cp=localStorage.getItem("ps-cp")==="1"}catch(e){}
 const setCp=()=>{document.body.classList.toggle("compact",cp);cb.setAttribute("aria-pressed",cp);cb.textContent=cp?"แสดงรายการ":"โหมดแคบ"};
 cb.onclick=()=>{cp=!cp;try{localStorage.setItem("ps-cp",cp?"1":"0")}catch(e){};setCp()};
@@ -458,6 +491,44 @@ ib.onclick=()=>{if(defI){defI.prompt();defI.userChoice.then(()=>{defI=null});ret
   const l=document.createElement("link");l.rel="manifest";l.href="manifest.json";document.head.appendChild(l);
   const a=document.createElement("link");a.rel="apple-touch-icon";a.href="icon-192.png";document.head.appendChild(a);
   addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))})();
+$("q").oninput=renderList;
+/* font size & theme */
+const FS=[17,19,21,23,25];let fsi=2,thm="auto";try{fsi=+(localStorage.getItem("ps-fs")??2);thm=localStorage.getItem("ps-thm")||"auto"}catch(e){}
+const applyFs=()=>{fsi=Math.max(0,Math.min(FS.length-1,fsi));document.documentElement.style.setProperty("--fs",FS[fsi]+"px");try{localStorage.setItem("ps-fs",fsi)}catch(e){}};
+$("fsUp").onclick=()=>{fsi++;applyFs()};$("fsDn").onclick=()=>{fsi--;applyFs()};
+const applyThm=()=>{if(thm==="auto")document.documentElement.removeAttribute("data-theme");else document.documentElement.setAttribute("data-theme",thm);
+  $("thm").title="ธีม: "+({auto:"ตามเครื่อง",light:"สว่าง",dark:"มืด"})[thm];try{localStorage.setItem("ps-thm",thm)}catch(e){}};
+$("thm").onclick=()=>{thm=({auto:"light",light:"dark",dark:"auto"})[thm];applyThm()};
+/* glossary & troubleshooting */
+const GL=[["Axis","แกน / เส้นกริด","เส้นอ้างอิงที่ใช้วางเสาและคาน"],["Storey","ชั้น","แต่ละระดับของอาคาร มีความสูงชั้นของตัวเอง"],
+["Settings Center","ศูนย์ตั้งค่า","ที่ตั้งมาตรฐาน วัสดุ ระยะหุ้ม และค่าการออกแบบทั้งหมด"],["Self-weight","น้ำหนักตัวเอง","น้ำหนักคอนกรีตของชิ้นส่วน โปรแกรมคิดให้อัตโนมัติ"],
+["Dead load (DL)","น้ำหนักบรรทุกคงที่","น้ำหนักที่อยู่ถาวร เช่น ปูผิว ผนัง หลังคา"],["Live load (LL)","น้ำหนักบรรทุกจร","น้ำหนักจากการใช้งาน เช่น คน เฟอร์นิเจอร์"],
+["Area load","น้ำหนักแผ่บนพื้นที่","หน่วย kN/m² ใส่บนพื้น"],["Line load","น้ำหนักแผ่ตามยาว","หน่วย kN/m ใส่บนคาน เช่น ผนัง"],
+["Load combination","ชุดผสมน้ำหนัก","น้ำหนักแต่ละประเภทคูณตัวคูณแล้วรวมกัน เพื่อใช้ออกแบบ"],["Building Analysis","การวิเคราะห์อาคาร","คำนวณแรงในชิ้นส่วนทั้งหลัง"],
+["Reaction","แรงปฏิกิริยา","แรงที่ฐานรากรับจากโครงสร้าง ใช้ตรวจน้ำหนักรวม"],["Deflection","การแอ่นตัว","ระยะที่คานหรือพื้นแอ่นลงเมื่อรับน้ำหนัก"],
+["Rigid diaphragm","ไดอะแฟรมแข็ง","สมมติให้พื้นทั้งชั้นเคลื่อนที่ไปพร้อมกันในแนวราบ"],["Cover","ระยะหุ้มคอนกรีต","ระยะจากผิวคอนกรีตถึงผิวเหล็ก"],
+["One-way / Two-way slab","พื้นทางเดียว / สองทาง","พื้นที่ถ่ายแรงไปคานสองด้าน หรือสี่ด้าน"],["Transfer beam","คานรับเสาลอย","คานที่รับเสาชั้นบนซึ่งไม่มีเสาชั้นล่าง"],
+["Tie beam","คานคอดิน","คานระดับดินเชื่อมฐานราก และรับผนังชั้นล่าง"],["Pad footing","ฐานแผ่","ฐานรากวางบนดินโดยตรง"],
+["Pile cap","ฐานรากบนเข็ม","ฐานรากที่ถ่ายแรงลงเสาเข็ม"],["Punching shear","แรงเฉือนทะลุ","แรงที่เสาพยายามเจาะทะลุฐานรากหรือพื้น"],
+["Effective length","ความยาวประสิทธิผล","ความยาวที่ใช้ตรวจการโก่งเดาะของเสา"],["Cantilever","คานยื่น / พื้นยื่น","ชิ้นส่วนที่มีที่รองรับด้านเดียว"]];
+$("gloss").innerHTML=GL.map(g=>`<dt>${g[0]} <span>· ${g[1]}</span></dt><dd>${g[2]}</dd>`).join("");
+const TR=[["วิเคราะห์ไม่ผ่าน หรือแจ้งว่าโครงสร้างไม่เสถียร","ชิ้นส่วนไม่ต่อกัน มีเสาหรือคานลอย หรือฐานรากขาด → รันตรวจโมเดลแล้วซูมดูจุดต่อ (ขั้น 5.1)"],
+["คานหรือพื้นแอ่นมากผิดปกติ","ปลายคานไม่ได้ต่อกับเสา/คาน หรือใส่น้ำหนักผิดหน่วย (kg กับ kN ต่างกันเกือบ 10 เท่า)"],
+["แรงปฏิกิริยารวมต่างจากที่คิดด้วยมือมาก","มากเกิน: ใส่น้ำหนักพื้นซ้ำกับน้ำหนักตัวเอง · น้อยเกิน: ลืมผนัง หลังคา หรือพื้นบางแผ่นไม่มีน้ำหนัก"],
+["พื้นบางแผ่นไม่ได้รับน้ำหนักหรือไม่ถูกออกแบบ","พื้นไม่มีคานล้อมรอบครบ ทำให้โปรแกรมสร้างพื้นไม่ได้ → ตรวจคานรอบช่องนั้น"],
+["เสาได้เหล็กเยอะผิดปกติ","น้ำหนักเกินจริง เสาเล็กเกิน หรือเป็นเสาที่รับคานรับเสาลอย → ตรวจน้ำหนักก่อนเพิ่มขนาด"],
+["ฐานรากใหญ่ผิดปกติ","ใส่กำลังดิน/เข็มผิดหน่วย (ตัน กับ kN) หรือค่ากำลังดินต่ำเกินจริง"],
+["แก้ขนาดแล้วผลไม่เปลี่ยน","ยังไม่ได้วิเคราะห์ใหม่ → ทุกครั้งที่เปลี่ยนขนาดต้องวิเคราะห์และออกแบบใหม่ (ขั้น 6.5)"],
+["คานได้เหล็กหลายชั้นหรือใส่ไม่ลง","คานตื้นเกิน → เพิ่มความลึกคานก่อนเพิ่มเหล็ก"]];
+$("trouble").innerHTML=TR.map(t=>`<div class="ts"><b>${t[0]}</b>${t[1]}</div>`).join("");
+/* print summary */
+$("pPrint").onclick=()=>{const esc=x=>String(x??"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"})[c]);
+  let h=`<h1>สรุปโครงการ: ${esc(nb.name)}</h1><p>พิมพ์เมื่อ ${new Date().toLocaleDateString("th-TH-u-nu-latn",{year:"numeric",month:"long",day:"numeric"})} · ผ่านแล้ว ${S.filter((_,i)=>stepOk(i)).length}/${S.length} ขั้น</p>`;
+  h+=`<h2>ข้อมูลโครงการ</h2><table>${NB.map(([k,l])=>`<tr><td>${l}</td><td>${esc(nb[k])||"—"}</td></tr>`).join("")}</table>`;
+  P.forEach((name,pi)=>{h+=`<h2>${pi+1}. ${name}</h2><table>`;S.forEach((s,i)=>{if(s.p!==pi)return;
+    const nt=(st.notes||{})[s.id];h+=`<tr><td>${stepOk(i)?"☑":"☐"} ${s.code} ${s.t}${nt?`<br><small>บันทึก: ${esc(nt)}</small>`:""}</td></tr>`});h+=`</table>`});
+  $("print").innerHTML=h;window.print()};
+applyFs();applyThm();
 renderProj();setCp();renderNb();syncCalc();calc();render();
 </script>
 </body>
