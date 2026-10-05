@@ -3,613 +3,778 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1B2A41">
+<meta name="theme-color" content="#1F4E8C">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="ผู้ช่วย Prota">
 <link rel="icon" href="icon-192.png">
-<title>ผู้ช่วย ProtaStructure: ออกแบบบ้าน 1–2 ชั้น ทีละขั้น</title>
+<title>ผู้ช่วย ProtaStructure 2026 · คู่มือออกแบบบ้าน</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#EEF1EC;--sheet:#FAFBF8;--grid:#DCE3DA;--ink:#1B2A41;--soft:#55606E;
-  --red:#C8102E;--redbg:#FBE9EC;--hl:#F2D64B;--hlbg:#FBF4D2;--ok:#2F7D4F;--line:#C9D1C6;
+  --bg:#F4F6F9;--card:#FFFFFF;--ink:#16202E;--soft:#5A6675;--line:#DCE2EA;--line2:#EEF1F5;
+  --pri:#1F4E8C;--pri2:#E8F0FB;--ok:#1E7B4D;--okbg:#E6F4EC;--warn:#9A6400;--warnbg:#FFF5DB;--bad:#B42318;--badbg:#FDECEA;
+  --uibg:#EEF3FA;--uiline:#B9CBE4;
   box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#141A22;--sheet:#1B232E;--grid:#202A36;--ink:#E6EAF0;--soft:#9AA6B4;
-  --red:#FF6B7D;--redbg:#3A1E25;--hl:#C9A92E;--hlbg:#33301C;--ok:#5CC28A;--line:#2E3A48;}}
+  --bg:#0F141B;--card:#171E28;--ink:#E7ECF2;--soft:#9AA7B6;--line:#2A3442;--line2:#202835;
+  --pri:#6EA2E6;--pri2:#1B2A40;--ok:#4FC28A;--okbg:#14301F;--warn:#E3B04B;--warnbg:#33290F;--bad:#F2786C;--badbg:#3A1C19;--uibg:#1C2738;--uiline:#33496B;}}
 :root[data-theme="dark"]{
-  --paper:#141A22;--sheet:#1B232E;--grid:#202A36;--ink:#E6EAF0;--soft:#9AA6B4;
-  --red:#FF6B7D;--redbg:#3A1E25;--hl:#C9A92E;--hlbg:#33301C;--ok:#5CC28A;--line:#2E3A48;}
+  --bg:#0F141B;--card:#171E28;--ink:#E7ECF2;--soft:#9AA7B6;--line:#2A3442;--line2:#202835;
+  --pri:#6EA2E6;--pri2:#1B2A40;--ok:#4FC28A;--okbg:#14301F;--warn:#E3B04B;--warnbg:#33290F;--bad:#F2786C;--badbg:#3A1C19;--uibg:#1C2738;--uiline:#33496B;}
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;font-family:"Sarabun","TH SarabunPSK","Leelawadee UI",Tahoma,sans-serif;font-size:var(--fs,20px);font-feature-settings:"locl" 0;font-variant-numeric:lining-nums;color:var(--ink);line-height:1.65;
-  background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;
+  font-family:"Sarabun","TH SarabunPSK","Leelawadee UI",Tahoma,sans-serif;font-size:var(--fs,20px);
+  font-feature-settings:"locl" 0;font-variant-numeric:lining-nums tabular-nums}
 button,input,select,textarea{font:inherit;color:inherit;font-feature-settings:"locl" 0}
-:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
-.top{max-width:1100px;margin:0 auto;padding:18px 16px 0}
-h1{font-size:clamp(1.2rem,3.4vw,1.75rem);margin:0;line-height:1.3}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
-.tabs button{font-weight:600;padding:7px 14px;border:1.5px solid var(--ink);background:var(--sheet);border-radius:6px;cursor:pointer}
-.tabs button[aria-selected="true"]{background:var(--ink);color:var(--sheet)}
-.tabs .sp{flex:1}
-.hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.ver{font-size:.85rem;color:var(--soft);border:1px solid var(--line);border-radius:999px;padding:0 8px}
-.inst{margin-left:auto;font-weight:700;padding:6px 14px;border:0;border-radius:6px;background:var(--ok);color:#fff;cursor:pointer}
-.pbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:1rem}
-.pbar select{padding:4px 8px;border:1.5px solid var(--ink);border-radius:6px;background:var(--sheet);max-width:240px}
-.pbar button{padding:4px 10px;border:1.5px solid var(--line);border-radius:6px;background:var(--sheet);cursor:pointer}
-.dlg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;padding:16px;z-index:9}
-.dlg>div{background:var(--sheet);border:1.5px solid var(--ink);border-radius:8px;padding:18px 20px;max-width:460px}
-.dlg button{margin-top:10px;padding:6px 16px;border:1.5px solid var(--ink);border-radius:6px;background:var(--ink);color:var(--sheet);cursor:pointer}
-main{max-width:1100px;margin:0 auto;padding:14px 16px 40px}
-/* phase rail */
-.rail{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px}
-.rail button{all:unset;cursor:pointer;font-size:.92rem;line-height:1.3;padding:6px 6px 4px;border-top:5px solid var(--line);color:var(--soft)}
-.rail button:focus-visible{outline:3px solid var(--hl)}
-.rail button.on{border-color:var(--ink);color:var(--ink);font-weight:600}
+:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
+.wrapx{max-width:1180px;margin:0 auto;padding:0 16px}
+/* app bar */
+.appbar{background:var(--card);border-bottom:1px solid var(--line)}
+.appbar .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0 8px}
+.logo{width:36px;height:36px;border-radius:8px;background:var(--pri);display:grid;place-items:center;color:#fff;font-weight:700;flex:0 0 auto}
+h1{font-size:1.25rem;margin:0;line-height:1.25}
+h1 small{display:block;font-size:.8rem;font-weight:400;color:var(--soft)}
+.ver{font-size:.8rem;color:var(--soft);border:1px solid var(--line);border-radius:999px;padding:0 8px}
+.sp{flex:1}
+.btn{padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);cursor:pointer;font-weight:600}
+.btn:hover{border-color:var(--pri)}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:#fff}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.pbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding-bottom:10px;font-size:.95rem}
+.pbar select{padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);max-width:260px}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs button{all:unset;cursor:pointer;padding:9px 14px;border-bottom:3px solid transparent;font-weight:600;color:var(--soft);white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--pri);border-color:var(--pri)}
+.tabs button:focus-visible{outline:3px solid var(--pri);outline-offset:-3px}
+main{padding:16px 0 40px}
+/* rail */
+.rail{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-bottom:6px}
+.rail button{all:unset;cursor:pointer;padding:6px 6px 4px;border-top:4px solid var(--line);font-size:.85rem;line-height:1.25;color:var(--soft)}
+.rail button.on{border-color:var(--pri);color:var(--ink)}
 .rail button.full{border-color:var(--ok)}
-.rail b{display:block;font-size:1rem}.rail i{font-style:normal;color:var(--soft);font-size:.85rem;display:block}
-@media (max-width:640px){.rail span{display:none}}
-.wrap{display:grid;grid-template-columns:270px 1fr;gap:16px;align-items:start}
-body.compact .wrap{grid-template-columns:1fr}
-body.compact nav.list{display:none}
-@media (max-width:820px){.wrap{grid-template-columns:1fr}nav.list{display:none}}
-nav.list{background:var(--sheet);border:1.5px solid var(--ink);border-radius:6px;max-height:75vh;overflow:auto;position:sticky;top:calc(10px + env(safe-area-inset-top,0px))}
-nav.list h4{margin:0;padding:10px 12px 2px;font-size:.92rem;color:var(--soft)}
-nav.list button{all:unset;box-sizing:border-box;display:flex;gap:8px;width:100%;padding:6px 12px;cursor:pointer;font-size:1rem}
-nav.list button:focus-visible{outline:3px solid var(--hl);outline-offset:-3px}
-nav.list button[aria-current="true"]{background:var(--ink);color:var(--sheet)}
-nav.list .k{flex:0 0 34px;font-weight:600}
-nav.list .ok{margin-left:auto;color:var(--ok)}
-nav.list button[aria-current="true"] .ok{color:var(--hl)}
-.card{background:var(--sheet);border:1.5px solid var(--ink);border-radius:6px;padding:20px 22px}
-.code{font-weight:700;color:var(--soft);font-size:1rem}
-.card h2{margin:2px 0 6px;font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.3}
-.menu{display:inline-block;margin:0 0 8px;padding:3px 10px;border-radius:6px;background:var(--ink);color:var(--sheet);font-size:.95rem}.menu b{font-weight:600}
-.why{color:var(--soft);margin:0 0 6px;max-width:70ch}
-h3{font-size:1rem;margin:18px 0 6px}
-ol.act{margin:0;padding-left:1.4em;list-style-type:decimal}
-body,ol,input,select,table{font-variant-numeric:lining-nums}
-ol.act li{padding:3px 0}
-ol.act li::marker{font-weight:700}
-.val{background:var(--hlbg);border-left:4px solid var(--hl);padding:10px 14px;border-radius:0 6px 6px 0;margin-top:14px}
-.val .nb{font-weight:700}
-.warn{background:var(--redbg);border-left:4px solid var(--red);padding:10px 14px;border-radius:0 6px 6px 0;margin-top:12px}
-.warn strong{color:var(--red)}
-.gate{border:1.5px dashed var(--ink);border-radius:6px;padding:10px 14px;margin-top:16px}
-.gate h3{margin:0 0 4px}
-.gate label{display:flex;gap:10px;align-items:flex-start;padding:4px 0;cursor:pointer}
-.gate input{margin-top:6px;width:18px;height:18px;accent-color:var(--ok);flex:0 0 auto}
-.foot{display:flex;gap:8px;align-items:center;margin-top:18px;flex-wrap:wrap}
-.foot button{padding:9px 16px;border:1.5px solid var(--ink);border-radius:6px;background:transparent;cursor:pointer;font-weight:600}
-.foot button.go{background:var(--ink);color:var(--sheet)}
-.foot button:disabled{opacity:.35;cursor:default}
-.foot .hint{font-size:.95rem;color:var(--soft);flex:1;min-width:150px}
-.small{font-size:.95rem;color:var(--soft)}
-/* forms */
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
-.field{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line)}
-.field label{flex:1}
-.field input,.field select{width:150px;padding:4px 8px;border:1.5px solid var(--line);border-radius:4px;background:var(--paper);text-align:right}
-.field select{text-align:left;width:auto;max-width:200px}
-.out{font-size:1.15rem;font-weight:700;margin-top:8px}
-.out small{font-weight:400;font-size:.95rem;color:var(--soft)}
-table{border-collapse:collapse;width:100%;font-size:.93rem}
-td,th{padding:5px 8px;border-bottom:1px solid var(--line);text-align:left}
-td:last-child,th:last-child{text-align:right}
-.btnline{background:none;border:0;padding:0;color:var(--soft);text-decoration:underline;cursor:pointer;font-size:.95rem}
-.card h2.s{font-size:1.2rem}
-.tools{display:flex;gap:6px}
-.tools button{min-width:44px;padding:7px 10px;border:1.5px solid var(--line);border-radius:6px;background:var(--sheet);cursor:pointer;font-weight:600}
-.overall{display:flex;align-items:center;gap:10px;margin:-4px 0 12px;font-size:.95rem;color:var(--soft)}
-.overall .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}.overall .bar span{display:block;height:100%;background:var(--ok);transition:width .3s}
-.qbox{padding:8px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--sheet)}
-.qbox input{width:100%;padding:6px 10px;border:1.5px solid var(--line);border-radius:6px;background:var(--paper)}
+.rail b{display:block;font-size:.95rem;color:var(--ink)}
+.rail i{font-style:normal;display:block;font-size:.8rem}
+@media (max-width:760px){.rail span,.rail i{display:none}}
+.overall{display:flex;align-items:center;gap:10px;margin:2px 0 14px;font-size:.92rem;color:var(--soft)}
+.bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--ok);transition:width .3s}
+.grid{display:grid;grid-template-columns:290px 1fr;gap:16px;align-items:start}
+body.compact .grid{grid-template-columns:1fr}body.compact nav.side{display:none}
+@media (max-width:860px){.grid{grid-template-columns:1fr}nav.side{display:none}}
+nav.side{background:var(--card);border:1px solid var(--line);border-radius:12px;max-height:78vh;overflow:auto;position:sticky;top:calc(10px + env(safe-area-inset-top,0px))}
+.qbox{padding:8px;position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--line2)}
+.qbox input{width:100%;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+nav.side h4{margin:0;padding:10px 12px 2px;font-size:.85rem;color:var(--soft);font-weight:600}
+nav.side button{all:unset;box-sizing:border-box;display:flex;gap:8px;width:100%;padding:5px 12px;cursor:pointer;font-size:.95rem;border-left:3px solid transparent}
+nav.side button:hover{background:var(--line2)}
+nav.side button[aria-current="true"]{background:var(--pri2);border-left-color:var(--pri);font-weight:600}
+nav.side button:focus-visible{outline:3px solid var(--pri);outline-offset:-3px}
+nav.side .k{flex:0 0 34px;color:var(--soft)}
+nav.side .tick{margin-left:auto;color:var(--ok)}
 .empty{padding:10px 12px;color:var(--soft)}
-textarea.note{width:100%;min-height:80px;padding:8px 10px;border:1.5px solid var(--line);border-radius:6px;background:var(--paper);resize:vertical;line-height:1.5}
-dl.gl{margin:0}dl.gl dt{font-weight:700;margin-top:10px}dl.gl dd{margin:0 0 0 0;color:var(--ink)}dl.gl dt span{color:var(--soft);font-weight:400}
-.sg{margin-bottom:14px}.sg h2{margin:0 0 2px}.sg .where{display:inline-block;margin:2px 0 8px;padding:2px 10px;border-radius:6px;background:var(--ink);color:var(--sheet);font-size:.92rem}
-.si{border-top:1px dashed var(--line);padding:10px 0}.si:first-of-type{border-top:0}
+/* step card */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.meta{font-size:.9rem;color:var(--soft);font-weight:600}
+.card h2{margin:2px 0 0;font-size:1.55rem;line-height:1.3}
+.en{color:var(--soft);font-size:1rem;margin-top:2px}
+.crumb{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0 4px;font-size:.95rem}
+.crumb .lbl{color:var(--soft);margin-right:2px}
+.crumb .sep{color:var(--soft)}
+.ui{display:inline-block;padding:0 7px;border:1px solid var(--uiline);background:var(--uibg);border-radius:6px;font-weight:600;line-height:1.5;white-space:nowrap}
+kbd{display:inline-block;min-width:1.6em;text-align:center;padding:0 6px;border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;background:var(--card);font:inherit;font-size:.9em;font-weight:700;line-height:1.4}
+.goal{margin:8px 0 0;color:var(--soft)}
+.sec{margin-top:18px}
+.sec h3{font-size:.95rem;margin:0 0 6px;text-transform:none;color:var(--soft);letter-spacing:.02em}
+ol.do{margin:0;padding-left:1.5em;list-style-type:decimal}
+ol.do li{padding:4px 0}
+ol.do li::marker{font-weight:700;color:var(--pri)}
+.box{border-radius:10px;padding:10px 14px;margin-top:12px;border:1px solid}
+.box b.t{display:block;font-size:.9rem;margin-bottom:2px}
+.box.val{background:var(--pri2);border-color:var(--uiline)}
+.box.val b.t{color:var(--pri)}
+.box.warn{background:var(--warnbg);border-color:#E9CF8F}
+.box.warn b.t{color:var(--warn)}
+.box.tip{background:var(--okbg);border-color:#A9D8BD}
+.box.tip b.t{color:var(--ok)}
+.box.bad{background:var(--badbg);border-color:#F1B5AE}
+.box.bad b.t{color:var(--bad)}
+.nbv{font-weight:700}
+.chk{border:1px dashed var(--line);border-radius:10px;padding:10px 14px}
+.chk label{display:flex;gap:10px;align-items:flex-start;padding:3px 0;cursor:pointer}
+.chk input{margin-top:6px;width:18px;height:18px;accent-color:var(--ok);flex:0 0 auto}
+textarea.note{width:100%;min-height:76px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);resize:vertical;line-height:1.5}
+.foot{display:flex;gap:8px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.foot .hint{flex:1;min-width:150px;font-size:.92rem;color:var(--soft)}
+.ref{margin-top:12px;font-size:.88rem;color:var(--soft)}
+.small{font-size:.92rem;color:var(--soft)}
+/* generic */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.card h2.s{font-size:1.2rem}
+.field{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid var(--line2)}
+.field label{flex:1}
+.field input,.field select{width:160px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);text-align:right}
+.field select{text-align:left;width:auto;max-width:230px}
+.out{font-size:1.15rem;font-weight:700;margin-top:8px}
+.out small{font-weight:400;font-size:.92rem;color:var(--soft)}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+td,th{padding:6px 8px;border-bottom:1px solid var(--line2);text-align:left;vertical-align:top}
+td.r,th.r{text-align:right}
+.sg{margin-bottom:14px}
+.node{display:inline-block;margin:4px 0 6px}
+.si{border-top:1px solid var(--line2);padding:10px 0}
 .si label.h{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-weight:700}
 .si label.h input{margin-top:6px;width:18px;height:18px;accent-color:var(--ok);flex:0 0 auto}
-.si .d{margin:2px 0 0 28px}.si .r{margin:6px 0 0 28px;background:var(--hlbg);border-left:4px solid var(--hl);padding:6px 12px;border-radius:0 6px 6px 0}
-.si .mine{margin:6px 0 0 28px;display:flex;gap:8px;align-items:center}.si .mine input{flex:1;max-width:340px;padding:4px 8px;border:1.5px solid var(--line);border-radius:4px;background:var(--paper)}
-.si .why2{margin:6px 0 0 28px;color:var(--red)}
-.ts{border-bottom:1px dashed var(--line);padding:8px 0}.ts b{display:block}
+.si .d{margin:2px 0 0 28px}
+.si .r{margin:6px 0 0 28px;background:var(--pri2);border-left:4px solid var(--pri);padding:6px 12px;border-radius:0 8px 8px 0}
+.si .mine{margin:6px 0 0 28px;display:flex;gap:8px;align-items:center}
+.si .mine input{flex:1;max-width:360px;padding:4px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;padding:0 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.tag.must{background:var(--badbg);color:var(--bad)}.tag.chk2{background:var(--warnbg);color:var(--warn)}.tag.skip{background:var(--line2);color:var(--soft)}
+dl.gl{margin:0}dl.gl dt{font-weight:700;margin-top:10px}dl.gl dt span{font-weight:400;color:var(--soft)}dl.gl dd{margin:0}
+.ts{border-top:1px solid var(--line2);padding:8px 0}.ts b{display:block}
+.keys td:first-child{white-space:nowrap}
+.dlg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;padding:16px;z-index:9}
+.dlg>div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;max-width:480px}
 #print{display:none}
 @media print{
-  body{background:#fff;color:#000;font-size:14pt}
-  .top,main{display:none!important}
-  #print{display:block;padding:0 4mm}
-  #print h1{font-size:18pt}#print h2{font-size:14pt;margin:14px 0 4px;border-bottom:1px solid #000}
-  #print table{font-size:12pt}#print td,#print th{border-bottom:1px solid #999;text-align:left}
-  .dlg{display:none}
+  body{background:#fff;color:#000;font-size:13pt}
+  .appbar,main{display:none!important}
+  #print{display:block}
+  #print h1{font-size:17pt}#print h2{font-size:13pt;margin:12px 0 4px;border-bottom:1px solid #000}
+  #print td{border-bottom:1px solid #aaa}
 }
+@media (prefers-reduced-motion:reduce){.bar span{transition:none}}
 </style>
 </head>
 <body>
-<div class="top">
-  <div class="hd"><h1>ผู้ช่วย ProtaStructure · ออกแบบบ้าน 1–2 ชั้นทีละขั้น</h1><span class="ver">v2.2</span>
-    <button id="btnInstall" class="inst" hidden>⬇ ติดตั้งแอป</button></div>
-  <div class="pbar">
-    <label for="proj">โครงการ</label><select id="proj"></select>
-    <button id="pNew">+ ใหม่</button><button id="pDel">ลบ</button>
-    <button id="pExp">สำรองไฟล์</button><button id="pImp">เปิดไฟล์สำรอง</button><button id="pPrint">พิมพ์สรุป</button>
-    <input type="file" id="pFile" accept=".json,application/json" hidden>
+<header class="appbar">
+  <div class="wrapx">
+    <div class="row">
+      <div class="logo" aria-hidden="true">PS</div>
+      <h1>ผู้ช่วย ProtaStructure 2026<small>คู่มือออกแบบบ้าน คสล. 1–2 ชั้น · Template Thailand (US Code, DPT)</small></h1>
+      <span class="ver">v3.0</span>
+      <span class="sp"></span>
+      <button class="btn" id="fsDn" aria-label="ตัวอักษรเล็กลง" title="ตัวอักษรเล็กลง">ก−</button>
+      <button class="btn" id="fsUp" aria-label="ตัวอักษรใหญ่ขึ้น" title="ตัวอักษรใหญ่ขึ้น">ก+</button>
+      <button class="btn" id="thm" title="ธีม">ธีม</button>
+      <button class="btn" id="compact" aria-pressed="false">โหมดแคบ</button>
+      <button class="btn ok" id="btnInstall" hidden>⬇ ติดตั้งแอป</button>
+    </div>
+    <div class="pbar">
+      <label for="proj">โครงการ</label><select id="proj"></select>
+      <button class="btn" id="pNew">+ ใหม่</button><button class="btn" id="pDel">ลบ</button>
+      <button class="btn" id="pExp">สำรองไฟล์</button><button class="btn" id="pImp">เปิดไฟล์สำรอง</button>
+      <button class="btn" id="pPrint">พิมพ์สรุป</button>
+      <input type="file" id="pFile" accept=".json,application/json" hidden>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="ส่วนของแอป">
+      <button role="tab" aria-selected="true" data-tab="steps">ขั้นตอนการทำงาน</button>
+      <button role="tab" aria-selected="false" data-tab="set">Settings Center</button>
+      <button role="tab" aria-selected="false" data-tab="nb">ข้อมูลโครงการ</button>
+      <button role="tab" aria-selected="false" data-tab="calc">เครื่องคิด</button>
+      <button role="tab" aria-selected="false" data-tab="ref">คีย์ลัด · คำศัพท์ · แก้ปัญหา</button>
+    </nav>
   </div>
-  <div class="tabs" role="tablist">
-    <button role="tab" aria-selected="true" data-tab="steps">ขั้นตอน</button>
-    <button role="tab" aria-selected="false" data-tab="nb">สมุดข้อมูลโครงการ</button>
-    <button role="tab" aria-selected="false" data-tab="set">ตั้งค่าโปรแกรม</button>
-    <button role="tab" aria-selected="false" data-tab="calc">เครื่องคิด</button>
-    <button role="tab" aria-selected="false" data-tab="help">คำศัพท์ · แก้ปัญหา</button>
-    <span class="sp"></span>
-    <span class="tools"><button id="fsDn" title="ตัวอักษรเล็กลง" aria-label="ตัวอักษรเล็กลง">ก−</button><button id="fsUp" title="ตัวอักษรใหญ่ขึ้น" aria-label="ตัวอักษรใหญ่ขึ้น">ก+</button><button id="thm" title="สลับธีมสว่าง/มืด">ธีม</button></span>
-    <button id="compact" aria-pressed="false" title="ซ่อนรายการ เหมาะกับวางหน้าต่างข้างโปรแกรม">โหมดแคบ</button>
-  </div>
-</div>
-<main>
+</header>
+<main class="wrapx">
   <section id="steps">
     <div class="rail" id="rail"></div>
     <div class="overall"><span id="ovT"></span><div class="bar"><span id="ovB"></span></div></div>
-    <div class="wrap">
-      <nav class="list" aria-label="รายการขั้นตอน"><div class="qbox"><input id="q" type="search" placeholder="ค้นหาขั้นตอน…"></div><div id="list"></div></nav>
+    <div class="grid">
+      <nav class="side" aria-label="รายการขั้นตอน"><div class="qbox"><input id="q" type="search" placeholder="ค้นหา เช่น Slab, คาน"></div><div id="list"></div></nav>
       <article class="card" id="card" aria-live="polite"></article>
-    </div>
-  </section>
-
-  <section id="nb" hidden>
-    <div class="card">
-      <h2 class="s">สมุดข้อมูลโครงการ</h2>
-      <p class="why">กรอกครั้งเดียว ค่าจะไปแสดงในขั้นตอนที่ต้องใช้ (กล่องสีเหลือง) และในเครื่องคิด บันทึกอัตโนมัติในเบราว์เซอร์นี้</p>
-      <div class="grid2" id="nbf"></div>
-      <p class="small" style="margin-top:12px"><button class="btnline" id="nbReset">ล้างข้อมูลโครงการ</button></p>
     </div>
   </section>
 
   <section id="set" hidden>
     <div class="card" style="margin-bottom:14px">
-      <h2 class="s">คู่มือตั้งค่า ProtaStructure 2026 สำหรับบ้าน 1–2 ชั้น</h2>
-      <p class="why">เปิดที่ <b>Building Setout → Settings Center</b> · Template <b>Thailand (US Code, DPT)</b> ตั้งค่าพื้นฐานมาให้แล้ว หน้าที่ของเราคือ <b>ตรวจ</b> และปรับเฉพาะที่จำเป็น ติ๊กเมื่อตรวจแล้ว และจดค่าที่ตั้งจริงไว้ได้</p>
+      <h2 class="s">Settings Center (หน้าต่าง Options)</h2>
+      <p class="goal">เปิดได้ 2 ทาง: <span class="ui">Building Setout</span> › <span class="ui">Settings Center</span> หรือไอคอนเฟือง ⚙ บน Quick Access Toolbar มุมซ้ายบน · รายการด้านล่างเรียงตามโหนดด้านซ้ายของหน้าต่าง Options ใน ProtaStructure 2026</p>
+      <p class="small"><span class="tag must">ต้องตั้ง</span> ต้องปรับก่อนเริ่มงาน · <span class="tag chk2">ตรวจ</span> ตรวจว่าค่าเริ่มต้นถูกต้อง · <span class="tag skip">ข้ามได้</span> ไม่เกี่ยวกับบ้าน คสล.</p>
       <div class="overall" style="margin:6px 0 0"><span id="setT"></span><div class="bar"><span id="setB"></span></div></div>
     </div>
     <div id="setList"></div>
   </section>
-  <section id="help" hidden>
-    <div class="grid2">
-      <div class="card"><h2 class="s">คำศัพท์ที่จะเจอในโปรแกรม</h2><dl class="gl" id="gloss"></dl></div>
-      <div class="card"><h2 class="s">ปัญหาที่พบบ่อยและวิธีแก้</h2><div id="trouble"></div></div>
+
+  <section id="nb" hidden>
+    <div class="card">
+      <h2 class="s">ข้อมูลโครงการ</h2>
+      <p class="goal">กรอกครั้งเดียว ค่าจะไปแสดงในกล่อง “ค่าของโครงการนี้” ของแต่ละขั้น และใช้ในเครื่องคิด · น้ำหนักกรอกเป็น kg (ตรงกับหน่วย kg-m ของ Template ไทย)</p>
+      <div class="cols" id="nbf"></div>
+      <p class="small" style="margin-top:12px"><button class="btn" id="nbReset">ล้างข้อมูลโครงการนี้</button></p>
     </div>
   </section>
+
   <section id="calc" hidden>
-    <div class="grid2">
+    <div class="cols">
       <div class="card">
-        <h2 class="s">น้ำหนักบนพื้น</h2>
-        <div class="field"><label>ความหนาพื้น (ม.)</label><input id="c_t" type="number" step="0.01"></div>
-        <div class="field"><label>ปูผิว + ฝ้า + งานระบบ (kN/m²)</label><input id="c_ff" type="number" step="0.1"></div>
-        <div class="field"><label>น้ำหนักจร (kN/m²)</label><input id="c_ll" type="number" step="0.1"></div>
+        <h2 class="s">น้ำหนักบนพื้น (Slab Loads)</h2>
+        <div class="field"><label for="c_t">ความหนาพื้น (ม.)</label><input id="c_t" type="number" step="0.01"></div>
+        <div class="field"><label for="c_ff">Service Dead Load: ปูผิว ฝ้า งานระบบ (kg/m²)</label><input id="c_ff" type="number"></div>
+        <div class="field"><label for="c_ll">Imposed Load (kg/m²)</label><input id="c_ll" type="number"></div>
         <div class="out" id="o_slab"></div>
       </div>
       <div class="card">
-        <h2 class="s">ผนังลงคาน (kN/m)</h2>
-        <div class="field"><label>ผนัง (kN/m²)</label><select id="c_wt">
-          <option value="1.8">อิฐมอญครึ่งแผ่น ฉาบ 2 ด้าน ≈1.8</option>
-          <option value="3.6">อิฐมอญเต็มแผ่น ฉาบ 2 ด้าน ≈3.6</option>
-          <option value="1.0">อิฐมวลเบา 7.5 ซม. ฉาบ ≈1.0</option></select></div>
-        <div class="field"><label>ความสูงผนัง (ม.)</label><input id="c_wh" type="number" step="0.1"></div>
-        <div class="field"><label>ลดสำหรับช่องเปิด (%)</label><input id="c_wo" type="number" step="5" value="0"></div>
+        <h2 class="s">น้ำหนักผนังบนคาน (Wall Load)</h2>
+        <div class="field"><label for="c_wt">ชนิดผนัง</label><select id="c_wt">
+          <option value="180">อิฐมอญครึ่งแผ่น ฉาบ 2 ด้าน ≈180 kg/m²</option>
+          <option value="360">อิฐมอญเต็มแผ่น ฉาบ 2 ด้าน ≈360 kg/m²</option>
+          <option value="100">อิฐมวลเบา 7.5 ซม. ฉาบ 2 ด้าน ≈100 kg/m²</option></select></div>
+        <div class="field"><label for="c_wu">น้ำหนักผนัง (kg/m²)</label><input id="c_wu" type="number"></div>
+        <div class="field"><label for="c_wh">ความสูงผนัง = ความสูงชั้น − ความลึกคาน (ม.)</label><input id="c_wh" type="number" step="0.05"></div>
+        <div class="field"><label for="c_wo">หักช่องเปิด (%)</label><input id="c_wo" type="number" step="5" value="0"></div>
         <div class="out" id="o_wall"></div>
-        <p class="small">ค่าประมาณ ตรวจกับผู้ผลิตหรือตำราที่ใช้อ้างอิง</p>
+        <p class="small">ค่าน้ำหนักผนังเป็นค่าประมาณ ตรวจกับผู้ผลิตหรือตำราที่อ้างอิง</p>
       </div>
       <div class="card">
-        <h2 class="s">น้ำหนักรวมไว้เทียบแรงปฏิกิริยา (ขั้น 5.3)</h2>
-        <div class="field"><label>พื้นที่พื้นต่อชั้น (ม²)</label><input id="c_a" type="number"></div>
-        <div class="field"><label>จำนวนชั้นพื้น (ไม่รวมหลังคา)</label><input id="c_n" type="number"></div>
-        <div class="field"><label>ความยาวผนังรวมต่อชั้น (ม.)</label><input id="c_wl" type="number"></div>
-        <div class="field"><label>คาน+เสา เผื่อ (% ของน้ำหนักพื้น)</label><input id="c_fr" type="number" value="35"></div>
-        <div class="field"><label>หลังคา (kN/m² ของพื้นที่หลังคา)</label><input id="c_rf" type="number" step="0.1"></div>
-        <div class="field"><label>พื้นที่หลังคา (ม²)</label><input id="c_ra" type="number"></div>
+        <h2 class="s">น้ำหนักรวมโดยประมาณ (ไว้เทียบ Axial Load Comparison Report)</h2>
+        <div class="field"><label for="c_a">พื้นที่พื้นต่อชั้น (ม²)</label><input id="c_a" type="number"></div>
+        <div class="field"><label for="c_n">จำนวนชั้นพื้นที่รับน้ำหนัก</label><input id="c_n" type="number"></div>
+        <div class="field"><label for="c_wl">ความยาวผนังรวมต่อชั้น (ม.)</label><input id="c_wl" type="number"></div>
+        <div class="field"><label for="c_fr">เผื่อคาน+เสา (% ของน้ำหนักพื้น)</label><input id="c_fr" type="number" value="35"></div>
+        <div class="field"><label for="c_ra">พื้นที่หลังคา (ม²)</label><input id="c_ra" type="number"></div>
         <div class="out" id="o_tot"></div>
-        <p class="small">ใช้ตรวจหยาบ ๆ เท่านั้น ถ้าผลรวมแรงปฏิกิริยา (กรณี DL+LL) ต่างจากนี้เกิน ~15–20% ให้กลับไปตรวจน้ำหนักที่ใส่</p>
+        <p class="small">ใช้ตรวจหยาบ ๆ ถ้าผลจากโปรแกรมต่างกันเกิน ~15–20% ให้ตรวจน้ำหนักที่ใส่</p>
       </div>
       <div class="card">
         <h2 class="s">เทียบชุดตัวคูณ (ต่อ ม²)</h2>
         <table><tbody id="o_combo"></tbody></table>
-        <p class="small">ใช้ชุดเดียวตามมาตรฐานที่อ้างอิงในรายการคำนวณ ห้ามผสม</p>
-        <h2 class="s" style="margin-top:16px">แปลงหน่วย</h2>
-        <div class="field"><label>kg/m² → kN/m²</label><input id="u1" type="number" value="150"></div><div class="out" id="o_u1"></div>
-        <div class="field"><label>ksc → MPa</label><input id="u2" type="number" value="240"></div><div class="out" id="o_u2"></div>
-        <div class="field"><label>ตัน → kN</label><input id="u3" type="number" value="10"></div><div class="out" id="o_u3"></div>
+        <p class="small">โปรแกรมสร้างชุดผสมจาก Loading Generator ตามมาตรฐานใน Codes ตารางนี้ไว้เข้าใจขนาดตัวเลขเท่านั้น</p>
+        <h2 class="s" style="margin-top:14px">แปลงหน่วย</h2>
+        <div class="field"><label for="u1">kg/m² → kN/m²</label><input id="u1" type="number" value="150"></div><div class="out" id="o_u1"></div>
+        <div class="field"><label for="u4">kg/m → kN/m</label><input id="u4" type="number" value="500"></div><div class="out" id="o_u4"></div>
+        <div class="field"><label for="u2">ksc → MPa</label><input id="u2" type="number" value="240"></div><div class="out" id="o_u2"></div>
+        <div class="field"><label for="u3">ตัน → kN</label><input id="u3" type="number" value="10"></div><div class="out" id="o_u3"></div>
       </div>
+    </div>
+  </section>
+
+  <section id="ref" hidden>
+    <div class="cols">
+      <div class="card"><h2 class="s">เมาส์และคีย์ลัด</h2><table class="keys" id="keys"></table></div>
+      <div class="card"><h2 class="s">ปัญหาที่พบบ่อย</h2><div id="trouble"></div></div>
+      <div class="card" style="grid-column:1/-1"><h2 class="s">คำศัพท์ในโปรแกรม (ภาษาอังกฤษตามหน้าจอ · ความหมายไทย)</h2><input id="gq" type="search" placeholder="ค้นหาคำศัพท์" style="width:100%;max-width:360px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);margin:6px 0"><dl class="gl" id="gloss"></dl></div>
+      <div class="card" style="grid-column:1/-1"><h2 class="s">แหล่งอ้างอิง</h2>
+        <p class="small">ขั้นตอนและชื่อคำสั่งอ้างอิงจาก ProtaStructure Basic Training Guide และ Prota Help Center (support.protasoftware.com) ปรับให้เข้ากับหน้าจอ ProtaStructure 2026 (9.0) และงานบ้านพักอาศัยในไทย · ค่าแนะนำเป็นแนวทางเพื่อการฝึก งานจริงต้องให้วิศวกรผู้มีใบอนุญาตตรวจรับรอง</p></div>
     </div>
   </section>
 </main>
 <div id="print"></div>
-
 <script>
-/* ---------- project notebook fields ---------- */
+/* ===== phases follow the ribbon, left to right ===== */
+const P=[
+ {en:"Prepare",th:"เตรียมงาน"},{en:"Building Setout",th:"ตั้งค่าโครงการ"},{en:"Modelling",th:"สร้างโมเดล"},
+ {en:"Loading",th:"น้ำหนักบรรทุก"},{en:"Review",th:"ตรวจโมเดล"},{en:"Analysis",th:"วิเคราะห์"},
+ {en:"Design",th:"ออกแบบ"},{en:"Drawings & Reports",th:"แบบและรายงาน"}];
+/* markup: [[UI term]]  <<Key>>  {notebook key}  path items are UI terms */
+const S=[
+/* ---------- 0 Prepare ---------- */
+{ph:0,id:"0.1",t:"เตรียมแบบสถาปัตย์เป็นไฟล์ DXF",en:"Architectural drawings",path:["AutoCAD / โปรแกรม CAD"],
+ goal:"โปรแกรมนำเข้าแบบอ้างอิงเป็นไฟล์ DXF แบบที่สะอาดทำให้วางกริดและชิ้นส่วนได้เร็วและตรง",
+ do:["เปิดแบบสถาปัตย์ (DWG) ในโปรแกรม CAD","ลบ/ปิดเลเยอร์ที่ไม่จำเป็น ให้เหลือ กริด เสา ผนัง ช่องเปิด","ย้ายจุดตัดกริดมุมล่างซ้ายไปที่พิกัด 0,0","แยกเป็นไฟล์ละชั้น แล้ว Save As เป็น DXF เช่น plan-1F.dxf, plan-2F.dxf","จดหน่วยของแบบ (มม. หรือ ม.) ไว้ใช้ตอนนำเข้า"],
+ warn:"เก็บไฟล์ DXF ไว้ที่เดิมตลอดงาน โปรแกรมจะโหลดแบบอ้างอิงจากไฟล์นี้ทุกครั้งที่เปิดโครงการ",
+ chk:["มีไฟล์ DXF แยกทุกชั้น","กริดเริ่มที่ 0,0 และรู้หน่วยของแบบ"],ref:"External Reference Drawing"},
+{ph:0,id:"0.2",t:"ข้อมูลดินและฐานราก",en:"Soil & foundation data",path:["นอกโปรแกรม"],
+ goal:"ข้อมูลที่ผิดแล้วอันตรายที่สุดของทั้งงาน",
+ do:["ขอผลเจาะสำรวจดิน หรือข้อมูลเสาเข็มที่ใช้ในพื้นที่","เลือกชนิดฐานราก: ฐานรากบนเสาเข็ม ([[Pile Cap]]) หรือฐานแผ่ ([[Pad Footing]])","จดกำลังดินที่ยอมให้ หรือชนิด ขนาด ความยาว กำลังเข็มต่อต้น ลงในแท็บข้อมูลโครงการ"],
+ val:"ฐานราก: {fnd} · กำลังดิน {qa} t/m² · เข็ม {pile} ตัน/ต้น",
+ warn:"ห้ามเดาค่ากำลังดิน พื้นที่ดินอ่อน เช่น ภาคกลาง บ้าน 2 ชั้นส่วนใหญ่ต้องใช้เสาเข็ม",
+ chk:["ได้ค่าจากแหล่งที่เชื่อถือได้","กรอกในแท็บข้อมูลโครงการแล้ว"]},
+{ph:0,id:"0.3",t:"กำหนดเกณฑ์การออกแบบ",en:"Design basis",path:["นอกโปรแกรม"],
+ goal:"ตัดสินใจมาตรฐาน วัสดุ น้ำหนัก ก่อนเปิดโปรแกรม แล้วยึดตลอดงาน",
+ do:["มาตรฐานตาม Template ไทย: คอนกรีต ACI 318-19 · น้ำหนัก DPT · ลม Thailand Wind Code 2012 · แผ่นดินไหว DPT-1301/1302-61","กำหนด fc′ (ระบุทรงกระบอก) และชั้นเหล็ก","กำหนดน้ำหนักจรตามประเภทการใช้งาน น้ำหนักปูผิว ผนัง หลังคา","ตรวจว่าที่ตั้งอยู่ในพื้นที่ควบคุมแผ่นดินไหวหรือไม่","กรอกทั้งหมดในแท็บข้อมูลโครงการ"],
+ val:"fc′ {fc} ksc · {fy} / {fys} · จรพื้น {ll} · จรหลังคา {llr} · แผ่นดินไหว: {seis}",
+ chk:["กรอกเกณฑ์ครบในแท็บข้อมูลโครงการ","ตรวจพื้นที่แผ่นดินไหวแล้ว"]},
+{ph:0,id:"0.4",t:"วางระบบโครงสร้างบนแปลน",en:"Structural layout",path:["นอกโปรแกรม"],
+ goal:"รู้เส้นทางถ่ายแรงก่อนวาด จะวาดถูกตั้งแต่รอบแรก",
+ do:["ทำเครื่องหมายตำแหน่งเสา เสาชั้นบนควรตรงเสาชั้นล่าง","ลากแนวคานรอบพื้นทุกแผ่น และใต้ผนังทุกแนว","ระบุชนิดพื้น หล่อในที่ (สองทาง/ทางเดียว) หรือพื้นสำเร็จ และทิศทางพาด","ประมาณขนาด: คานลึก ≈ ช่วง/12–/10 · เสาบ้าน 0.20–0.25 ม.","ระบุบันได ถังน้ำ ของหนักพิเศษ"],
+ warn:"เสาลอย (เสาชั้นบนที่ไม่มีเสาชั้นล่าง) และผนังที่ไม่มีคานรองรับ คือปัญหาที่พบบ่อยที่สุด",
+ chk:["ทุกแผ่นพื้นมีคานล้อมรอบ","ทุกผนังมีคานรองรับ","ระบุเสาลอยและคานที่รับแล้ว"]},
+/* ---------- 1 Building Setout ---------- */
+{ph:1,id:"1.1",t:"สร้างโครงการใหม่",en:"New Project",path:["Building Setout","New"],
+ goal:"Template กำหนดมาตรฐาน วัสดุ และค่าการออกแบบเริ่มต้นให้ทั้งหมด",
+ do:["คลิก [[New]] (หรือปุ่มบน Start Page)","[[Project Code]]: ใช้ได้เฉพาะ A–Z a–z 0–9 _ - ห้ามภาษาไทยและช่องว่าง เช่น {pcode}","[[Templates]]: พิมพ์ Thailand ในช่องค้นหา เลือก [[Thailand (US Code, DPT)]]","ตรวจโฟลเดอร์ข้อมูล (ProtaData2026) แล้วกด [[OK]]"],
+ tip:"โฟลเดอร์โครงการจะถูกสร้างชื่อเดียวกับ Project Code ภายใน ProtaData2026 ไฟล์จากเวอร์ชันใหม่เปิดในเวอร์ชันเก่าไม่ได้",
+ chk:["สร้างโครงการด้วย Template ไทยแล้ว"],ref:"Starting a new project"},
+{ph:1,id:"1.2",t:"เปิด Auto Save และ Backup",en:"Automatic Save · Backup",path:["Settings Center","ProtaStructure Environment","General"],
+ goal:"ค่าเริ่มต้นของ Automatic Save Interval คือ 0 = ปิด ต้องเปิดก่อนเริ่มทำงาน",
+ do:["เปิด [[Settings Center]] (ไอคอน ⚙ หรือ [[Building Setout]] › [[Settings Center]])","โหนด [[ProtaStructure Environment]] › [[General]]","[[Automatic Save Interval]] = 10 นาที","ยกเลิกติ๊ก [[Prompt for Automatic Saving]] ให้บันทึกเงียบ ๆ","ตั้ง [[Number of Backups to Save]] เช่น 3"],
+ tip:"ไฟล์สำรองอยู่ในโฟลเดอร์ Backup กู้คืนด้วย [[Open Previous Backup]] บนแท็บ Building Setout",
+ chk:["Auto Save 10 นาที","ตั้งจำนวน Backup แล้ว"],ref:"Settings Center · Backup Structural Model",set:true},
+{ph:1,id:"1.3",t:"ตรวจ Codes และหน่วย",en:"Codes · Unit and Format",path:["Settings Center","Codes"],
+ goal:"ยืนยันว่ามาตรฐานถูก และรู้ว่าจะป้อนตัวเลขเป็นหน่วยอะไร",
+ do:["โหนด [[Codes]]: ตรวจ Concrete = [[ACI-318 [2019]]] · Loading = [[DPT]] · Wind = [[Thailand Wind Code [2012]]] · Earthquake = [[DPT-1301, 1302-61]]","โหนด [[Unit and Format]]: ดูหน่วยความยาว แรง และการเสียรูป","ดูแถบสถานะล่างขวา เช่น GE: m · Anl: kg-m · Disp: m","ตัดสินใจหน่วยแล้วใช้ตลอดงาน จดในแท็บข้อมูลโครงการ"],
+ val:"หน่วยแรงที่ใช้: {unit}",
+ warn:"Template ไทยใช้แรงเป็น kg ดังนั้นน้ำหนักบนพื้นป้อนเป็น kg/m² และผนังเป็น kg/m · ถ้าเปลี่ยนเป็น kN ค่าจะต่างกันเกือบ 10 เท่า",
+ tip:"ในหน้าต่างคุณสมบัติชิ้นส่วนจะมีหน่วยกำกับข้างช่องเสมอ ดูก่อนพิมพ์ทุกครั้ง",
+ chk:["Codes ตรงตามรายการ","รู้หน่วยที่ใช้ป้อนข้อมูล"],set:true},
+{ph:1,id:"1.4",t:"ข้อมูลหัวรายงาน",en:"Project Preferences",path:["Settings Center","Project Preferences"],
+ goal:"ข้อมูลนี้ไปอยู่หัวกระดาษของรายงานทุกฉบับ",
+ do:["โหนด [[Project Preferences]] › [[Title]]: ชื่อโครงการ ที่ตั้ง ผู้ออกแบบ","[[Notes]]: จดการแก้ไขแต่ละรอบ (Revision)"],
+ val:"ชื่อโครงการ: {name}",chk:["กรอกหัวรายงานแล้ว"],ref:"Project Preferences",set:true},
+{ph:1,id:"1.5",t:"สร้างชั้น",en:"Storeys",path:["Building Setout","Storeys","Insert Storey / Edit Storey"],
+ goal:"ชั้น (Storey) คือระดับที่วางคานและพื้น เสาของชั้นใดจะยาวจากระดับชั้นล่างขึ้นมาถึงระดับชั้นนั้น",
+ do:["ดูใน [[Structure Tree]] › [[Storeys]] ว่ามี St: 0 (±0.00) อยู่แล้ว","[[Storeys]] › [[Insert Storey]] เพิ่มชั้นให้ครบ","[[Storeys]] › [[Edit Storey]] ตั้งความสูงแต่ละชั้น และตัวอักษรนำหน้าชื่อชิ้นส่วนในคอลัมน์ [[Labels]] (เช่น G, 2, R)","ดับเบิลคลิกชื่อชั้นใน Structure Tree เพื่อเลือกชั้นที่จะทำงาน"],
+ val:"แนะนำสำหรับบ้าน {floors} ชั้น สูงชั้นละ {h} ม.: St: 0 = ระดับคานคอดิน/ฐานราก · St: 1 = ระดับพื้นชั้น 2 · St: 2 = ระดับคานหลังคา",
+ warn:"[[Define selected storeys as similar]] ทำให้ชั้นเหมือนกันทุกอย่าง (แก้ชั้นหนึ่งเปลี่ยนทุกชั้น) บ้านส่วนใหญ่ชั้นต่างกัน จึงไม่ควรใช้",
+ chk:["จำนวนชั้นและความสูงตรงกับรูปตัด","ตั้ง Labels แต่ละชั้นแล้ว"],ref:"Inserting Storeys & Defining Building Parameters"},
+{ph:1,id:"1.6",t:"วัสดุและตารางเหล็ก",en:"Materials · Rebar Diameter",path:["Building Setout","Materials"],
+ goal:"กำหนดคอนกรีต เหล็ก และ “ขนาดเหล็กที่ยอมให้โปรแกรมเลือก” ของแต่ละชิ้นส่วน",
+ do:["คลิก [[Materials]] (หรือ [[Analysis]] › [[Building Analysis]] › [[Pre-Analysis]] › [[Edit Materials]])","เลือกกำลังคอนกรีตให้ตรง fc′ แล้ว [[Apply to all members in this storey]]","ตรวจ [[Default Material]] (โครงสร้างบน) และ [[Foundation Floor]] (ฐานราก) ทั้งคู่","[[Steel Grade]]: เลือกชั้นเหล็กหลักและเหล็กปลอก","[[Rebar Diameter]] › [[Edit…]]: ติ๊กเฉพาะขนาดที่ใช้จริงสำหรับ Column, Beam, Slab, Footing"],
+ val:"fc′ {fc} ksc (ทรงกระบอก) · เหล็กหลัก {fy} · ปลอก {fys} · ขนาดแนะนำ: เสา/คาน DB12, DB16 · พื้น RB9/DB10/DB12 · ปลอก RB6/RB9",
+ warn:"ถ้ารายการขนาดเหล็กเป็นแบบอเมริกา (#3, #4) หรือ H/T ให้เลือก/เพิ่มขนาดมิลลิเมตรแทน ไม่เช่นนั้นแบบที่ได้จะใช้กับหน้างานไทยไม่ได้",
+ chk:["กำลังคอนกรีตตรงทั้งโครงสร้างบนและฐานราก","ติ๊กเฉพาะขนาดเหล็กที่ใช้จริง"],ref:"Materials"},
+{ph:1,id:"1.7",t:"สร้างกรณีน้ำหนักและชุดผสม",en:"Load Cases and Combinations",path:["Loading","Load Cases and Combinations","Loading Generator"],
+ goal:"ต้องทำก่อนวางพื้น เพราะพื้นและผนังต้องมีกรณีน้ำหนัก (G, Q) ให้ใส่ค่า",
+ do:["แท็บ [[Loading]] › [[Load Cases and Combinations]]","คลิก [[Loading Generator]] ให้โปรแกรมสร้างอัตโนมัติ","เลือกกรณีที่ต้องใช้: G (คงที่), Q (จร), Qr (จรหลังคา) และลม/แผ่นดินไหวถ้าจำเป็น","ตรวจรายการที่ได้ แล้ว [[OK]]"],
+ tip:"G = Dead load (น้ำหนักคงที่) · Q = Imposed/Live load (น้ำหนักจร) · ชุดผสมที่ได้เป็นไปตาม ACI 318 ตาม Codes",
+ chk:["มี G และ Q แล้ว","ชุดผสมถูกสร้างครบ"],ref:"Load Combinations"},
+{ph:1,id:"1.8",t:"สร้างคลังน้ำหนักผนังและพื้น",en:"Libraries",path:["Building Setout","Libraries","Partition Wall Loads"],
+ goal:"สร้างชนิดผนังไทยไว้ครั้งเดียว แล้วเลือกจากรายการตอนใส่น้ำหนัก",
+ do:["[[Libraries]] › [[Partition Wall Loads]]: เพิ่มชนิดผนังที่ใช้ เช่น อิฐมอญครึ่งแผ่น, อิฐมวลเบา","[[Libraries]] › [[Slab Additional Loads]]: เพิ่มชุดน้ำหนักปูผิว/ฝ้า/งานระบบ"],
+ val:"ผนังหลัก {wall} · ปูผิว {ff}",chk:["มีชนิดผนังที่ใช้ในโครงการ"],ref:"Wall Loads Library"},
+/* ---------- 2 Modelling ---------- */
+{ph:2,id:"2.1",t:"แนบแบบอ้างอิง DXF",en:"External Reference Drawing",path:["Building Setout","External Reference Drawing"],
+ goal:"แบบสถาปัตย์จะแสดงจาง ๆ ใต้โมเดล ใช้เป็นแนววางกริดและชิ้นส่วน",
+ do:["คลิก [[External Reference Drawing]] (กลุ่ม Quick Start) › [[Add]] เลือกไฟล์ DXF","คอลัมน์ [[Unit]]: เลือกหน่วยให้ตรงกับแบบ","คอลัมน์ [[Storey No]]: เลือกชั้นที่แบบนี้เป็นของ (1 ชั้นต่อ 1 แบบ)","ติ๊ก [[Active]] เพื่อแสดง ปรับ [[Opacity]]","ถ้าตำแหน่งไม่ตรง ใช้ [[Move]] คลิก 2 จุด"],
+ warn:"ไม่ติ๊ก Active จะมองไม่เห็นแบบ · เลือก Unit ผิด แบบจะใหญ่หรือเล็กผิดสัดส่วน",
+ chk:["เห็นแบบใต้โมเดล ขนาดถูกต้อง","แบบแต่ละชั้นอยู่ถูก Storey"],ref:"External Reference Drawing"},
+{ph:2,id:"2.2",t:"สร้างแกนกริด",en:"Axes",path:["Modelling","Orthogonal Axis Generator"],
+ goal:"จุดตัดของแกนคือจุดที่วางเสาและคาน แกนต้องถูกต้องก่อนทุกอย่าง",
+ do:["[[Orthogonal Axis Generator]]: คลิกจุดเริ่มใกล้ 0,0 แล้วกรอกระยะ","Dir-1 = แกนแนวนอน ชื่อ A, B, C (ล่างขึ้นบน) · Dir-2 = แกนแนวตั้ง ชื่อ 1, 2, 3 (ซ้ายไปขวา)","ระยะห่างไม่เท่ากันพิมพ์ได้ เช่น 4000 3500 หรือ 4000*2 (ตามหน่วยในช่อง)","แกนเดี่ยว: [[Grid]] › [[Single Segment]] คลิกจุดเริ่ม กด <<F2>> พิมพ์ความยาว <<Tab>> มุม <<Enter>>"],
+ tip:"รูปแบบพิมพ์ใน Dynamic Input: ความยาว<มุม เช่น 4000<90 หรือ ΔX,ΔY เช่น 4000,0",
+ chk:["ระยะแกนตรงแบบทุกช่วง","ชื่อแกนตรงแบบ"],ref:"Modelling Axes · Orthogonal Axis Generator"},
+{ph:2,id:"2.3",t:"วางเสา",en:"Columns",path:["Modelling","RC Column"],
+ goal:"เสาวางที่จุดตัดแกน ขนาด b1 × b2 และระยะเยื้อง e1, e2 วัดจากจุดศูนย์กลาง",
+ do:["คลิก [[RC Column]] หน้าต่าง Column Properties จะเปิด","กรอก [[b1]] [[b2]] (ดูหน่วยข้างช่อง)","คลิกที่จุดตัดแกน หรือลากกรอบครอบหลายจุดเพื่อวางทีเดียวหลายต้น","เสาชิดขอบ: ปรับ [[e1]] [[e2]] หรือเลือกเสาแล้วกดลูกศรบนคีย์บอร์ดเลื่อน","เสร็จแล้ว <b>ปิดหน้าต่าง Properties</b> เพื่อจบคำสั่ง"],
+ warn:"ถ้าไม่ปิดหน้าต่าง Properties จะยังอยู่ในโหมดวาง เลือกชิ้นส่วนอื่นไม่ได้",
+ tip:"[[Section Manager]] ใช้เลือกหน้าตัดอื่น เช่น วงกลม รูปตัว L · [[Column End Condition]] ปรับปลายยึดแน่น/หมุนได้",
+ chk:["จำนวนเสาตรงกับแผน","ขนาดและทิศเสาถูกต้อง"],ref:"Columns Creation"},
+{ph:2,id:"2.4",t:"วางคาน",en:"Beams",path:["Modelling","Beam","Normal"],
+ goal:"คานต้องต่อกับเสาหรือคานที่ปลายทั้งสองจริง แรงจึงถ่ายได้",
+ do:["คลิก [[Beam]] › [[Normal]] กรอก [[b]] และ [[h]]","คลิกจุดเริ่ม–จุดจบบนจุดตัดแกน วาดต่อเนื่องได้ คลิกขวาเพื่อจบ","ลากกรอบครอบเสาหลายต้น โปรแกรมจะสร้างคานระหว่างเสาให้อัตโนมัติ","คานซอย: วางเคอร์เซอร์ที่ขอบคาน จะมีจุดสแนป 0.25L 0.33L 0.5L 0.67L 0.75L หรือกด <<F2>> พิมพ์ระยะ","คานลดระดับ: ปรับ [[e-z]] (ค่าลบ = ต่ำลง)"],
+ tip:"[[End Releases]] ใช้ปลดโมเมนต์ที่ปลายคาน (ค่าเริ่มต้นยึดแน่น) งานบ้านทั่วไปคงค่าเริ่มต้น",
+ warn:"ตรวจจำนวนคานในโฟลเดอร์ [[Beams]] ของ Structure Tree ให้ตรงกับแผน",
+ chk:["คานทุกตัวต่อกับเสาหรือคาน","มีคานใต้ผนังทุกแนว"],ref:"Beams Creation"},
+{ph:2,id:"2.5",t:"วางพื้นและใส่น้ำหนักพื้น",en:"Slabs",path:["Modelling","Slab"],
+ goal:"พื้นวางในช่องที่มีคานล้อมรอบ น้ำหนักพื้นกระจายลงคานอัตโนมัติด้วยเส้น yield-line",
+ do:["คลิก [[Slab]] · [[Insertion]] = [[Beam Region]]","[[Type]]: 1–11 = ความต่อเนื่องของขอบพื้น (ใช้ตอนออกแบบด้วยสัมประสิทธิ์) · พื้นทางเดียวเลือกแบบ One-way แล้วกำหนด [[Design Angle]] · [[Type 12]] = พื้นยื่น","กรอก [[h]] ความหนา และ [[cover]]","แท็บ [[Loads]]: [[Service Dead Load]] = ปูผิว+ฝ้า · [[Imposed Load]] = น้ำหนักจร","คลิกในช่องที่มีคานล้อมรอบ","พื้นลดระดับ (ห้องน้ำ/ระเบียง): ปรับ [[Rel. Level]]"],
+ val:"h = {slab} ม. · Service Dead Load = {ff} · Imposed Load = {ll}",
+ warn:"ไม่ต้องใส่น้ำหนักเนื้อคอนกรีตพื้นเอง โปรแกรมคิดน้ำหนักตัวเอง (Self-weight) ให้แล้ว",
+ tip:"ตอนวางยังไม่ต้องกังวลเรื่อง Type ใช้ 1 ไปก่อน ค่อยตั้งอัตโนมัติในขั้น 6.3 · แก้หลายแผ่นพร้อมกัน: คลิกขวาที่ว่าง › [[Member Tables]] › [[Slab Table]]",
+ chk:["ทุกช่องพื้นในแบบมีพื้น","ใส่ Service Dead Load และ Imposed Load ครบ"],ref:"Slab Creation"},
+{ph:2,id:"2.6",t:"ช่องเปิดพื้นและพื้นยื่น",en:"Slab Opening · Cantilever",path:["Modelling","Slab Opening/Drop"],
+ goal:"ช่องบันไดและพื้นยื่นต้องสร้างแยก",
+ do:["[[Slab Opening/Drop]]: กรอกขนาด b1 × b2 คลิกจุดอ้างอิง กด <<F2>> พิมพ์ระยะ X,Y","พื้นยื่นปกติ: [[Slab]] › [[Type 12]] แท็บ [[Cantilever]] กรอก [[L-Cant]] แล้วคลิก 3 จุด (เริ่ม, จบ, ด้านที่ยื่น)","รูปทรงไม่ปกติ: [[Polyline Slab/Column Edge]] วาดขอบ แล้ววางพื้นด้วย Beam Region"],
+ chk:["มีช่องบันไดถูกตำแหน่ง","พื้นยื่นครบ"],ref:"Slab Opening Creation · Inserting Cantilever Slabs"},
+{ph:2,id:"2.7",t:"สร้างชั้นบน",en:"Generate Storey",path:["Building Setout","Storeys","Generate Storey"],
+ goal:"คัดลอกชิ้นส่วนจากชั้นล่างขึ้นไป แล้วแก้ส่วนที่ต่าง",
+ do:["[[Storeys]] › [[Generate Storey]]: [[Source Storey]] = ชั้นที่ทำเสร็จ · [[Target Storey]] = ชั้นที่จะคัดลอกไป","ดับเบิลคลิกชั้นปลายทางใน Structure Tree แล้วลบ/เพิ่มชิ้นส่วนให้ตรงแปลน","ตรวจเสาลอยว่าวางบนคานที่ใหญ่พอ","ดู 3D: [[Views]] › [[3D Physical Model]] แล้ว [[Tile Vertically]]"],
+ tip:"ในมุมมอง 3D คลิกขวา › [[Isolate/Unisolate Storey]] เพื่อดูทีละชั้น",
+ chk:["ทุกชั้นตรงตามแปลน","ตรวจ 3D แล้วไม่มีชิ้นส่วนลอย"],ref:"Inserting Storeys · Views Creation"},
+{ph:2,id:"2.8",t:"บันไดและหลังคา",en:"Stairs · Roof",path:["Modelling"],
+ goal:"รอบแรกแนะนำให้คิดบันไดและโครงหลังคาเป็นน้ำหนักลงคาน",
+ do:["บันได: คิดแรงปฏิกิริยาบันได แล้วใส่เป็นน้ำหนักบนคานที่รองรับ (ขั้น 3.2) · ขั้นสูงใช้ [[RC Staircases]]","ชั้นหลังคา: วางคานรับหลังคา/อะเส ตามแบบ","โครงหลังคาเหล็ก: รอบแรกออกแบบแยก แล้วใส่น้ำหนักลงคาน · ขั้นสูงใช้ [[Truss]] [[Purlin]] [[Cladding]] (Cladding ใส่ G และ Qr ได้)"],
+ val:"น้ำหนักหลังคา (มุง+โครง) {roof} · จรหลังคา {llr}",
+ chk:["มีคานรองรับบันไดและหลังคาครบ"],ref:"Steel Truss · Purlins · Cladding"},
+{ph:2,id:"2.9",t:"วางฐานราก",en:"Foundations",path:["Structure Tree","St: 0","คลิกขวาที่เสา"],
+ goal:"ฐานรากวางที่ St: 0 ใต้เสาทุกต้น ขนาดให้โปรแกรมออกแบบหลังวิเคราะห์",
+ do:["ดับเบิลคลิก St: 0 ใน Structure Tree","เลือกเสา › คลิกขวา › [[Insert Pile cap]] (ฐานรากบนเข็ม) หรือคำสั่ง Pad Footing (ฐานแผ่) จากแท็บ Modelling","หน้าต่างมีแท็บ [[Geometry]] [[Analysis]] [[Output]] · ใส่ข้อมูลเข็ม/ดินและระดับท้องฐานราก","วางคานคอดินที่ St: 0 ระหว่างฐานราก"],
+ val:"{fnd} · ดิน {qa} t/m² · เข็ม {pile} ตัน/ต้น · ท้องฐานราก {ftg} ม.",
+ warn:"ระวังหน่วยกำลังเข็ม/ดิน (ตัน กับ kg กับ kN) ถ้าผิด ฐานรากจะใหญ่หรือเล็กผิดปกติ",
+ chk:["เสาที่ลงดินทุกต้นมีฐานราก","ข้อมูลดิน/เข็มตรงแท็บข้อมูลโครงการ"],ref:"Pile Caps (Help Center)"},
+/* ---------- 3 Loading ---------- */
+{ph:3,id:"3.1",t:"น้ำหนักผนังบนคาน",en:"Wall Load",path:["เลือกคาน","Edit Loads","Wall Load"],
+ goal:"ผนังเป็นน้ำหนักแผ่ตามยาวบนคาน ใช้ชนิดผนังจาก Library",
+ do:["ดับเบิลคลิกชั้นใน Structure Tree แล้วเลือกคาน","คลิก [[Edit Loads]] (Member Load Editor)","เลือก [[Wall Load]] · กรณีน้ำหนัก [[G]]","เลือกชนิดผนังจาก [[Wall Load Library]] และแก้ความสูงผนัง (ค่าเริ่มต้น = ความสูงชั้น)","คลิกบนคาน › <<Esc>> › [[OK]] · ประตูหน้าต่าง: [[Edit Openings]]","คัดลอกไปคานอื่น: คลิกขวาคาน › [[Copy Loads]] › เลือกคานอื่น › [[Paste Loads]]"],
+ val:"ผนัง {wall} × สูง (ชั้น − คาน) → ดูแท็บเครื่องคิด",
+ warn:"น้ำหนักตัวเองและน้ำหนักจากพื้น โปรแกรมคิดให้และแก้ไม่ได้ ห้ามใส่ซ้ำ",
+ chk:["คานทุกตัวที่มีผนังมีน้ำหนักผนัง","ความสูงผนังหักความลึกคานแล้ว"],ref:"Member Load Editor"},
+{ph:3,id:"3.2",t:"น้ำหนักพิเศษ",en:"Point, Line, and Area Loads",path:["Loading","Point, Line, and Area Loads"],
+ goal:"ของหนักเฉพาะจุด เช่น ถังน้ำ บันได ผนังบนพื้น",
+ do:["[[Point, Line, and Area Loads]] เลือกชนิด จุด/เส้น/พื้นที่","ผนังที่วางบนพื้น (ไม่มีคาน): ใช้ Line Load และเลือกชนิดจากรายการ Wall","บันได: ใส่แรงปฏิกิริยาเป็น Line Load บนคานที่รองรับ"],
+ chk:["ใส่น้ำหนักพิเศษครบ"],ref:"Defining Slab Load (via plan view)"},
+{ph:3,id:"3.3",t:"ตรวจน้ำหนักทั้งชั้น",en:"Load Editor Storey",path:["Loading","Load Editor Storey"],
+ goal:"ดูน้ำหนักทุกชิ้นส่วนในชั้นเดียวกัน หาที่ลืมใส่หรือใส่ซ้ำ",
+ do:["กด <<Esc>> ไม่ให้มีชิ้นส่วนถูกเลือก แล้วคลิก [[Load Editor Storey]]","เลือกกรณี G แล้ว Q ตรวจทีละชั้น","ใช้ [[Member Filter]] และ [[Load Type Filter]] ซ่อนสิ่งที่ไม่ต้องดู","ติ๊ก [[Show only Loaded Members]] เพื่อหาชิ้นส่วนที่ยังไม่มีน้ำหนัก"],
+ chk:["ทุกชั้นมี G และ Q ครบ"],ref:"Storey Load Editor"},
+{ph:3,id:"3.4",t:"ลมและแผ่นดินไหว",en:"Wind and Storey Loads",path:["Analysis","Building Analysis","Pre-Analysis","Wind and Storey Loads"],
+ goal:"แรงด้านข้างตามมาตรฐานใน Codes",
+ do:["ต้องสร้างกรณีลมใน Loading Generator ก่อน (ขั้น 1.7)","[[Wind and Storey Loads]]: ให้โปรแกรมคำนวณลมตาม Thailand Wind Code 2012","แผ่นดินไหว: ถ้าอยู่ในพื้นที่ควบคุม ตั้งค่าใน [[Settings Center]] › [[Lateral Loading]] ตาม DPT-1301/1302-61","ถ้าไม่อยู่ในพื้นที่ควบคุม จดเหตุผลไว้ในรายการคำนวณ"],
+ val:"พื้นที่ควบคุมแผ่นดินไหว: {seis}",
+ chk:["ตัดสินใจและตั้งค่าแรงด้านข้างแล้ว"],ref:"Wind and Storey Loads"},
+/* ---------- 4 Review ---------- */
+{ph:4,id:"4.1",t:"ตั้งชื่อชิ้นส่วนใหม่ให้เป็นระบบ",en:"Re-label Members",path:["Review","Re-label Members"],
+ goal:"ชื่อชิ้นส่วนเรียงตามตำแหน่ง อ่านรายงานและแบบง่าย",
+ do:["เลือกชนิดชิ้นส่วนทั้งหมด","[[Sort Reference]] = Left-Bot → Right-Top","ติ๊ก [[Retain Compatible Labels Between Storeys]] สำหรับเสา (ตำแหน่งเดียวกันชื่อเดียวกันทุกชั้น)","[[OK]]"],
+ chk:["ชื่อชิ้นส่วนเรียงเป็นระบบ"],ref:"Member Re-labelling"},
+{ph:4,id:"4.2",t:"ตรวจด้วยสีและการแสดงผล",en:"Visual Interrogation",path:["Review","Visual Interrogation"],
+ goal:"ใช้สีตรวจข้อมูลที่ใส่ก่อนวิเคราะห์",
+ do:["[[Slab Plan Display]]: แสดงค่า G และ Q ของพื้นทุกแผ่นบนแปลน","[[Beam Plan Display]]: แสดงผนังบนคานพร้อมค่าน้ำหนักและความสูง","[[Visual Interrogation]]: ระบายสีตามวัสดุ ขนาด หรือคานที่มีผนัง","ดูในมุมมอง 3D ทุกชั้น"],
+ chk:["พื้นทุกแผ่นมีค่าน้ำหนักถูก","คานที่มีผนังครบ"],ref:"Visual Interrogation"},
+/* ---------- 5 Analysis ---------- */
+{ph:5,id:"5.1",t:"ตรวจความถูกต้องของโมเดล",en:"Building Model Check",path:["Analysis","Building Model Check"],
+ goal:"หาข้อผิดพลาดชัด ๆ ก่อนวิเคราะห์ เช่น ชิ้นส่วนไม่ต่อกัน ซ้อนกัน",
+ do:["[[Building Model Check]] › เลือก [[All Storeys]] › [[Start]]","อ่านคำเตือน/ข้อผิดพลาด ทุกข้อระบุชิ้นส่วนที่เกี่ยวข้อง","[[Load Log to Editor]] เปิดรายการใน Notepad เพื่อไล่แก้","แก้แล้วรันตรวจซ้ำจนไม่มี Error"],
+ chk:["ไม่มี Error","อ่านและเข้าใจคำเตือนที่เหลือ"],ref:"Running Analysis"},
+{ph:5,id:"5.2",t:"ตรวจค่าก่อนวิเคราะห์",en:"Pre-Analysis · Model Options",path:["Analysis","Building Analysis","Pre-Analysis"],
+ goal:"ศูนย์รวมสมมติฐานของการวิเคราะห์ ตรวจครั้งสุดท้ายก่อนรัน",
+ do:["[[Pre-Analysis]]: ตรวจ [[Settings Center]], [[Load Combinations]], [[Wind and Storey Loads]], [[Edit Materials]]","[[Model Options]] › [[Material & Section Effective Stiffness Factors]]: คงค่าเริ่มต้น","[[Model Options]] › [[Slab Model]]: Storey Diaphragm Model = [[Slabs To Define Rigid Diaphragm]] (ค่าเริ่มต้น)"],
+ tip:"ค่า Torsional Stiffness Factor เริ่มต้น 0.01 ช่วยลดแรงบิดในคานหลักจากคานซอย คงไว้",
+ chk:["ตรวจ Pre-Analysis ครบ"],ref:"Building Analysis Model Options"},
+{ph:5,id:"5.3",t:"วิเคราะห์โครงสร้าง",en:"Building Analysis",path:["Analysis","Building Analysis"],
+ goal:"คำนวณแรงในชิ้นส่วนทั้งหลัง",
+ do:["คลิก [[Building Analysis]]","หน้าต่าง [[Batch Design Options]]: รอบแรกยังไม่ต้องติ๊กออกแบบ ให้ตรวจผลวิเคราะห์ก่อน","รอจนเสร็จ อ่าน [[Analysis Summary Report]] และคำเตือนเรื่องความไม่เสถียร/การเสียรูปมาก"],
+ warn:"Prota แนะนำให้ติ๊กออกแบบอัตโนมัติพร้อมวิเคราะห์ เฉพาะเมื่อมั่นใจว่าผลวิเคราะห์ถูกแล้ว",
+ chk:["วิเคราะห์สำเร็จ ไม่มีคำเตือนร้ายแรง"],ref:"Running Analysis"},
+{ph:5,id:"5.4",t:"เทียบน้ำหนักรวม",en:"Axial Load Comparison Report",path:["Analysis","Axial Load Comparison Report"],
+ goal:"ตรวจว่าน้ำหนักทั้งหมดเดินทางลงเสาครบ ไม่หายระหว่างทาง",
+ do:["เปิด [[Axial Load Comparison Report]]","Table 1 (น้ำหนักจากพื้น) ≈ Table 2 (หลังกระจายลงคาน) → น้ำหนักพื้นไม่หาย","Table 2 ≈ Table 3 (แรงในเสาหลังวิเคราะห์) → น้ำหนักลงเสาครบ","เทียบค่ารวมกับแท็บเครื่องคิด (น้ำหนักรวมโดยประมาณ)"],
+ warn:"ค่าในตารางควรต่างกันไม่เกิน 5% ถ้าเกินต้องหาสาเหตุก่อนออกแบบ",
+ chk:["Table 1, 2, 3 ต่างกันไม่เกิน 5%","ใกล้เคียงกับที่คิดด้วยมือ"],ref:"Axial Load Comparison Report"},
+{ph:5,id:"5.5",t:"ดูผลใน Analytical Model",en:"Analytical Model",path:["Analysis","Analytical Model"],
+ goal:"แบบจำลองที่ใช้คำนวณจริง ต้องดูให้แน่ใจว่าสมเหตุสมผล",
+ do:["แท็บ [[General]] › [[Filters]] เลือกชั้น/แกน · [[Connectivity Issues]] หาชิ้นส่วนที่จุดต่อไม่ต่อ","แท็บ [[Members]] › [[Frame Loads]] ดูน้ำหนักบนคาน · [[Diaphragms]] ดูพื้นไดอะแฟรม","แท็บ [[Results]] › [[Displacement]] ดูการเสียรูป และ [[Diagrams]]: N, V2, V3, M2, M3, T","แท็บ [[Solid Model]] ระบายสีแรงบนโมเดล 3D","ปิดด้วยเครื่องหมาย × ที่ชื่อมุมมอง"],
+ chk:["ไม่มี Connectivity Issues","การเสียรูปและไดอะแกรมดูสมเหตุสมผล"],ref:"Analytical Model"},
+/* ---------- 6 Design ---------- */
+{ph:6,id:"6.1",t:"ออกแบบเสา",en:"Column Section Design",path:["Design","Column Section Design"],
+ goal:"ออกแบบเหล็กเสาทั้งหมด แล้วตรวจรายตัว",
+ do:["[[Column Design (Batch Mode)]] › [[Re-select All Bars]]","คลิกไอคอน [[Message]] อ่านสรุปและเสาที่ไม่ผ่าน","ดับเบิลคลิกเสา › [[Column Analysis]] › [[Interaction Diagram (N-M)]]: จุดทุกจุดต้องอยู่ในเส้นโค้ง","แท็บ [[Slenderness]]: ตรวจสมมติฐานค้ำยัน (Braced)","รายงาน: แท็บ [[Reports]] › [[Design Report]]"],
+ warn:"ถ้าเปลี่ยนขนาดเสา น้ำหนักและความแข็งเปลี่ยน ต้องวิเคราะห์ใหม่ (ขั้น 6.5)",
+ tip:"ช่อง UR = Utilisation Ratio ค่าเกิน 1.0 = ไม่ผ่าน",
+ chk:["เสาผ่านทุกต้น","ปริมาณเหล็กสมเหตุสมผลสำหรับบ้าน"],ref:"Column & Wall Design"},
+{ph:6,id:"6.2",t:"ออกแบบคาน",en:"Storey Beams",path:["Design","Storey Beams"],
+ goal:"ออกแบบคานตามแนวแกน แล้วตรวจรายแนว",
+ do:["[[Beam Design (Batch Mode)]] › [[Re-select All Bars]] › [[OK]]","ดับเบิลคลิกแนวคาน › [[Reinforcement Data]]: ตัวเลขสีแดง = ไม่ผ่าน","ตรวจ [[Deflection Check]] และระยะห่างเหล็ก s-Bar","[[Diagrams]] ดูแรงเฉือน โมเมนต์ การแอ่น","รายงาน: [[Summary Report]] หรือ [[Detailed Report]]"],
+ tip:"คานไม่ผ่าน: เพิ่มความลึกก่อนเพิ่มเหล็ก",
+ chk:["คานผ่านทุกแนว","เหล็กใส่ได้จริงในหน้าตัด"],ref:"Beam Design"},
+{ph:6,id:"6.3",t:"ออกแบบพื้น",en:"Slab Analysis and Design",path:["Design","Slab Analysis and Design"],
+ goal:"พื้นออกแบบด้วยวิธีสัมประสิทธิ์โมเมนต์ผ่าน Slab Strip แยกจากการวิเคราะห์อาคาร",
+ do:["Structure Tree: คลิกขวาที่ [[Slabs]] › [[Set Slab Types Automatically]] › [[OK]]","[[Modelling]] › [[Slab Strip]]: [[Type]] = [[Analytical Strip]] · [[Dir]] = X","[[At Start]]/[[At End]] = [[Bob]] (แถบเริ่ม/จบเลยคานขอบ) · [[Slab]] (อยู่ในพื้น) · [[Cantilever]]","คลิกจุดเริ่มนอกแปลน กด <<Ctrl>> ค้างแล้วคลิกจุดจบ ให้แถบผ่านทุกพื้น","ทำซ้ำทิศ Y","[[Design]] › [[Slab Analysis and Design]] › [[Slab Strip Design (Batch Mode)]] › [[Design Report]]"],
+ warn:"วิธีสัมประสิทธิ์ใช้กับพื้นที่มีขอบ 4 ด้านเท่านั้น พื้นรูปทรงอื่นต้องใช้ FE Strip",
+ chk:["ทุกพื้นมีแถบทั้ง X และ Y","พื้นผ่านทุกแผ่น"],ref:"Slab Analysis & Design"},
+{ph:6,id:"6.4",t:"ออกแบบฐานราก",en:"Foundation Design",path:["เลือกฐานราก","Properties"],
+ goal:"ตรวจแรงต่อเข็ม/แรงดันดิน แรงเฉือน และเหล็กเสริมฐานราก",
+ do:["เปิดหน้าต่างฐานราก แท็บ [[Analysis]]: [[Materials]] [[Options]] [[Column Loads]]","[[Options]]: วิธี Deep Beam / Shallow Beam และ [[Include Effect of Column Dimensions]] (คงค่าเริ่มต้นในงานแรก)","แท็บ [[Design Checks]]: ทุกข้อต้องผ่าน","จัดกลุ่มฐานรากให้เหลือไม่กี่แบบ (F1, F2…)"],
+ val:"ดิน {qa} t/m² · เข็ม {pile} ตัน/ต้น",
+ chk:["ฐานรากผ่านทุกตัว","จัดกลุ่มแบบแล้ว"],ref:"Pile Caps · Pad Footing (Help Center)"},
+{ph:6,id:"6.5",t:"วนปรับแก้และตรวจสถานะ",en:"Iterate · Design Status",path:["Review","Design Status"],
+ goal:"เปลี่ยนขนาดใด ๆ ต้องวิเคราะห์ใหม่แล้วออกแบบใหม่",
+ do:["ถ้าแก้ขนาดชิ้นส่วน → กลับ 5.1 Building Model Check → 5.3 วิเคราะห์ → 6.1–6.4 ออกแบบใหม่ ด้วย [[Re-select All Bars]]","[[Review]] › [[Design Status]] ดูสีผ่าน/ไม่ผ่านทั้งอาคารใน 3D","สุ่มคำนวณมือ คาน 1 ตัว เสา 1 ต้น เทียบกับโปรแกรม"],
+ chk:["Design Status ผ่านทั้งหมด","คำนวณมือเทียบแล้วใกล้เคียง"],ref:"Design Status"},
+/* ---------- 7 Drawings & Reports ---------- */
+{ph:7,id:"7.1",t:"รวมรายการคำนวณ",en:"Report Manager",path:["Drawings & Reports","Report Manager"],
+ goal:"รวมรายงานทุกฉบับเป็นเล่มเดียว",
+ do:["[[Report Sets]] › [[New]] ตั้งชื่อชุดรายงาน","[[Add All Available]] นำรายงานที่สร้างแล้วเข้าชุด","เพิ่ม [[Table of Contents]] และ [[Summary Report]] · [[Load Logo]] ใส่โลโก้","[[View]] แล้วส่งออก PDF หรือ Word","อ่านแผง [[Notifications]] ด้านขวา (คำเตือนจากการวิเคราะห์)"],
+ chk:["ได้รายการคำนวณครบเล่ม"],ref:"Report Manager"},
+{ph:7,id:"7.2",t:"ถอดปริมาณคอนกรีต",en:"Quantity Extraction Tables",path:["Drawings & Reports","Quantity Extraction Tables"],
+ goal:"ปริมาณคอนกรีตและไม้แบบแยกตามชั้นและชนิดชิ้นส่วน",
+ do:["[[Concrete Quantity Extractions Table]] › [[Calculate]]","[[Report]] สร้างรายงานละเอียด"],
+ chk:["ได้ตารางปริมาณ"],ref:"Quantity Extraction Tables"},
+{ph:7,id:"7.3",t:"แบบโครงสร้าง",en:"ProtaDetails",path:["Drawings & Reports","ProtaDetails"],
+ goal:"สร้างแบบรายละเอียดเหล็กเสริมจากผลออกแบบ",
+ do:["เปิดโครงการใน ProtaDetails › [[Draw All Model Details]]","แปลนฐานราก แปลนคาน แปลนพื้น · [[Column & Wall Schedules]] · [[Beam Details by Axes]] · [[RC Slab Cross Sections]]","เพิ่มหมายเหตุทั่วไป: มาตรฐาน วัสดุ ระยะหุ้ม","ตรวจชื่อเหล็กในแบบเป็น RB/DB และส่งออก DWG/PDF"],
+ chk:["แบบครบทุกแผ่น","ชื่อเหล็กและหมายเหตุถูกต้อง"],ref:"ProtaDetails Basic Training Guide"},
+{ph:7,id:"7.4",t:"บันทึก Template และส่งตรวจ",en:"Template Management · Review",path:["Building Setout","Project Templates"],
+ goal:"ครั้งหน้าไม่ต้องตั้งค่าใหม่ และงานต้องผ่านวิศวกรก่อนใช้จริง",
+ do:["[[Project Templates]] › [[New Template]] ตั้งชื่อ เช่น TH_House_ACI_SD40 › [[Select All]] › [[Export]]","ครั้งต่อไปเลือก Template นี้ตอน New Project","ให้วิศวกรโยธาผู้มีใบอนุญาตตรวจโมเดล แบบ และรายการคำนวณ แล้วลงนามก่อนยื่นขออนุญาต"],
+ warn:"โปรแกรมช่วยคำนวณ แต่ความรับผิดชอบทางกฎหมายเป็นของวิศวกรผู้ลงนาม",
+ chk:["Export Template แล้ว","ผ่านการตรวจและลงนามแล้ว"],ref:"Project Template"}
+];
+
+/* ===== Settings Center: nodes exactly as in the 2026 Options dialog ===== */
+const SETS=[
+{n:"ProtaStructure Environment",th:"สภาพแวดล้อมโปรแกรม (ค่าของเครื่องนี้)",lv:"must",i:[
+ ["General › Automatic Save Interval","บันทึกอัตโนมัติ ค่าเริ่มต้น 0 = ปิด","ตั้ง 10 นาที และยกเลิก Prompt for Automatic Saving"],
+ ["General › Number of Backups to Save","สำรองไฟล์ทุกต้นชั่วโมง วนทับไฟล์เก่าสุด","3 ชุดขึ้นไป"],
+ ["General › Angle Step / Length Step","ระยะกระโดดเมื่อกด Ctrl ขณะวาด","Length Step 100 มม. · Angle Step 15°"],
+ ["Member Section Eccentricity Step","ระยะเลื่อนชิ้นส่วนเมื่อกดลูกศร","ค่าเริ่มต้น 25 มม."]]},
+{n:"ProtaDetails Environment",th:"สภาพแวดล้อมของ ProtaDetails (เขียนแบบ)",lv:"skip",i:[
+ ["ค่าทั้งหมด","ใช้กับโปรแกรมเขียนแบบ","คงค่าเริ่มต้น"]]},
+{n:"Project Preferences",th:"ข้อมูลโครงการ",lv:"must",i:[
+ ["Title","ข้อมูลหัวรายงาน","ชื่อโครงการ {name} · ผู้ออกแบบ · ที่ตั้ง"],
+ ["Notes","บันทึกการแก้ไข","จด Revision ทุกครั้งที่แก้ใหญ่"]]},
+{n:"Unit and Format",th:"หน่วยและรูปแบบตัวเลข",lv:"chk",i:[
+ ["หน่วยแรงและความยาว","Template ไทยตั้งแรงเป็น kg-m (ดูแถบสถานะ GE / Anl / Disp)","ใช้ {unit} ตลอดงาน"],
+ ["หน่วยการเสียรูป","ใช้ตอนดู Displacement","เปลี่ยนเป็น mm ถ้าอ่านง่ายกว่า"]]},
+{n:"Label",th:"ตัวอักษรนำหน้าชื่อชิ้นส่วน",lv:"chk",i:[
+ ["รูปแบบชื่อ","เช่น C = เสา B = คาน S = พื้น","คงค่าเริ่มต้น แล้วใช้ Re-label Members ตอนท้าย"]]},
+{n:"Codes",th:"มาตรฐานการออกแบบ",lv:"chk",i:[
+ ["Concrete Design Code","มาตรฐานคอนกรีต","ACI-318 [2019]"],
+ ["Loading Code","มาตรฐานน้ำหนักบรรทุก","DPT (Thailand)"],
+ ["Wind Load Code","มาตรฐานแรงลม","Thailand Wind Code [2012]"],
+ ["Earthquake Code","มาตรฐานแผ่นดินไหว","DPT-1301, 1302-61"],
+ ["Steel / Composite Design Code","ใช้เมื่อมีโครงเหล็ก","AISC 360 [2010] (LRFD) คงไว้"]]},
+{n:"Lateral Loading",th:"แรงด้านข้าง (ลม แผ่นดินไหว)",lv:"chk",i:[
+ ["พารามิเตอร์แผ่นดินไหว","ใช้เมื่ออยู่ในพื้นที่ควบคุม","แผ่นดินไหว: {seis} · ตั้งตาม DPT-1301/1302-61"],
+ ["แรงด้านข้างอื่น","เช่น notional load","คงค่าเริ่มต้น"]]},
+{n:"Lateral Drift & Bracing",th:"การเคลื่อนตัวด้านข้างและการค้ำยัน",lv:"chk",i:[
+ ["ขีดจำกัดการเคลื่อนตัว / สมมติฐานค้ำยัน","มีผลต่อการตรวจ Slenderness ของเสา","คงค่าเริ่มต้นในงานแรก"]]},
+{n:"Column & Shearwall",th:"การออกแบบเสาและกำแพง",lv:"must",i:[
+ ["Min / Max Bar Diameter","โปรแกรมเลือกเหล็กเฉพาะในช่วงนี้ และเพิ่มจำนวน/ขนาดจนถึงค่าสูงสุดโดยไม่เปลี่ยนขนาดเสา","DB12 – DB16 (DB20 เฉพาะเสารับเสาลอย)"],
+ ["Concrete Cover","วัดจากผิวคอนกรีตถึงผิวนอกเหล็กปลอก","ACI 318 เสาภายใน 40 มม. (ใส่ 0 = ใช้ค่ามาตรฐาน)"],
+ ["Link (เหล็กปลอก)","ขนาดและระยะห่าง","RB6 สำหรับเสา 20×20 · RB9 เมื่อเหล็กยืน DB16 ขึ้นไป"]]},
+{n:"Beam",th:"การออกแบบคาน",lv:"must",i:[
+ ["Beam Steel Diameter (Min / Max)","เหล็กเล็กหรือใหญ่กว่าช่วงนี้จะไม่ถูกเลือก","DB12 – DB16 (DB20 คานช่วงยาว)"],
+ ["Concrete Covers (Top / Bottom / Side / Ends)","ใส่ 0 = ใช้ค่าตามมาตรฐาน ดูค่าที่ใช้จริงในรายงานคาน","ACI 318 คานภายใน 40 มม. · คานคอดินหล่อติดดิน 75 มม."],
+ ["Steel Bar Selection","เหล็กปลอกและรูปแบบการเลือกเหล็ก","RB6 ระยะไม่ถี่กว่า 7.5–10 ซม. ถ้าต้องถี่กว่านี้ให้เพิ่มขนาดคาน"],
+ ["Annotate Steel Bars / Bars in Sections / Dimension Beam Section","การแสดงเหล็กและมิติในแบบคาน","เปิดทั้งสามตัวเลือก"]]},
+{n:"Slab",th:"การออกแบบพื้น",lv:"must",i:[
+ ["ขนาดเหล็กพื้น","ขนาดที่ยอมให้ใช้","RB9 หรือ DB10–DB12"],
+ ["ระยะห่างสูงสุด","คุมการแตกร้าว","ACI: ไม่เกิน 3h และ 45 ซม."],
+ ["Concrete Cover","ระยะหุ้มพื้น","ACI 318 พื้นภายใน 20 มม. · หล่อติดดิน 75 มม."]]},
+{n:"Foundation",th:"การออกแบบฐานราก",lv:"must",i:[
+ ["วัสดุและระยะหุ้ม","ผิวที่หล่อติดดิน","75 มม."],
+ ["กำลังดิน / เสาเข็ม","ค่าที่ใช้คำนวณขนาดฐานและจำนวนเข็ม ระวังหน่วย","{fnd} · ดิน {qa} t/m² · เข็ม {pile} ตัน/ต้น"]]},
+{n:"Stairs",th:"บันได (ใช้กับ Design Library)",lv:"skip",i:[["ค่าทั้งหมด","ใช้เมื่อออกแบบบันไดด้วยโมดูลบันได","รอบแรกคิดบันไดเป็นน้ำหนักลงคาน"]]},
+{n:"Retrofit Wall",th:"ผนังเสริมกำลังอาคารเดิม",lv:"skip",i:[["ค่าทั้งหมด","งานเสริมกำลังอาคาร","ไม่ใช้"]]},
+{n:"Steel Settings",th:"การออกแบบเหล็กรูปพรรณ",lv:"skip",i:[["Member Design","ใช้เมื่อโมเดลโครงหลังคาเหล็กในโปรแกรม","รอบแรกไม่ใช้"]]},
+{n:"Composite Member Settings",th:"ชิ้นส่วนผสมเหล็ก-คอนกรีต",lv:"skip",i:[["ค่าทั้งหมด","ไม่เกี่ยวกับบ้าน คสล.","ไม่ใช้"]]},
+{n:"Analytical Model Settings",th:"แบบจำลองวิเคราะห์",lv:"chk",i:[
+ ["Rigid Diaphragm / Stiffness Factors / Rigid Zones","สมมติฐานการวิเคราะห์","คงค่าเริ่มต้น · Slabs To Define Rigid Diaphragm"]]},
+{n:"Load Editor Settings",th:"การแสดงผลในหน้าต่างใส่น้ำหนัก",lv:"skip",i:[["ค่าทั้งหมด","เรื่องการแสดงผล","คงค่าเริ่มต้น"]]},
+{n:"Assessment Settings",th:"ประเมินอาคารเดิม",lv:"skip",i:[["ค่าทั้งหมด","งานประเมิน/เสริมกำลังอาคาร","ไม่ใช้"]]},
+{n:"Scales",th:"มาตราส่วนแบบ",lv:"chk",i:[["มาตราส่วนแปลนและรายละเอียด","ใช้กับแบบที่สร้าง","แปลน 1:100 · รายละเอียด 1:20–1:50"]]},
+{n:"Rebar",th:"การแสดงเหล็กในแบบ",lv:"chk",i:[["ชื่อเรียกเหล็ก","ให้แบบแสดงตามระบบไทย","ตรวจในแบบตัวอย่างว่าแสดง DB12 / RB6"]]},
+{n:"Plan Details",th:"รายละเอียดบนแปลน",lv:"skip",i:[["ค่าทั้งหมด","การแสดงข้อความ/สัญลักษณ์บนแปลน","คงค่าเริ่มต้น"]]},
+{n:"Template Management",th:"จัดการ Template",lv:"chk",i:[
+ ["Export","เก็บค่าที่ตั้งทั้งหมดไว้ใช้ครั้งหน้า","ทำในขั้น 7.4 หลังตั้งค่าครบ"]]}
+];
+
+/* ===== reference ===== */
+const KEYS=[["คลิกซ้าย","เลือกชิ้นส่วน"],["<<Ctrl>> + คลิก","เลือกหลายชิ้น"],["ลากกรอบ ซ้าย → ขวา","เลือกเฉพาะที่อยู่ในกรอบทั้งชิ้น"],["ลากกรอบ ขวา → ซ้าย","เลือกทุกชิ้นที่กรอบตัดผ่าน"],["คลิกขวา","จบคำสั่งวาด / เปิดเมนูของชิ้นที่เลือก"],["<<Esc>>","ยกเลิกการเลือก / ย้อนขั้นของคำสั่ง"],["<<F2>>","พิมพ์ระยะหรือพิกัดขณะวาด (Dynamic Input)"],["<<Tab>>","สลับช่องความยาว ↔ มุม"],["<<Enter>>","ยืนยันค่า"],["<<Ctrl>> ค้างขณะวาด","กระโดดตาม Length Step / Angle Step"],["ลูกศร ← → ↑ ↓","เลื่อนชิ้นส่วนที่เลือก ทีละ 25 มม."],["ล้อเมาส์","ซูมเข้า/ออก"],["กดล้อเมาส์ค้างแล้วลาก","เลื่อนมุมมอง (Pan)"],["ดับเบิลคลิกชั้นใน Structure Tree","เปลี่ยนชั้นที่ทำงาน"],["คลิกขวาที่คำสั่ง › Add to Quick Access Toolbar","เพิ่มคำสั่งที่ใช้บ่อยไว้มุมซ้ายบน"]];
+const GL=[
+["Ribbon","แถบคำสั่งด้านบน","ทำงานจากแท็บซ้ายไปขวา: Building Setout › Modelling › Loading › Review › Analysis › Design › Drawings & Reports"],
+["Structure Tree","ต้นไม้โครงสร้าง","แผงซ้าย รวม Axes, Views, Storeys และชิ้นส่วนทุกชนิด ค้นหาชื่อชิ้นส่วนได้"],
+["Quick Access Toolbar","แถบเครื่องมือด่วน","ไอคอนเล็กมุมซ้ายบน มี Save, Undo และ ⚙ Settings Center"],
+["Status bar","แถบสถานะ","บอกสิ่งที่ต้องทำต่อ หน่วย (GE/Anl/Disp) และพิกัดเคอร์เซอร์"],
+["Settings Center (Options)","ศูนย์ตั้งค่า","รวมค่ามาตรฐาน หน่วย และการออกแบบทั้งหมด"],
+["Template","แม่แบบโครงการ","ชุดค่าตั้งต้น เช่น Thailand (US Code, DPT)"],
+["Project Code","รหัสโครงการ","ชื่อโฟลเดอร์งาน ใช้ได้เฉพาะ A–Z 0–9 _ -"],
+["Storey (St)","ชั้น","ระดับที่วางคานและพื้น St: 0 = ระดับฐาน"],
+["Generate Storey","สร้างชั้นจากชั้นอื่น","คัดลอกชิ้นส่วนจากชั้นต้นทางไปชั้นปลายทาง"],
+["Similar storeys","ชั้นเหมือนกัน","แก้ชั้นหนึ่งจะเปลี่ยนทุกชั้นที่เหมือนกัน"],
+["Axis / Grid","แกน / กริด","เส้นอ้างอิง จุดตัดคือจุดวางชิ้นส่วน"],
+["Orthogonal Axis Generator","สร้างกริดตั้งฉาก","สร้างแกนทั้งระบบในครั้งเดียว"],
+["External Reference Drawing","แบบอ้างอิงภายนอก","แบบ DXF แสดงจางใต้โมเดล"],
+["Dynamic Input (DIS)","ป้อนค่าขณะวาด","กด F2 แล้วพิมพ์ความยาว มุม หรือพิกัด"],
+["b1, b2 · e1, e2","ขนาดและระยะเยื้องเสา","ระยะเยื้องวัดจากจุดศูนย์กลางเสา"],
+["e-z","ระดับคาน","ค่าลบ = คานต่ำกว่าระดับชั้น"],
+["End Releases","ปลดแรงที่ปลาย","ทำให้ปลายคานเป็นจุดหมุน"],
+["Slab Type 1–12","ชนิดพื้น","ความต่อเนื่องของขอบ ใช้กับวิธีสัมประสิทธิ์ · 12 = พื้นยื่น"],
+["Beam Region","วางพื้นในช่องคาน","วิธีวางพื้นเริ่มต้น"],
+["Yield-line decomposition","กระจายน้ำหนักพื้นลงคาน","โปรแกรมคิดพื้นที่รับน้ำหนักของคานให้อัตโนมัติ"],
+["Self-weight","น้ำหนักตัวเอง","คิดอัตโนมัติ แก้ไม่ได้ ห้ามใส่ซ้ำ"],
+["Load Case: G","น้ำหนักคงที่","Dead load เช่น ปูผิว ผนัง"],
+["Load Case: Q / Qr","น้ำหนักจร / จรหลังคา","Imposed load"],
+["Load Combination","ชุดผสมน้ำหนัก","กรณีน้ำหนักคูณตัวคูณแล้วรวมกัน"],
+["Loading Generator","ตัวสร้างกรณีน้ำหนัก","สร้างกรณีและชุดผสมอัตโนมัติตามมาตรฐาน"],
+["Service Dead Load","น้ำหนักคงที่เพิ่ม","บนพื้น เช่น ปูผิว ฝ้า งานระบบ"],
+["Imposed Load","น้ำหนักจร","น้ำหนักจากการใช้งาน"],
+["Partition Wall Loads","คลังน้ำหนักผนัง","ชนิดผนังที่เลือกใช้ตอนใส่ Wall Load"],
+["Member Load Editor","หน้าต่างใส่น้ำหนักชิ้นส่วน","เปิดด้วย Edit Loads"],
+["Load Editor Storey","หน้าต่างน้ำหนักทั้งชั้น","ดูและคัดลอกน้ำหนักทั้งชั้น"],
+["Building Model Check","ตรวจโมเดล","หาชิ้นส่วนไม่ต่อกัน ซ้อนกัน ก่อนวิเคราะห์"],
+["Pre-Analysis","ก่อนวิเคราะห์","ตรวจ Settings, Load Combinations, Wind, Materials"],
+["Batch Design","ออกแบบทั้งชุด","ออกแบบเสา/คานทั้งหมดในครั้งเดียว"],
+["Re-select All Bars","เลือกเหล็กใหม่ทั้งหมด","ล้างเหล็กเดิม ออกแบบใหม่ตามค่าที่ตั้ง"],
+["Axial Load Comparison Report","รายงานเทียบน้ำหนักลงเสา","Table 1/2/3 ต้องต่างกันไม่เกิน 5%"],
+["Analytical Model","แบบจำลองวิเคราะห์","เส้นสีน้ำเงินที่ใช้คำนวณจริง"],
+["Connectivity Issues","ปัญหาจุดต่อ","รายการชิ้นส่วนที่ปลายไม่ต่อกับอะไร"],
+["N, V2, V3, M2, M3, T","แรงในชิ้นส่วน","แรงตามแกน แรงเฉือน โมเมนต์ แรงบิด"],
+["Rigid Diaphragm","ไดอะแฟรมแข็ง","พื้นทั้งชั้นเคลื่อนที่ด้านข้างไปพร้อมกัน"],
+["Effective Stiffness Factors","ตัวคูณความแข็งหน้าตัดแตกร้าว","คงค่าเริ่มต้น"],
+["Interaction Diagram (N-M)","กราฟกำลังเสา","จุดแรงทุกจุดต้องอยู่ในเส้นโค้ง"],
+["Slenderness · Braced","ความชะลูด · มีค้ำยัน","มีผลต่อโมเมนต์เพิ่มในเสา"],
+["UR (Utilisation Ratio)","อัตราส่วนการใช้งาน","เกิน 1.0 = ไม่ผ่าน"],
+["Slab Strip","แถบออกแบบพื้น","Analytical Strip = วิธีสัมประสิทธิ์ · FE Strip = ไฟไนต์เอลิเมนต์"],
+["Bob","เริ่ม/จบเลยคานขอบ","ขอบแถบพื้นที่ยื่นเลยคานริม"],
+["Pile Cap · Pad Footing","ฐานรากบนเข็ม · ฐานแผ่",""],
+["Design Status","สถานะการออกแบบ","ระบายสีผ่าน/ไม่ผ่านทั้งอาคาร"],
+["Report Manager","ศูนย์รวมรายงาน","รวมรายงานเป็นเล่มเดียว ส่งออก PDF/Word"],
+["ProtaDetails","โปรแกรมเขียนแบบ","สร้างแบบเหล็กเสริมจากผลออกแบบ"]];
+const TR=[
+["เลือกชิ้นส่วนไม่ได้หลังวาด","หน้าต่าง Properties ยังเปิดอยู่ (ยังอยู่ในโหมดวาง) → ปิดหน้าต่างก่อน"],
+["วาดแล้วไปอยู่ผิดชั้น","ยังไม่ได้เปลี่ยนชั้นที่ทำงาน → ดับเบิลคลิกชั้นใน Structure Tree ก่อนวาด"],
+["มองไม่เห็นแบบ DXF","ไม่ได้ติ๊ก Active, เลือก Unit ผิด หรือกำหนด Storey No ไม่ตรงชั้นที่ดู"],
+["ใส่น้ำหนักพื้นไม่ได้","ยังไม่ได้สร้างกรณีน้ำหนัก → Loading › Load Cases and Combinations › Loading Generator (ขั้น 1.7)"],
+["พื้นไม่ถูกสร้างเมื่อคลิก","ช่องนั้นไม่มีคานล้อมรอบครบ หรือ Insertion ไม่ใช่ Beam Region"],
+["Building Model Check มี Error","ชิ้นส่วนไม่ต่อกัน ซ้อนกัน หรือไม่มีที่รองรับ → Load Log to Editor แล้วไล่แก้ตามชื่อชิ้นส่วน"],
+["Axial Load Comparison ต่างกันเกิน 5%","Table 1 ≠ 2: น้ำหนักพื้นหาย (พื้นไม่มีคานรองรับ) · Table 2 ≠ 3: น้ำหนักไม่ลงเสา (จุดต่อ/เสาลอย)"],
+["คานแอ่นหรือแรงสูงผิดปกติ","จุดต่อไม่ต่อจริง (ดู Connectivity Issues) หรือใส่น้ำหนักผิดหน่วย kg กับ kN"],
+["เสาหรือคานได้เหล็กเยอะผิดปกติ","น้ำหนักเกินจริง ชิ้นส่วนเล็กเกิน หรือ Max Bar Diameter ตั้งไว้เล็ก → ตรวจน้ำหนักก่อนเพิ่มขนาด"],
+["รายการเหล็กเป็น #3 #4 หรือ H/T","ตารางเหล็กยังเป็นของต่างประเทศ → Materials › Rebar Diameter › Edit… (ขั้น 1.6)"],
+["ฐานรากใหญ่ผิดปกติ","หน่วยกำลังดิน/เข็มผิด หรือค่ากำลังต่ำเกินจริง"],
+["แก้ขนาดแล้วผลไม่เปลี่ยน","ยังไม่ได้วิเคราะห์ใหม่ → 5.1 → 5.3 → ออกแบบใหม่ด้วย Re-select All Bars"]];
+const $=id=>document.getElementById(id);
+/* ===== notebook ===== */
 const NB=[
  ["name","ชื่อโครงการ","text","บ้านพักอาศัย 2 ชั้น"],
- ["pcode","Project Code (อังกฤษ/ตัวเลข/_ -)","text","House2F_01"],
+ ["pcode","Project Code (A–Z 0–9 _ -)","text","House2F_01"],
  ["floors","จำนวนชั้น","number","2"],
  ["h","ความสูงชั้น (ม.)","number","3.00"],
- ["ftg","ระดับท้องฐานราก (ม.)","number","-1.50"],
- ["code","มาตรฐานออกแบบคอนกรีต","select","ACI 318 · Thailand (US Code, DPT)|BS 8110|Eurocode 2"],
+ ["unit","หน่วยแรงในโปรแกรม","select","kg-m (ตาม Template)|kN-m"],
  ["fc","fc′ ทรงกระบอก (ksc)","number","240"],
  ["fy","เหล็กหลัก","select","SD40|SD30"],
  ["fys","เหล็กปลอก","select","SR24 (RB)|SD40 (DB)"],
- ["fnd","ชนิดฐานราก","select","ฐานรากบนเสาเข็ม|ฐานแผ่"],
- ["qa","กำลังดินที่ยอมให้ (t/m²) ถ้าฐานแผ่","number",""],
- ["pile","กำลังเสาเข็มต่อต้น (ตัน) ถ้าใช้เข็ม","number",""],
+ ["fnd","ชนิดฐานราก","select","Pile Cap (ฐานรากบนเข็ม)|Pad Footing (ฐานแผ่)"],
+ ["qa","กำลังดินที่ยอมให้ (t/m²)","number",""],
+ ["pile","กำลังเสาเข็มต่อต้น (ตัน)","number",""],
+ ["ftg","ระดับท้องฐานราก (ม.)","number","-1.50"],
  ["slab","ความหนาพื้น (ม.)","number","0.10"],
- ["ff","ปูผิว+ฝ้า (kN/m²)","number","0.5"],
- ["ll","น้ำหนักจรพื้น (kN/m²)","number","1.5"],
- ["llr","น้ำหนักจรหลังคา (kN/m²)","number","0.3"],
- ["roof","น้ำหนักหลังคา มุง+โครง (kN/m²)","number","0.6"],
- ["wall","ผนังหลัก (kN/m²)","number","1.8"],
- ["seis","อยู่ในพื้นที่ควบคุมแผ่นดินไหว?","select","ยังไม่ตรวจ|ใช่|ไม่ใช่"]
-];
+ ["ff","Service Dead Load พื้น (kg/m²)","number","50"],
+ ["ll","Imposed Load พื้น (kg/m²)","number","150"],
+ ["llr","น้ำหนักจรหลังคา (kg/m²)","number","30"],
+ ["roof","หลังคา มุง+โครง (kg/m²)","number","60"],
+ ["wall","ผนังหลัก (kg/m²)","number","180"],
+ ["seis","อยู่ในพื้นที่ควบคุมแผ่นดินไหว?","select","ยังไม่ตรวจ|ใช่|ไม่ใช่"]];
+const LOADK={ff:"kg/m²",ll:"kg/m²",llr:"kg/m²",roof:"kg/m²",wall:"kg/m²"};
 const defNb=()=>{const o={};NB.forEach(([k,,t,d])=>o[k]=t==="select"?d.split("|")[0]:d);return o};
-const newProj=name=>{const o={nb:defNb(),st:{cur:0,g:{}}};if(name)o.nb.name=name;return o};
+const newProj=n=>{const o={nb:defNb(),st:{cur:0,g:{},notes:{},set:{},setv:{}}};if(n)o.nb.name=n;return o};
 let DB=null;try{DB=JSON.parse(localStorage.getItem("ps-db")||"null")}catch(e){}
-if(!DB||!DB.list||!DB.list[DB.act]){DB={act:"p1",list:{p1:newProj()}};
-  try{const o=JSON.parse(localStorage.getItem("ps-nb")||"null"),t=JSON.parse(localStorage.getItem("ps-st")||"null");
-    if(o)Object.assign(DB.list.p1.nb,o);if(t)Object.assign(DB.list.p1.st,t)}catch(e){}}
+if(!DB||!DB.list||!DB.list[DB.act])DB={act:"p1",list:{p1:newProj()}};
 let nb,st;
-function bind(){const p=DB.list[DB.act];NB.forEach(([k,,t,d])=>{if(p.nb[k]===undefined)p.nb[k]=t==="select"?d.split("|")[0]:d});
-  p.st=Object.assign({cur:0,g:{}},p.st);nb=p.nb;st=p.st;if(st.cur>=S.length)st.cur=0}
-const saveAll=()=>{try{localStorage.setItem("ps-db",JSON.stringify(DB))}catch(e){}};
-const saveNb=saveAll;
-const N=k=>{const x=nb[k];return(x===""||x===undefined)?"(ยังไม่กรอก)":x};
+function bind(){const p=DB.list[DB.act];
+  if(!p.v3){ // migrate from v2: keep notebook, convert kN loads to kg, reset progress keys
+    const KM={"0.3":30,"0.5":50,"0.6":60,"1":100,"1.0":100,"1.5":150,"1.8":180,"3.6":360};["ff","ll","llr","roof","wall"].forEach(k=>{const r=String(p.nb[k]??""),x=parseFloat(r);if(!isNaN(x)&&x>0&&x<20)p.nb[k]=String(KM[r]??Math.round(x*101.97))});
+    if(p.nb.code)delete p.nb.code;
+    if(p.nb.fnd&&!/Pile|Pad/.test(p.nb.fnd))p.nb.fnd=/แผ่/.test(p.nb.fnd)?"Pad Footing (ฐานแผ่)":"Pile Cap (ฐานรากบนเข็ม)";
+    p.st={cur:0,g:{},notes:{},set:{},setv:{}};p.v3=1}
+  NB.forEach(([k,,t,d])=>{if(p.nb[k]===undefined)p.nb[k]=t==="select"?d.split("|")[0]:d});
+  p.st=Object.assign({cur:0,g:{},notes:{},set:{},setv:{}},p.st);nb=p.nb;st=p.st;if(st.cur>=S.length)st.cur=0}
+const save=()=>{try{localStorage.setItem("ps-db",JSON.stringify(DB))}catch(e){}};
+const esc=x=>String(x??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
+const val=k=>{const x=nb[k];if(x===""||x===undefined)return"(ยังไม่กรอก)";
+  if(LOADK[k]){const n=parseFloat(x);return `${esc(x)} ${LOADK[k]} (≈${(n*0.00981).toFixed(2)} kN/m²)`}return esc(x)};
+const mk=s=>String(s).replace(/\[\[(.+?)\]\](?!\])/g,'<span class="ui">$1</span>').replace(/<<(.+?)>>/g,"<kbd>$1</kbd>").replace(/\{(\w+)\}/g,(_,k)=>`<span class="nbv">${val(k)}</span>`);
+const stepOk=i=>S[i].chk.every((_,j)=>st.g[S[i].id+"#"+j]);
 
-/* ---------- phases & steps ---------- */
-const P=["เตรียมงาน","ตั้งค่าโปรเจกต์","สร้างโมเดล","ใส่น้ำหนัก","วิเคราะห์","ออกแบบ","เอกสาร"];
-const S=[
-/* A */
-{p:0,id:"A1",t:"เตรียมแบบสถาปัตย์",w0:"โมเดลโครงสร้างจะดีได้เท่ากับแบบที่ใช้ตั้งต้น",
- a:["ขอแบบสถาปัตย์เป็นไฟล์ DWG ครบทุกแปลน รูปด้าน รูปตัด","เปิดใน AutoCAD/โปรแกรม CAD แล้วบันทึกไฟล์ใหม่ เหลือเฉพาะเลเยอร์ กริด เสา ผนัง","ย้ายจุดตัดกริดมุมล่างซ้ายไปที่พิกัด 0,0 และตั้งหน่วยเป็นเมตร","แยกไฟล์ทีละชั้น เช่น plan-1F.dwg, plan-2F.dwg"],
- g:["มีไฟล์ DWG ที่สะอาดครบทุกชั้น","กริดเริ่มที่ 0,0 หน่วยเมตร"]},
-{p:0,id:"A2",t:"ข้อมูลดินและฐานราก",w0:"เป็นข้อมูลที่ผิดแล้วอันตรายที่สุด",
- a:["ขอผลเจาะสำรวจดิน หรือข้อมูลเสาเข็มที่ใช้ในย่านนั้นจากผู้รับเหมา/ผู้ผลิตเข็ม","ตัดสินใจชนิดฐานราก: บนเสาเข็ม หรือฐานแผ่","จดค่ากำลังดิน หรือชนิด ขนาด ความยาว และกำลังเข็มต่อต้น ลงในสมุดข้อมูล"],
- v:"ชนิดฐานราก: {fnd} · กำลังดิน: {qa} t/m² · เข็ม: {pile} ตัน/ต้น",
- x:"ห้ามเดาค่ากำลังดิน ในพื้นที่ดินอ่อน เช่น ภาคกลาง บ้าน 2 ชั้นส่วนใหญ่ต้องใช้เสาเข็ม",
- g:["ได้ค่ากำลังดินหรือเสาเข็มจากแหล่งที่เชื่อถือได้","กรอกลงสมุดข้อมูลแล้ว"]},
-{p:0,id:"A3",t:"กำหนดเกณฑ์การออกแบบ",w0:"ตัดสินใจเรื่องมาตรฐาน วัสดุ น้ำหนัก ก่อนเปิดโปรแกรม แล้วยึดตลอดงาน",
- a:["เลือกมาตรฐานออกแบบคอนกรีต (วิศวกรไทยส่วนใหญ่ใช้ ACI 318)","กำหนด fc′ (ระบุว่าทรงกระบอกหรือลูกบาศก์) และชั้นเหล็ก","กำหนดน้ำหนักจรตามกฎหมาย และน้ำหนักวัสดุปูผิว ผนัง หลังคา","ตรวจว่าที่ตั้งอยู่ในพื้นที่ควบคุมแผ่นดินไหวตามกฎกระทรวงหรือไม่","กรอกทั้งหมดในสมุดข้อมูลโครงการ"],
- v:"มาตรฐาน {code} · fc′ {fc} ksc · เหล็กหลัก {fy} · ปลอก {fys} · LL {ll} kN/m² · แผ่นดินไหว: {seis}",
- x:"ProtaStructure ไม่มีมาตรฐานคอนกรีตของไทยในรายการ ชื่ออย่าง “TIS 286-2561” ในอินโฟกราฟิกเดิมไม่มีอยู่จริง",
- g:["เลือกมาตรฐานแล้ว","กรอกวัสดุและน้ำหนักในสมุดข้อมูลครบ","ตรวจเรื่องพื้นที่แผ่นดินไหวแล้ว"]},
-{p:0,id:"A4",t:"วางระบบโครงสร้างบนกระดาษ",w0:"รู้ก่อนว่าแรงเดินทางอย่างไร จะโมเดลได้ถูกและเร็ว",
- a:["บนแปลนแต่ละชั้น ทำเครื่องหมายตำแหน่งเสา (เสาชั้นบนควรตรงกับเสาชั้นล่าง)","ลากแนวคานรอบพื้นทุกแผ่น และใต้ผนังทุกแนว","ระบุชนิดพื้น: หล่อในที่ หรือพื้นสำเร็จรูป และทิศทางพาด","ประมาณขนาดเบื้องต้น: คานลึก ≈ ช่วง/12 ถึง /10, เสาบ้าน 0.20–0.25 ม.","ระบุตำแหน่งบันได ถังน้ำ และของหนักพิเศษ"],
- x:"ผนังที่ไม่มีคานรองรับ และเสาชั้นบนที่ไม่มีเสาชั้นล่าง (เสาลอย) คือต้นเหตุปัญหาที่พบบ่อยที่สุด",
- g:["ทุกผนังมีคานรองรับ","ทุกแผ่นพื้นมีคานรอบ","ระบุเสาลอย (ถ้ามี) และคานที่รับเสานั้นแล้ว"]},
-/* B */
-{p:1,id:"B1",m:"Building Setout → New",t:"สร้างโปรเจกต์ใหม่",w0:"",
- a:["แท็บ Building Setout → New (หรือปุ่มสร้างโปรเจกต์ใหม่ในหน้า Start Page)","Project Code: ใช้ได้เฉพาะ A–Z a–z 0–9 _ - ห้ามมีภาษาไทยหรือช่องว่าง เช่น {pcode}","Templates: พิมพ์ Thailand ในช่องค้นหา แล้วเลือก Thailand (US Code, DPT)","ตรวจโฟลเดอร์เก็บงาน (ProtaData2026) แล้วกด OK","ดูแถบล่างขวา เช่น GE: cm, Anl: kN-m, Disp: m เพื่อรู้ว่าป้อนขนาดเป็นหน่วยอะไร"],
- v:"Project Code: {pcode} · Template: Thailand (US Code, DPT)",x:"US Code คือชุดออกแบบตาม ACI 318 ส่วน DPT คือค่าน้ำหนักและแรงลมของกรมโยธาธิการและผังเมือง ตรงกับเกณฑ์ในขั้น 1.3",
- t2:"ครั้งแรกให้เปิด Sample Project ของโปรแกรมดูก่อน 10 นาที จะเข้าใจหน้าตาโมเดลที่เสร็จแล้ว",
- g:["สร้างโปรเจกต์และตั้งหน่วยแล้ว"]},
-{p:1,id:"B2",m:"Building Setout → Settings Center, Materials",t:"ตั้งค่าใน Settings Center",w0:"ตั้งมาตรฐานและวัสดุให้ตรงกับเกณฑ์ใน A3",
- a:["เปิด Settings Center","หมวดออกแบบคอนกรีต: เลือกมาตรฐานตาม A3","หมวดวัสดุ: ตั้งกำลังคอนกรีตและเหล็กหลัก/เหล็กปลอก","ตั้งระยะหุ้มคอนกรีต (ดูค่าแนะนำด้านล่าง)","ตั้งขนาดเหล็กที่จะยอมให้โปรแกรมเลือก (ตัดขนาดที่หาซื้อยากออก)","หมวดลม/แผ่นดินไหว: ตามที่ตัดสินใจใน A3"],
- v:"fc′ {fc} ksc ≈ ใส่เป็น MPa ดูแท็บเครื่องคิด · เหล็ก {fy} / {fys} · ระยะหุ้มทั่วไป: พื้น 2 ซม. คาน/เสา 3–4 ซม. ฐานรากที่หล่อติดดิน 7.5 ซม.",
- x:"ระวังสับสน fc′ ทรงกระบอกกับลูกบาศก์ 240 ksc ลูกบาศก์ ≈ 200 ksc ทรงกระบอกเท่านั้น",
- g:["มาตรฐานตรงกับ A3","วัสดุและระยะหุ้มตั้งแล้ว"]},
-/* C */
-{p:2,id:"C1",m:"Building Setout → External Reference Drawing / DXF Import · แผงซ้าย Axes",t:"สร้างกริด (Axis)",w0:"",
- a:["นำเข้า DWG ชั้น 1 เป็นภาพอ้างอิง (reference/underlay)","สร้างแกนตามกริดในแบบ หรือแปลงเส้นกริดจาก DWG","ตั้งชื่อแกนให้ตรงแบบ (1,2,3… / A,B,C…)","วัดระยะระหว่างแกนเทียบกับแบบอีกครั้ง"],
- g:["ระยะกริดตรงแบบทุกช่วง","ชื่อแกนตรงแบบ"]},
-{p:2,id:"C2",m:"Building Setout → Storeys · แผงซ้าย Storeys",t:"สร้างชั้น (Storeys)",w0:"",
- a:["เพิ่มชั้นตามจำนวนชั้นจริง + ชั้นหลังคา","ตั้งความสูงชั้นแต่ละชั้น","ตั้งระดับฐานราก/คานคอดิน"],
- v:"{floors} ชั้น · สูงชั้นละ {h} ม. · ท้องฐานราก {ftg} ม.",
- g:["ระดับทุกชั้นตรงกับรูปตัด"]},
-{p:2,id:"C3",m:"แท็บ Modelling",t:"วางเสาชั้น 1",w0:"",
- a:["เลือกคำสั่งเสา กำหนดขนาดเบื้องต้น","คลิกวางที่จุดตัดกริดตามแปลนที่ทำใน A4","เสาที่ไม่อยู่บนกริด ใช้การวางด้วยระยะ offset","ตรวจทิศทางหน้าตัด (เสาสี่เหลี่ยมผืนผ้าหมุนถูกด้าน)"],
- g:["จำนวนเสาตรงกับแผนใน A4","เสาทุกต้นมีขนาดและทิศถูก"]},
-{p:2,id:"C4",m:"แท็บ Modelling",t:"วางคานชั้น 1 (คานคอดินถ้าทำชั้นฐาน)",w0:"",
- a:["เลือกคำสั่งคาน กำหนดขนาด","วางคานจากเสาถึงเสา หรือคานถึงคาน ให้ปลายต่อกันจริง","วางคานใต้แนวผนังทุกแนว","คานรับเสาลอยให้ระบุขนาดใหญ่ขึ้นไว้ก่อน"],
- x:"ปลายคานที่ดูเหมือนต่อแต่ไม่ต่อจริง จะทำให้แรงไม่ถ่ายและผลวิเคราะห์ผิด ให้ซูมดูจุดต่อ",
- g:["คานทุกตัวมีปลายต่อกับเสาหรือคาน","มีคานใต้ผนังทุกแนว"]},
-{p:2,id:"C5",m:"แท็บ Modelling",t:"วางพื้น",w0:"",
- a:["เลือกคำสั่งพื้น กำหนดความหนา","คลิกในช่องที่มีคานล้อมรอบ","พื้นสำเร็จรูป: ตั้งเป็นพื้นทางเดียวและทิศพาดให้ถูก","พื้นห้องน้ำ/ระเบียงที่ลดระดับ ให้ระบุ"],
- v:"ความหนาพื้น {slab} ม.",
- g:["ทุกช่องที่เป็นพื้นในแบบมีพื้นในโมเดล","ทิศพาดพื้นทางเดียวถูก"]},
-{p:2,id:"C6",m:"แท็บ Modelling",t:"คัดลอกไปชั้น 2 แล้วแก้",w0:"",
- a:["คัดลอกเสา คาน พื้น จากชั้น 1 ไปชั้น 2","ลบ/ย้ายส่วนที่ชั้น 2 ไม่มี และเพิ่มส่วนที่มีเฉพาะชั้น 2","ตรวจเสาลอยและคานที่รับ","ตรวจช่องบันไดและช่องเปิดพื้น"],
- g:["ชั้น 2 ตรงตามแปลน","เสาลอยวางบนคานที่รับได้"]},
-{p:2,id:"C7",m:"แท็บ Modelling",t:"บันไดและคานรับหลังคา",w0:"",
- a:["บันได: มือใหม่แนะนำให้คิดเป็นน้ำหนักลงคานที่รองรับ แทนการโมเดลบันได","ชั้นหลังคา: วางคานรับหลังคา/คานรับโครงหลังคาตามแบบ","โครงเหล็กหลังคา (แป จันทัน) ออกแบบแยก แล้วนำแรงมาใส่บนคาน (ขั้น D4)"],
- x:"อินโฟกราฟิกเดิมให้โมเดลโครงหลังคาทั้งหมดในโปรแกรม ทำได้แต่ซับซ้อนเกินไปสำหรับรอบแรก",
- g:["มีคานรองรับบันไดและหลังคาครบ"]},
-{p:2,id:"C8",m:"แท็บ Modelling",t:"วางฐานราก",w0:"วางชนิดและข้อมูลดิน ส่วนขนาดให้โปรแกรมออกแบบหลังวิเคราะห์",
- a:["เลือกคำสั่งฐานรากตามชนิดใน A2","วางใต้เสาทุกต้นที่ลงถึงดิน","ใส่กำลังดิน หรือกำลังเสาเข็ม และจำนวน/ขนาดเข็มเริ่มต้น","ตรวจระดับท้องฐานราก","ดูโมเดล 3D หมุนตรวจทั้งหลังก่อนไปต่อ"],
- v:"{fnd} · ดิน {qa} t/m² · เข็ม {pile} ตัน/ต้น · ท้องฐาน {ftg} ม.",
- g:["เสาที่ลงดินทุกต้นมีฐานราก","ค่ากำลังดิน/เข็มตรงสมุดข้อมูล","ตรวจ 3D แล้วไม่มีชิ้นส่วนลอย"]},
-/* D */
-{p:3,id:"D1",m:"แท็บ Loading",t:"น้ำหนักตัวเอง",w0:"",
- a:["ตรวจในการตั้งค่าว่าโปรแกรมคิดน้ำหนักตัวเองของคอนกรีตอัตโนมัติ","จำไว้ว่า ไม่ต้องใส่น้ำหนักพื้นคอนกรีตเองซ้ำอีก"],
- x:"อินโฟกราฟิกเดิมใส่ “Slab 2.40 kN/m²” เพิ่ม ถ้าน้ำหนักตัวเองเปิดอยู่จะนับซ้ำ 2 เท่า",
- g:["ยืนยันว่าน้ำหนักตัวเองคิดอัตโนมัติ"]},
-{p:3,id:"D2",m:"แท็บ Loading",t:"น้ำหนักบนพื้น (DL เพิ่ม + LL)",w0:"",
- a:["เลือกพื้นทุกแผ่นของชั้น","ใส่น้ำหนักคงที่เพิ่ม (ปูผิว ฝ้า งานระบบ)","ใส่น้ำหนักจรตามประเภทการใช้งาน","ห้องที่ใช้งานต่างกัน (เช่น ห้องเก็บของ) ให้ใส่แยก"],
- v:"DL เพิ่ม {ff} kN/m² · LL {ll} kN/m²",
- g:["ทุกแผ่นพื้นมีน้ำหนักครบทั้ง DL และ LL"]},
-{p:3,id:"D3",m:"แท็บ Loading",t:"น้ำหนักผนังบนคาน",w0:"ผนังเป็นน้ำหนักแผ่ตามยาว หน่วย kN/m",
- a:["คำนวณ: น้ำหนักผนังต่อ ม² × ความสูงผนัง (ใช้แท็บเครื่องคิด)","เลือกคานที่มีผนังวางอยู่","ใส่เป็น line load แบบ DL","ผนังชั้น 2 ที่วางบนพื้น (ไม่มีคาน) ใส่เป็นน้ำหนักบนพื้นแทน"],
- v:"ผนัง {wall} kN/m² × สูง {h} ม. (หักความลึกคาน) — ดูค่าในแท็บเครื่องคิด",
- x:"อินโฟกราฟิกเดิมใส่ผนังเป็น kN/m² ซึ่งผิดหน่วย",
- g:["คานทุกตัวที่มีผนังมีน้ำหนักผนัง","หน่วยเป็น kN/m"]},
-{p:3,id:"D4",m:"แท็บ Loading",t:"น้ำหนักหลังคาและบันได",w0:"",
- a:["หลังคา: (น้ำหนักหลังคา × พื้นที่ที่คานรับ) ÷ ความยาวคาน → kN/m หรือใส่เป็นแรงจุดตามตำแหน่งจันทัน","ใส่น้ำหนักจรหลังคาแยกเป็น LL","บันได: แรงปฏิกิริยาของบันไดลงคานที่รองรับ"],
- v:"หลังคา DL {roof} kN/m² · LL หลังคา {llr} kN/m²",
- g:["คานรับหลังคามีทั้ง DL และ LL","มีน้ำหนักบันไดแล้ว"]},
-{p:3,id:"D5",m:"แท็บ Loading",t:"ลมและแผ่นดินไหว",w0:"",
- a:["ลม: ตั้งตามมาตรฐานลมที่เลือก (Prota มีตัวเลือก DPT ของไทย)","แผ่นดินไหว: ถ้าอยู่ในพื้นที่ควบคุม ตั้งพารามิเตอร์ตามมาตรฐานไทยที่โปรแกรมรองรับ","ถ้าไม่อยู่ในพื้นที่ควบคุม จดเหตุผลไว้ในรายการคำนวณ"],
- v:"พื้นที่ควบคุมแผ่นดินไหว: {seis}",
- g:["ตัดสินใจและตั้งค่าลม/แผ่นดินไหวแล้ว"]},
-{p:3,id:"D6",m:"แท็บ Loading",t:"ชุดผสมน้ำหนัก (Load Combinations)",w0:"",
- a:["ให้โปรแกรมสร้างชุดผสมจากมาตรฐานที่เลือก","เปิดดูรายการ ตรวจตัวคูณว่าตรงกับมาตรฐานที่อ้างอิง","ลบชุดที่ไม่เกี่ยวข้อง (เช่น แผ่นดินไหว ถ้าไม่ใช้)"],
- x:"ตารางในอินโฟกราฟิกเดิมเป็นชุด ACI 318/ASCE 7 แต่เขียนว่าเป็นมาตรฐานไทย ให้ยึดชุดที่ตรงกับมาตรฐานที่ระบุในรายการคำนวณจริง",
- g:["ชุดผสมตรงมาตรฐานที่เลือก"]},
-/* E */
-{p:4,id:"E1",m:"แท็บ Review / Analysis",t:"ตรวจโมเดลก่อนวิเคราะห์",w0:"",
- a:["รันคำสั่งตรวจโมเดล (model/building check)","อ่านคำเตือนทุกข้อ แก้ให้หมด โดยเฉพาะชิ้นส่วนไม่ต่อกัน ซ้อนทับ หรือไม่มีที่รองรับ","รันตรวจซ้ำจนไม่มี error"],
- g:["ไม่มี error","อ่านและเข้าใจคำเตือนที่เหลือทุกข้อ"]},
-{p:4,id:"E2",m:"แท็บ Analysis",t:"วิเคราะห์โครงสร้าง",w0:"",
- a:["สั่งวิเคราะห์อาคาร (Building Analysis)","รอจนเสร็จ ถ้าล้มเหลว อ่านข้อความแล้วกลับไป E1"],
- g:["วิเคราะห์สำเร็จ"]},
-{p:4,id:"E3",m:"แท็บ Analysis (ดูผล)",t:"ตรวจผลด้วยสามัญสำนึก",w0:"ขั้นที่กันความผิดพลาดใหญ่ได้ดีที่สุด",
- a:["ดูผลรวมแรงปฏิกิริยาที่ฐาน (DL และ LL) เทียบกับน้ำหนักรวมในแท็บเครื่องคิด","ดูรูปการเสียรูป: ไม่มีส่วนไหนแอ่นผิดธรรมชาติ","ดูการแอ่นตัวของคานยาวและพื้น","ดูแรงในเสา: เสาชั้นล่างต้องรับแรงมากกว่าชั้นบน"],
- x:"ถ้าต่างกันมาก สาเหตุหลักคือ น้ำหนักซ้ำ/ขาด ผิดหน่วย หรือชิ้นส่วนไม่ต่อกัน",
- g:["แรงปฏิกิริยารวมใกล้กับที่คิดด้วยมือ","ไม่มีการเสียรูปผิดปกติ"]},
-/* F */
-{p:5,id:"F1",m:"แท็บ Design",t:"ออกแบบพื้น",w0:"ออกแบบตามเส้นทางแรง: พื้น → คาน → เสา → ฐานราก",
- a:["สั่งออกแบบพื้น","ดูพื้นที่ไม่ผ่าน (การแอ่น/เหล็กเกิน) → เพิ่มความหนาหรือเพิ่มคานซอย","ตรวจเหล็กเสริมขั้นต่ำและระยะห่าง"],
- g:["พื้นผ่านทุกแผ่น"]},
-{p:5,id:"F2",m:"แท็บ Design",t:"ออกแบบคาน",w0:"",
- a:["สั่งออกแบบคานทุกชั้น","คานไม่ผ่าน: เพิ่มความลึกก่อน แล้วจึงเพิ่มเหล็ก","ตรวจจำนวนเหล็กใส่ได้ในความกว้างคาน และเหล็กปลอกไม่ถี่เกินทำงานได้","รวมคานที่ขนาดใกล้กันให้เป็นแบบเดียวกัน"],
- g:["คานผ่านทุกตัว","เหล็กใส่ได้จริงในหน้าตัด"]},
-{p:5,id:"F3",m:"แท็บ Design",t:"ออกแบบเสา",w0:"",
- a:["สั่งออกแบบเสา","ตรวจเสาที่รับเสาลอยหรือคานยาวเป็นพิเศษ","ตรวจสัดส่วนเหล็ก (ไม่ต่ำหรือสูงเกินมาตรฐาน)"],
- x:"ตัวอย่างในอินโฟกราฟิกเดิม เสา 0.25×0.25 ม. ใส่ 8-DB16 ผิดปกติสำหรับบ้าน ถ้าผลออกมาแบบนี้ให้ตรวจน้ำหนักหรือเพิ่มขนาดเสา",
- g:["เสาผ่านทุกต้น","ปริมาณเหล็กสมเหตุสมผล"]},
-{p:5,id:"F4",m:"แท็บ Design",t:"ออกแบบฐานราก",w0:"",
- a:["สั่งออกแบบฐานราก","ตรวจแรงต่อเสาเข็ม/แรงดันดินไม่เกินค่าที่ยอมให้","ตรวจแรงเฉือนเจาะทะลุและความหนาฐาน","จัดกลุ่มฐานรากให้เหลือไม่กี่แบบ (F1, F2, F3…)"],
- v:"ดิน {qa} t/m² · เข็ม {pile} ตัน/ต้น",
- g:["ฐานรากผ่านทุกตัว","จัดกลุ่มแบบฐานรากแล้ว"]},
-{p:5,id:"F5",m:"แท็บ Design",t:"วนปรับแก้",w0:"เปลี่ยนขนาดแล้วต้องวิเคราะห์ใหม่ เพราะน้ำหนักและความแข็งเปลี่ยน",
- a:["ถ้าเปลี่ยนขนาดชิ้นส่วนใด ๆ → กลับไป E1 วิเคราะห์ใหม่ → ออกแบบใหม่","ทำจนทุกชิ้นส่วนผ่านโดยไม่ต้องแก้เพิ่ม","สุ่มคำนวณมือ คาน 1 ตัว เสา 1 ต้น เทียบกับโปรแกรม"],
- g:["วิเคราะห์รอบสุดท้ายหลังแก้ขนาดแล้ว","คำนวณมือเทียบแล้วใกล้เคียง"]},
-/* G */
-{p:6,id:"G1",m:"แท็บ Drawings & Reports",t:"แบบโครงสร้าง",w0:"",
- a:["สร้างแบบด้วย ProtaDetails: แปลนฐานราก แปลนคาน แปลนพื้น","ตารางเสา ตารางคาน รายละเอียดฐานราก","เพิ่มหมายเหตุทั่วไป: มาตรฐาน วัสดุ ระยะหุ้ม","ส่งออก DWG/PDF แล้วตรวจกับแบบสถาปัตย์"],
- g:["แบบครบทุกแผ่น","หมายเหตุทั่วไปถูกต้อง"]},
-{p:6,id:"G2",m:"แท็บ Drawings & Reports",t:"รายการคำนวณ",w0:"",
- a:["สร้างรายงานจากโปรแกรม","เพิ่มหน้าเกณฑ์การออกแบบ (จาก A3) และข้อมูลดิน (A2)","แนบผลคำนวณมือที่ใช้ตรวจ (F5)"],
- g:["รายการคำนวณครบ"]},
-{p:6,id:"G3",t:"ตรวจรับรองโดยวิศวกร",w0:"",
- a:["ให้วิศวกรโยธาผู้มีใบอนุญาตตรวจทั้งโมเดล แบบ และรายการคำนวณ","แก้ตามความเห็น แล้วให้ลงนามรับรองก่อนยื่นขออนุญาต"],
- x:"โปรแกรมช่วยคำนวณ แต่ความรับผิดชอบทางกฎหมายเป็นของวิศวกรผู้ลงนาม",
- g:["ผ่านการตรวจและลงนามแล้ว"]}
-];
-
-const saveSt=saveAll;
-const PL=["A","B","C","D","E","F","G"];
-S.forEach(s=>{s.code=(PL.indexOf(s.id[0])+1)+"."+s.id.slice(1)});
-const num=t=>t.replace(/\b([A-G])(\d)\b/g,(_,a,n)=>(PL.indexOf(a)+1)+"."+n);
-const fill=s=>s.replace(/\{(\w+)\}/g,(_,k)=>`<span class="nb">${N(k)}</span>`);
-const stepOk=i=>S[i].g.every((_,j)=>st.g[S[i].id+j]);
-
-function renderRail(){
-  const r=document.getElementById("rail");r.innerHTML="";
-  P.forEach((name,pi)=>{const idx=S.map((s,i)=>s.p===pi?i:-1).filter(i=>i>=0);
-    const b=document.createElement("button");
-    b.className=(S[st.cur].p===pi?"on ":"")+(idx.every(stepOk)?"full":"");
-    b.innerHTML=`<b>${pi+1}</b><span>${name}</span><i>${idx.filter(stepOk).length}/${idx.length}</i>`;b.title=name;
-    b.onclick=()=>{st.cur=idx[0];render()};r.appendChild(b)});
-}
-function renderList(){
-  const n=document.getElementById("list");let h="";const q=($("q").value||"").trim().toLowerCase();
-  const hit=s=>!q||(s.code+" "+s.t+" "+s.a.join(" ")+" "+(s.x||"")).toLowerCase().includes(q);
-  P.forEach((name,pi)=>{const ss=S.filter(s=>s.p===pi&&hit(s));if(!ss.length)return;h+=`<h4>${pi+1} · ${name}</h4>`;
-    S.forEach((s,i)=>{if(s.p!==pi||!hit(s))return;
-      h+=`<button data-i="${i}" ${i===st.cur?'aria-current="true"':''}><span class="k">${s.code}</span><span>${s.t}</span>${stepOk(i)?'<span class="ok">✓</span>':''}</button>`})});
-  n.innerHTML=h||'<div class="empty">ไม่พบขั้นตอนที่ค้นหา</div>';n.querySelectorAll("button").forEach(b=>b.onclick=()=>{st.cur=+b.dataset.i;render()});
-}
-function renderCard(){
-  const s=S[st.cur],c=document.getElementById("card");
-  c.innerHTML=num(`<div class="code">${s.code} · ${P[s.p]} · ขั้นที่ ${st.cur+1} จาก ${S.length}</div>
-  <h2>${s.t}</h2>${s.m?`<div class="menu">ใน Prota 2026: <b>${s.m}</b></div>`:""}${s.w0?`<p class="why">${s.w0}</p>`:""}
-  <h3>ทำในโปรแกรม / ทำก่อนเข้าโปรแกรม</h3><ol class="act">${s.a.map(x=>`<li>${fill(x)}</li>`).join("")}</ol>
-  ${s.v?`<div class="val">ค่าของโครงการนี้: ${fill(s.v)}</div>`:""}
-  ${s.t2?`<div class="val">${s.t2}</div>`:""}
-  ${s.id==="B2"?`<p><button class="go" id="toSet" style="padding:8px 14px;border:0;border-radius:6px;background:var(--ok);color:#fff;cursor:pointer;font-weight:700">เปิดคู่มือตั้งค่าแบบละเอียด →</button></p>`:""}
-  ${s.x?`<div class="warn"><strong>ระวัง</strong> ${s.x}</div>`:""}
-  <div class="gate"><h3>ตรวจก่อนไปต่อ</h3>${s.g.map((x,j)=>`<label><input type="checkbox" data-k="${s.id+j}" ${st.g[s.id+j]?"checked":""}><span>${x}</span></label>`).join("")}</div>
-  <h3>บันทึกของฉัน</h3><textarea class="note" id="note" placeholder="จดสิ่งที่ทำจริงในโปรแกรม ปัญหาที่เจอ หรือค่าที่ใช้"></textarea>
-  <div class="foot"><button id="prev" ${st.cur===0?"disabled":""}>ย้อนกลับ</button>
-  <span class="hint" id="hint"></span>
-  <button class="go" id="next" ${st.cur===S.length-1?"disabled":""}>ขั้นถัดไป</button></div>
-  <p class="small">ชื่อเมนูอาจต่างเล็กน้อยตามเวอร์ชันของโปรแกรม ใช้ปุ่ม ← → บนคีย์บอร์ดเปลี่ยนขั้นได้</p>`);
-  st.notes=st.notes||{};const nt=c.querySelector("#note");nt.value=st.notes[s.id]||"";nt.oninput=()=>{st.notes[s.id]=nt.value;saveSt()};
-  const ts=c.querySelector("#toSet");if(ts)ts.onclick=()=>document.querySelector('[data-tab="set"]').click();
-  const upd=()=>{document.getElementById("hint").textContent=stepOk(st.cur)?"ผ่านแล้ว ไปต่อได้":"ยังติ๊กเช็กไม่ครบ (ไปต่อได้ แต่ควรกลับมาทำ)"};upd();
-  c.querySelectorAll(".gate input").forEach(el=>el.onchange=()=>{st.g[el.dataset.k]=el.checked;saveSt();upd();renderList();renderRail();renderOverall()});
-  c.querySelector("#prev").onclick=()=>{st.cur--;render()};
-  c.querySelector("#next").onclick=()=>{st.cur++;render();window.scrollTo({top:0})};
-}
+/* ===== steps ===== */
+function renderRail(){$("rail").innerHTML="";P.forEach((p,pi)=>{const idx=S.map((s,i)=>s.ph===pi?i:-1).filter(i=>i>=0);
+  const b=document.createElement("button");b.className=(S[st.cur].ph===pi?"on ":"")+(idx.every(stepOk)?"full":"");
+  b.innerHTML=`<b>${pi}</b><span>${p.en}</span><i>${idx.filter(stepOk).length}/${idx.length}</i>`;b.title=`${p.en} · ${p.th}`;
+  b.onclick=()=>{st.cur=idx[0];render()};$("rail").appendChild(b)})}
+function renderList(){const q=($("q").value||"").trim().toLowerCase();
+  const hit=s=>!q||[s.id,s.t,s.en,s.path.join(" "),s.do.join(" ")].join(" ").toLowerCase().includes(q);let h="";
+  P.forEach((p,pi)=>{const ss=S.filter(s=>s.ph===pi&&hit(s));if(!ss.length)return;h+=`<h4>${pi} · ${p.en} · ${p.th}</h4>`;
+    S.forEach((s,i)=>{if(s.ph!==pi||!hit(s))return;
+      h+=`<button data-i="${i}" ${i===st.cur?'aria-current="true"':''}><span class="k">${s.id}</span><span>${s.t}</span>${stepOk(i)?'<span class="tick">✓</span>':''}</button>`})});
+  $("list").innerHTML=h||'<div class="empty">ไม่พบขั้นตอน</div>';
+  $("list").querySelectorAll("button").forEach(b=>b.onclick=()=>{st.cur=+b.dataset.i;render();scrollTo({top:0})})}
 function renderOverall(){const n=S.filter((_,i)=>stepOk(i)).length;$("ovT").textContent=`ผ่านแล้ว ${n} จาก ${S.length} ขั้น (${Math.round(n/S.length*100)}%)`;$("ovB").style.width=(n/S.length*100)+"%"}
-function render(){saveSt();renderRail();renderList();renderCard();renderOverall()}
+function renderCard(){const s=S[st.cur],p=P[s.ph];
+  const crumb=s.path.map(x=>`<span class="ui">${esc(x)}</span>`).join('<span class="sep">›</span>');
+  $("card").innerHTML=`<div class="meta">ขั้น ${s.id} · ${p.en} · ${p.th} · ${st.cur+1}/${S.length}</div>
+  <h2>${s.t}</h2><div class="en">${s.en}</div>
+  <div class="crumb"><span class="lbl">ตำแหน่ง:</span>${crumb}</div>
+  <p class="goal">${mk(s.goal)}</p>
+  <div class="sec"><h3>ขั้นตอน</h3><ol class="do">${s.do.map(x=>`<li>${mk(x)}</li>`).join("")}</ol></div>
+  ${s.val?`<div class="box val"><b class="t">ค่าของโครงการนี้</b>${mk(s.val)}</div>`:""}
+  ${s.warn?`<div class="box warn"><b class="t">ระวัง</b>${mk(s.warn)}</div>`:""}
+  ${s.tip?`<div class="box tip"><b class="t">เคล็ดลับ</b>${mk(s.tip)}</div>`:""}
+  ${s.set?`<p style="margin-top:12px"><button class="btn pri" id="toSet">เปิดคู่มือ Settings Center ทุกโหนด →</button></p>`:""}
+  <div class="sec"><h3>ตรวจก่อนไปต่อ</h3><div class="chk">${s.chk.map((x,j)=>`<label><input type="checkbox" data-k="${s.id}#${j}" ${st.g[s.id+"#"+j]?"checked":""}><span>${mk(x)}</span></label>`).join("")}</div></div>
+  <div class="sec"><h3>บันทึกของฉัน</h3><textarea class="note" id="note" placeholder="จดสิ่งที่ทำจริง ปัญหาที่เจอ หรือค่าที่ใช้"></textarea></div>
+  <div class="foot"><button class="btn" id="prev" ${st.cur===0?"disabled":""}>← ย้อนกลับ</button><span class="hint" id="hint"></span><button class="btn pri" id="next" ${st.cur===S.length-1?"disabled":""}>ขั้นถัดไป →</button></div>
+  ${s.ref?`<div class="ref">อ้างอิงหัวข้อ: ${esc(s.ref)}</div>`:""}`;
+  const nt=$("note");nt.value=st.notes[s.id]||"";nt.oninput=()=>{st.notes[s.id]=nt.value;save()};
+  const upd=()=>{$("hint").textContent=stepOk(st.cur)?"ผ่านแล้ว ✓":"ติ๊กตรวจให้ครบก่อนไปต่อ (ไปต่อได้ แต่ควรกลับมาทำ)"};upd();
+  $("card").querySelectorAll(".chk input").forEach(el=>el.onchange=()=>{st.g[el.dataset.k]=el.checked;save();upd();renderList();renderRail();renderOverall()});
+  const ts=$("toSet");if(ts)ts.onclick=()=>tab("set");
+  $("prev").onclick=()=>{st.cur--;render();scrollTo({top:0})};$("next").onclick=()=>{st.cur++;render();scrollTo({top:0})}}
+function render(){save();renderRail();renderList();renderCard();renderOverall()}
+$("q").oninput=renderList;
 
-/* notebook form */
-function renderNb(){
-  const f=document.getElementById("nbf");
-  f.innerHTML=NB.map(([k,l,t,d])=>`<div class="field"><label for="nb_${k}">${l}</label>${t==="select"
-    ?`<select id="nb_${k}" data-k="${k}">${d.split("|").map(o=>`<option ${nb[k]===o?"selected":""}>${o}</option>`).join("")}</select>`
-    :`<input id="nb_${k}" data-k="${k}" type="${t}" step="any" value="${nb[k]??""}">`}</div>`).join("");
-  f.querySelectorAll("[data-k]").forEach(el=>el.oninput=el.onchange=()=>{nb[el.dataset.k]=el.value;saveNb();if(typeof renderSet==="function")renderSet();if(el.dataset.k==="name")renderProj();syncCalc();calc();renderCard()});
-}
-document.getElementById("nbReset").onclick=()=>{if(!confirm("ล้างข้อมูลโครงการนี้?"))return;const nm=nb.name;DB.list[DB.act].nb=defNb();DB.list[DB.act].nb.name=nm;bind();saveNb();renderNb();syncCalc();calc();renderCard()};
+/* ===== settings ===== */
+const LV={must:'<span class="tag must">ต้องตั้ง</span>',chk:'<span class="tag chk2">ตรวจ</span>',skip:'<span class="tag skip">ข้ามได้</span>'};
+function renderSet(){let h="",n=0,t=0;
+  SETS.forEach((g,gi)=>{h+=`<div class="card sg"><h2 class="s">${esc(g.n)} ${LV[g.lv]}</h2><div class="small">${g.th}</div><div class="crumb"><span class="lbl">ตำแหน่ง:</span><span class="ui">Settings Center</span><span class="sep">›</span><span class="ui">${esc(g.n)}</span></div>`;
+    g.i.forEach((it,ii)=>{const k=gi+"-"+ii;t++;if(st.set[k])n++;
+      h+=`<div class="si"><label class="h"><input type="checkbox" data-s="${k}" ${st.set[k]?"checked":""}><span>${esc(it[0])}</span></label><div class="d">${mk(it[1])}</div><div class="r">${mk(it[2])}</div>
+      <div class="mine"><span class="small">ค่าที่ตั้งจริง</span><input data-v="${k}" value="${esc(st.setv[k]||"")}" placeholder="จดค่าที่ใส่ในโปรแกรม"></div></div>`});h+="</div>"});
+  $("setList").innerHTML=h;$("setT").textContent=`ตรวจแล้ว ${n} จาก ${t} รายการ`;$("setB").style.width=(n/t*100)+"%";
+  $("setList").querySelectorAll("[data-s]").forEach(el=>el.onchange=()=>{st.set[el.dataset.s]=el.checked;save();renderSet()});
+  $("setList").querySelectorAll("[data-v]").forEach(el=>el.oninput=()=>{st.setv[el.dataset.v]=el.value;save()})}
 
-/* calculators */
-const $=id=>document.getElementById(id),v=id=>parseFloat($(id).value)||0,f=x=>x.toFixed(2);
-function syncCalc(){$("c_t").value=nb.slab;$("c_ff").value=nb.ff;$("c_ll").value=nb.ll;$("c_wh").value=nb.h;$("c_n").value=nb.floors;$("c_rf").value=nb.roof}
-function calc(){
-  const sw=v("c_t")*24,D=sw+v("c_ff"),L=v("c_ll");
-  $("o_slab").innerHTML=`DL รวม ${f(D)} kN/m² <small>(น้ำหนักตัวเอง ${f(sw)} โปรแกรมคิดให้ · ใส่เองเฉพาะ ${f(v("c_ff"))})</small><br>LL ${f(L)} kN/m²`;
-  const w=v("c_wt")*v("c_wh")*(1-v("c_wo")/100);
-  $("o_wall").innerHTML=`${f(w)} kN/m <small>≈ ${Math.round(w*101.97)} kg/m</small>`;
-  const A=v("c_a"),n=v("c_n"),slabW=A*D*(1+v("c_fr")/100)*n,wallW=v("c_wl")*w*n,roofW=v("c_ra")*v("c_rf"),LL=A*L*n+v("c_ra")*(parseFloat(nb.llr)||0);
-  $("o_tot").innerHTML=A?`DL ≈ ${Math.round(slabW+wallW+roofW)} kN · LL ≈ ${Math.round(LL)} kN<br><small>รวม ≈ ${Math.round(slabW+wallW+roofW+LL)} kN ≈ ${Math.round((slabW+wallW+roofW+LL)/9.81)} ตัน</small>`:`<small>กรอกพื้นที่พื้นเพื่อคำนวณ</small>`;
-  $("o_combo").innerHTML=[["1.4D",1.4*D],["1.2D + 1.6L (ACI 318 ปัจจุบัน)",1.2*D+1.6*L],["1.4D + 1.7L (แนว ACI รุ่นเก่า)",1.4*D+1.7*L]].map(r=>`<tr><td>${r[0]}</td><td>${f(r[1])}</td></tr>`).join("");
-  $("o_u1").textContent=`= ${f(v("u1")*0.00981)} kN/m²`;$("o_u2").textContent=`= ${f(v("u2")*0.0981)} MPa`;$("o_u3").textContent=`= ${f(v("u3")*9.81)} kN`;
-}
-document.querySelectorAll("#calc input,#calc select").forEach(el=>el.oninput=el.onchange=calc);
+/* ===== notebook form ===== */
+function renderNb(){$("nbf").innerHTML=NB.map(([k,l,t,d])=>`<div class="field"><label for="nb_${k}">${l}</label>${t==="select"
+  ?`<select id="nb_${k}" data-k="${k}">${d.split("|").map(o=>`<option ${nb[k]===o?"selected":""}>${o}</option>`).join("")}</select>`
+  :`<input id="nb_${k}" data-k="${k}" type="${t}" step="any" value="${esc(nb[k])}">`}</div>`).join("");
+  $("nbf").querySelectorAll("[data-k]").forEach(el=>el.oninput=el.onchange=()=>{nb[el.dataset.k]=el.value;save();if(el.dataset.k==="name")renderProj();syncCalc();calc();renderCard();renderSet()})}
+$("nbReset").onclick=()=>{if(!confirm("ล้างข้อมูลโครงการนี้?"))return;const nm=nb.name;DB.list[DB.act].nb=defNb();DB.list[DB.act].nb.name=nm;bind();save();renderNb();syncCalc();calc();render();renderSet()};
 
-/* tabs, compact, keys */
-document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{window.scrollTo({top:0});
-  document.querySelectorAll("[data-tab]").forEach(x=>x.setAttribute("aria-selected",x===b));
-  ["steps","nb","set","calc","help"].forEach(id=>$(id).hidden=id!==b.dataset.tab)});
-const cb=$("compact");let cp=false;try{cp=localStorage.getItem("ps-cp")==="1"}catch(e){}
-const setCp=()=>{document.body.classList.toggle("compact",cp);cb.setAttribute("aria-pressed",cp);cb.textContent=cp?"แสดงรายการ":"โหมดแคบ"};
-cb.onclick=()=>{cp=!cp;try{localStorage.setItem("ps-cp",cp?"1":"0")}catch(e){};setCp()};
+/* ===== calculators (kg based) ===== */
+const v=id=>parseFloat($(id).value)||0,f=(x,d=2)=>x.toFixed(d),kN=x=>x*0.00981;
+function syncCalc(){$("c_t").value=nb.slab;$("c_ff").value=nb.ff;$("c_ll").value=nb.ll;$("c_wu").value=nb.wall;
+  $("c_wh").value=Math.max(0,(parseFloat(nb.h)||3)-0.4).toFixed(2);$("c_n").value=nb.floors}
+function calc(){const sw=v("c_t")*2400,D=sw+v("c_ff"),L=v("c_ll");
+  $("o_slab").innerHTML=`ใส่ในโปรแกรม: Service Dead Load ${f(v("c_ff"),0)} · Imposed Load ${f(L,0)} kg/m²<br><small>Self-weight ${f(sw,0)} kg/m² โปรแกรมคิดเอง · DL รวม ${f(D,0)} kg/m² (≈${f(kN(D))} kN/m²)</small>`;
+  const w=v("c_wu")*v("c_wh")*(1-v("c_wo")/100);$("o_wall").innerHTML=`${f(w,0)} kg/m <small>(≈${f(kN(w))} kN/m)</small>`;
+  const A=v("c_a"),n=v("c_n"),slabW=A*D*(1+v("c_fr")/100)*n,wallW=v("c_wl")*w*n,roofW=v("c_ra")*(parseFloat(nb.roof)||0),LL=A*L*n+v("c_ra")*(parseFloat(nb.llr)||0),T=slabW+wallW+roofW+LL;
+  $("o_tot").innerHTML=A?`G ≈ ${f((slabW+wallW+roofW)/1000,1)} ตัน · Q ≈ ${f(LL/1000,1)} ตัน<br><small>รวม ≈ ${f(T/1000,1)} ตัน ≈ ${f(kN(T),0)} kN</small>`:"<small>กรอกพื้นที่พื้นเพื่อคำนวณ</small>";
+  $("o_combo").innerHTML=[["1.4D",1.4*D],["1.2D + 1.6L (ACI 318-19)",1.2*D+1.6*L],["1.4D + 1.7L (แนวเดิม)",1.4*D+1.7*L]].map(r=>`<tr><td>${r[0]}</td><td class="r">${f(r[1],0)} kg/m²</td></tr>`).join("");
+  $("o_u1").textContent=`= ${f(kN(v("u1")))} kN/m²`;$("o_u4").textContent=`= ${f(kN(v("u4")))} kN/m`;$("o_u2").textContent=`= ${f(v("u2")*0.0981)} MPa`;$("o_u3").textContent=`= ${f(v("u3")*9.81)} kN`}
+$("c_wt").onchange=e=>{$("c_wu").value=e.target.value;calc()};
+document.querySelectorAll("#calc input").forEach(el=>el.oninput=calc);
+
+/* ===== reference ===== */
+$("keys").innerHTML=KEYS.map(k=>`<tr><td>${mk(k[0])}</td><td>${k[1]}</td></tr>`).join("");
+$("trouble").innerHTML=TR.map(t=>`<div class="ts"><b>${t[0]}</b>${t[1]}</div>`).join("");
+function renderGl(){const q=($("gq").value||"").toLowerCase();$("gloss").innerHTML=GL.filter(g=>!q||g.join(" ").toLowerCase().includes(q)).map(g=>`<dt>${esc(g[0])} <span>· ${g[1]}</span></dt><dd>${esc(g[2])}</dd>`).join("")}
+$("gq").oninput=renderGl;renderGl();
+
+/* ===== tabs, projects, print ===== */
+function tab(id){document.querySelectorAll("[data-tab]").forEach(x=>x.setAttribute("aria-selected",x.dataset.tab===id));["steps","set","nb","calc","ref"].forEach(x=>$(x).hidden=x!==id);scrollTo({top:0})}
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>tab(b.dataset.tab));
+function renderProj(){$("proj").innerHTML=Object.entries(DB.list).map(([id,o])=>`<option value="${id}" ${id===DB.act?"selected":""}>${esc(o.nb.name||"ไม่มีชื่อ")}</option>`).join("")}
+function switchTo(id){DB.act=id;bind();save();renderProj();renderNb();syncCalc();calc();render();renderSet()}
+$("proj").onchange=e=>switchTo(e.target.value);
+$("pNew").onclick=()=>{const n=prompt("ชื่อโครงการใหม่","บ้านพักอาศัย");if(n===null)return;const id="p"+Date.now();DB.list[id]=newProj(n.trim()||"ไม่มีชื่อ");DB.list[id].v3=1;switchTo(id)};
+$("pDel").onclick=()=>{if(Object.keys(DB.list).length<2){alert("ต้องมีอย่างน้อย 1 โครงการ");return}if(!confirm(`ลบโครงการ “${nb.name}”?`))return;delete DB.list[DB.act];switchTo(Object.keys(DB.list)[0])};
+$("pExp").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify({app:"prota-helper",v:3,project:DB.list[DB.act]})],{type:"application/json"}));
+  a.download=`prota-${(nb.name||"project").replace(/[\\/:*?"<>|\s]+/g,"_")}.json`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)};
+$("pImp").onclick=()=>$("pFile").click();
+$("pFile").onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(o.app!=="prota-helper"||!o.project||!o.project.nb)throw 0;const id="p"+Date.now();DB.list[id]=o.project;switchTo(id)}catch(x){alert("ไฟล์นี้ไม่ใช่ไฟล์สำรองของแอปนี้")}};r.readAsText(file);e.target.value=""};
+$("pPrint").onclick=()=>{let h=`<h1>สรุปโครงการ: ${esc(nb.name)} (${esc(nb.pcode)})</h1><p>พิมพ์เมื่อ ${new Date().toLocaleDateString("th-TH-u-nu-latn",{year:"numeric",month:"long",day:"numeric"})} · ผ่านแล้ว ${S.filter((_,i)=>stepOk(i)).length}/${S.length} ขั้น · ProtaStructure 2026 · Template Thailand (US Code, DPT)</p>`;
+  h+=`<h2>ข้อมูลโครงการ</h2><table>${NB.map(([k,l])=>`<tr><td>${l}</td><td>${esc(nb[k])||"—"}</td></tr>`).join("")}</table>`;
+  h+=`<h2>Settings Center</h2><table>`;SETS.forEach((g,gi)=>g.i.forEach((it,ii)=>{const k=gi+"-"+ii;if(g.lv==="skip"&&!st.setv[k])return;h+=`<tr><td>${st.set[k]?"☑":"☐"} ${esc(g.n)} › ${esc(it[0])}</td><td>${esc(st.setv[k])||"—"}</td></tr>`}));h+="</table>";
+  P.forEach((p,pi)=>{h+=`<h2>${pi}. ${p.en} · ${p.th}</h2><table>`;S.forEach((s,i)=>{if(s.ph!==pi)return;const n=st.notes[s.id];h+=`<tr><td>${stepOk(i)?"☑":"☐"} ${s.id} ${s.t}${n?`<br><small>บันทึก: ${esc(n)}</small>`:""}</td></tr>`});h+="</table>"});
+  $("print").innerHTML=h;window.print()};
+
+/* ===== font size, theme, compact ===== */
+const FS=[17,19,21,23,25];let fsi=2,thm="auto",cp=false;try{fsi=+(localStorage.getItem("ps-fs")??2);thm=localStorage.getItem("ps-thm")||"auto";cp=localStorage.getItem("ps-cp")==="1"}catch(e){}
+const applyFs=()=>{fsi=Math.max(0,Math.min(FS.length-1,fsi));document.documentElement.style.setProperty("--fs",FS[fsi]+"px");try{localStorage.setItem("ps-fs",fsi)}catch(e){}};
+$("fsUp").onclick=()=>{fsi++;applyFs()};$("fsDn").onclick=()=>{fsi--;applyFs()};
+const applyThm=()=>{if(thm==="auto")document.documentElement.removeAttribute("data-theme");else document.documentElement.setAttribute("data-theme",thm);$("thm").title="ธีม: "+({auto:"ตามเครื่อง",light:"สว่าง",dark:"มืด"})[thm];try{localStorage.setItem("ps-thm",thm)}catch(e){}};
+$("thm").onclick=()=>{thm=({auto:"light",light:"dark",dark:"auto"})[thm];applyThm()};
+const setCp=()=>{document.body.classList.toggle("compact",cp);$("compact").setAttribute("aria-pressed",cp);$("compact").textContent=cp?"แสดงรายการ":"โหมดแคบ";try{localStorage.setItem("ps-cp",cp?"1":"0")}catch(e){}};
+$("compact").onclick=()=>{cp=!cp;setCp()};
 document.addEventListener("keydown",e=>{if($("steps").hidden||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
   if(e.key==="ArrowRight"&&st.cur<S.length-1){st.cur++;render()}if(e.key==="ArrowLeft"&&st.cur>0){st.cur--;render()}});
 
-bind();
-/* projects */
-function renderProj(){const p=$("proj");p.innerHTML=Object.entries(DB.list).map(([id,o])=>`<option value="${id}" ${id===DB.act?"selected":""}>${(o.nb.name||"ไม่มีชื่อ").replace(/</g,"&lt;")}</option>`).join("")}
-function switchTo(id){DB.act=id;bind();saveAll();renderProj();renderNb();syncCalc();calc();render();renderSet()}
-$("proj").onchange=e=>switchTo(e.target.value);
-$("pNew").onclick=()=>{const n=prompt("ชื่อโครงการใหม่","บ้านพักอาศัย");if(n===null)return;const id="p"+Date.now();DB.list[id]=newProj(n.trim()||"ไม่มีชื่อ");switchTo(id)};
-$("pDel").onclick=()=>{const ids=Object.keys(DB.list);if(ids.length<2){alert("ต้องมีอย่างน้อย 1 โครงการ");return}
-  if(!confirm(`ลบโครงการ “${nb.name}” ทั้งข้อมูลและความคืบหน้า?`))return;delete DB.list[DB.act];switchTo(Object.keys(DB.list)[0])};
-$("pExp").onclick=()=>{const data=JSON.stringify({app:"prota-helper",v:1,project:DB.list[DB.act]},null,1);
-  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:"application/json"}));
-  a.download=`prota-${(nb.name||"project").replace(/[\\/:*?"<>|\s]+/g,"_")}.json`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)};
-$("pImp").onclick=()=>$("pFile").click();
-$("pFile").onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();
-  r.onload=()=>{try{const o=JSON.parse(r.result);if(o.app!=="prota-helper"||!o.project||!o.project.nb)throw 0;
-    const id="p"+Date.now();DB.list[id]=o.project;switchTo(id)}catch(x){alert("ไฟล์นี้ไม่ใช่ไฟล์สำรองของแอปผู้ช่วย Prota")}};r.readAsText(file);e.target.value=""};
-/* install */
+/* ===== install & offline ===== */
 let defI=null;const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
 const ib=$("btnInstall");if(!standalone())ib.hidden=false;
 addEventListener("beforeinstallprompt",e=>{e.preventDefault();defI=e;ib.hidden=false});
 addEventListener("appinstalled",()=>{ib.hidden=true;defI=null});
-function dlg(html){const d=document.createElement("div");d.className="dlg";d.innerHTML=`<div>${html}<br><button>ตกลง</button></div>`;
-  d.querySelector("button").onclick=()=>d.remove();d.onclick=e=>{if(e.target===d)d.remove()};document.body.appendChild(d);d.querySelector("button").focus()}
+function dlg(html){const d=document.createElement("div");d.className="dlg";d.innerHTML=`<div>${html}<br><button class="btn pri">ตกลง</button></div>`;d.querySelector("button").onclick=()=>d.remove();d.onclick=e=>{if(e.target===d)d.remove()};document.body.appendChild(d);d.querySelector("button").focus()}
 ib.onclick=()=>{if(defI){defI.prompt();defI.userChoice.then(()=>{defI=null});return}
-  const ua=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
-  if(!/github\.io$/.test(location.hostname)&&location.protocol==="https:"&&window.self!==window.top)
-    return dlg("<b>หน้านี้เป็นตัวอย่างบน claude.ai</b> ซึ่งติดตั้งไม่ได้<br>ให้อัปโหลดไฟล์ใน zip ขึ้น GitHub แล้วเปิดจาก <b>https://patarakorn-bas.github.io/prota-helper/</b>");
-  if(ios)return dlg("<b>iPad / iPhone</b><ol><li>เปิดหน้านี้ใน Safari</li><li>แตะปุ่มแชร์</li><li>เลือก “เพิ่มไปยังหน้าจอโฮม”</li></ol>");
-  dlg("<b>คอมพิวเตอร์</b><ol><li>ใช้ Chrome หรือ Edge</li><li>กดไอคอนติดตั้งที่ปลายช่องที่อยู่เว็บ หรือเมนู ⋮ → ติดตั้งแอป / แอป → ติดตั้งไซต์นี้เป็นแอป</li></ol>ถ้ายังไม่มีตัวเลือก ให้รีเฟรชหน้าแล้วรอสักครู่")};
-/* service worker: only when hosted on its own site */
+  const ios=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  let top=true;try{top=window.self===window.top}catch(e){top=false}
+  if(!/github\.io$/.test(location.hostname)&&!top)return dlg("<b>หน้านี้เป็นตัวอย่างบน claude.ai</b> ซึ่งติดตั้งไม่ได้<br>อัปโหลดไฟล์ใน zip ขึ้น GitHub แล้วเปิดจาก <b>https://patarakorn-bas.github.io/prota-helper/</b>");
+  if(ios)return dlg("<b>iPad / iPhone</b><ol><li>เปิดใน Safari</li><li>แตะปุ่มแชร์</li><li>เลือก “เพิ่มไปยังหน้าจอโฮม”</li></ol>");
+  dlg("<b>คอมพิวเตอร์</b><ol><li>ใช้ Chrome หรือ Edge</li><li>กดไอคอนติดตั้งท้ายช่องที่อยู่เว็บ หรือเมนู ⋮ › ติดตั้งแอป</li></ol>")};
 (function(){let top=false;try{top=window.self===window.top}catch(e){}
   if(!top||location.protocol!=="https:"||!("serviceWorker" in navigator))return;
   const l=document.createElement("link");l.rel="manifest";l.href="manifest.json";document.head.appendChild(l);
   const a=document.createElement("link");a.rel="apple-touch-icon";a.href="icon-192.png";document.head.appendChild(a);
   addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))})();
 
-const SET=[
-{h:"0. ก่อนเริ่มตั้งค่า",w:"Building Setout → Settings Center",i:[
- ["รู้ว่า Template ทำอะไรให้แล้ว","Thailand (US Code, DPT) ตั้งมาตรฐานออกแบบเป็น ACI 318 และน้ำหนัก/แรงลมตามกรมโยธาฯ ค่าเริ่มต้นส่วนใหญ่ใช้ได้","อย่าแก้ค่าที่ไม่เข้าใจ ถ้าไม่แน่ใจให้คงค่าเดิมไว้และจดคำถามไว้ถามวิศวกร"],
- ["ศึกษาหน้า Settings Center","มีหมวด Environment, Project Settings, Column & Shearwall, Beam, Slab, Foundation, Steel, Analytical Model, Load Editor, Drawing และ Template Management","ตั้งตามลำดับในหน้านี้: หน่วย → โครงการ → วัสดุ/เหล็ก → เสา → คาน → พื้น → ฐานราก → การวิเคราะห์ → แบบ"]]},
-{h:"1. Environment · หน่วยและการแสดงผล",w:"Settings Center → ProtaStructure Environment",i:[
- ["หน่วยที่ใช้ป้อนและแสดงผล","แถบล่างขวาแสดงหน่วยปัจจุบัน เช่น GE: cm (ขนาดชิ้นส่วน) · Anl: kN-m (แรง) · Disp: m (การเสียรูป)","แนะนำคงไว้ GE = cm, แรง = kN-m ตลอดงาน ถ้าเปลี่ยนให้จดไว้ เพราะใส่น้ำหนักผิดหน่วยคือความผิดพลาดอันดับหนึ่ง"],
- ["การสำรองไฟล์อัตโนมัติ","ค่าส่วนนี้เป็นของเครื่องคอมพิวเตอร์ ไม่ใช่ของโครงการ","ถ้ามีตัวเลือกสำรอง/บันทึกอัตโนมัติ ให้เปิดไว้ ใช้คู่กับคำสั่ง Open Previous Backup"]]},
-{h:"2. Project Settings · ข้อมูลโครงการ",w:"Settings Center → Project Settings / Parameters",i:[
- ["ข้อมูลหัวรายงาน","ชื่อโครงการ ที่ตั้ง ผู้ออกแบบ เจ้าของงาน จะไปปรากฏในรายการคำนวณและแบบ","ชื่อโครงการ: {name} · รหัส: {pcode}"],
- ["มาตรฐานออกแบบ","ตรวจว่าเป็นชุด US Code (ACI 318) ตามที่เลือกตอนสร้างโปรเจกต์","มาตรฐาน: {code}"]]},
-{h:"3. วัสดุและตารางเหล็ก",w:"Building Setout → Materials · Libraries",i:[
- ["กำลังคอนกรีต","ใส่เป็นกำลังทรงกระบอก โปรแกรมมักใช้หน่วย MPa","fc′ {fc} ksc ทรงกระบอก ≈ แปลงเป็น MPa ด้วยแท็บเครื่องคิด (240 ksc ≈ 23.5 MPa)"],
- ["เหล็กเสริมหลักและเหล็กปลอก","ตั้งกำลังครากของเหล็กแต่ละชนิด","{fy}: fy ≈ 392 MPa · SR24: fy ≈ 235 MPa · ปลอก: {fys}"],
- ["ตารางขนาดเหล็ก (สำคัญ)","Template US อาจใช้ชื่อเหล็กแบบอเมริกา (#3, #4…) ซึ่งไม่ตรงกับเหล็กไทย","ตรวจใน Libraries ให้มีเหล็กมิลลิเมตรที่หาซื้อได้: RB6, RB9, DB10, DB12, DB16, DB20, DB25 ถ้าไม่มีให้เพิ่ม และปิดขนาดที่ไม่ใช้"]]},
-{h:"4. เสา · Column & Shearwall Design",w:"Settings Center → Column & Shearwall",i:[
- ["ขนาดเหล็กยืนต่ำสุด–สูงสุด","โปรแกรมจะเลือกเหล็กเฉพาะในช่วงนี้ และจะเพิ่มจำนวน/ขนาดจนถึงค่าสูงสุดโดยไม่เปลี่ยนขนาดเสา","บ้าน 1–2 ชั้น: ต่ำสุด DB12 · สูงสุด DB16 (หรือ DB20 สำหรับเสารับเสาลอย)"],
- ["ระยะหุ้มเสา","วัดจากผิวคอนกรีตถึงผิวนอกเหล็กปลอก","ACI 318 เสาภายในอาคาร 40 มม. ใส่ 0 เพื่อให้ใช้ค่าตามมาตรฐาน หรือใส่ค่าที่ใช้จริงในแบบ"],
- ["ขนาดเหล็กปลอก","ใช้ RB6 หรือ RB9 ตามที่ใช้จริงหน้างาน","แนะนำ RB6 สำหรับเสา 20×20 ซม. และ RB9 เมื่อเหล็กยืน DB16 ขึ้นไป"],
- ["จำนวนเหล็กยืนขั้นต่ำ","เสาสี่เหลี่ยมต้องมีอย่างน้อย 4 เส้น สัดส่วนเหล็กตาม ACI 1–8%","ตรวจว่าค่าต่ำสุดไม่ถูกตั้งต่ำกว่า 4 เส้น"]]},
-{h:"5. คาน · Beam Design",w:"Settings Center → Beam",i:[
- ["ขนาดเหล็กหลักต่ำสุด–สูงสุด","เหล็กที่เล็กหรือใหญ่กว่าช่วงนี้จะไม่ถูกเลือก","บ้าน: ต่ำสุด DB12 · สูงสุด DB16 (DB20 สำหรับคานช่วงยาวหรือคานรับเสาลอย)"],
- ["ระยะหุ้มบน ล่าง ข้าง","ใส่ 0 = ใช้ค่าตามมาตรฐาน ดูค่าที่ใช้จริงได้ในรายงานคานหรือหน้าออกแบบคาน","ACI 318 คานภายใน 40 มม. ถึงผิวเหล็กปลอก · คานคอดินที่หล่อติดดิน 75 มม."],
- ["เหล็กปลอกคาน","ขนาดและระยะห่างต่ำสุดที่ทำงานได้จริง","RB6 ระยะห่างไม่ถี่กว่า 7.5–10 ซม. ถ้าโปรแกรมต้องการถี่กว่านี้ ให้เพิ่มขนาดคานแทน"],
- ["การแสดงเหล็กในแบบคาน","ตัวเลือกเขียนจำนวน ขนาด และเครื่องหมายเหล็กบนรูปด้านและหน้าตัดคาน","เปิดทั้ง Annotate Steel Bars in Beam, Annotate Bars in Beam Sections และ Dimension Beam Section"]]},
-{h:"6. พื้น · Slab Design",w:"Settings Center → Slab",i:[
- ["วิธีวิเคราะห์พื้น","มีวิธี Analytical Strip (สัมประสิทธิ์โมเมนต์) และ Finite Element","บ้านทั่วไป แนะนำวิธีสัมประสิทธิ์โมเมนต์ คุ้นเคยและตรวจมือได้ง่าย ใช้ FE เมื่อพื้นรูปร่างไม่ปกติ"],
- ["ขนาดและระยะห่างเหล็กพื้น","กำหนดขนาดเหล็กที่ยอมให้และระยะห่างสูงสุด","RB9 หรือ DB10–DB12 · ระยะห่างสูงสุดตาม ACI ไม่เกิน 3 เท่าความหนาพื้น และไม่เกิน 45 ซม."],
- ["ระยะหุ้มพื้น","","ACI 318 พื้นภายในอาคาร 20 มม. · พื้นที่หล่อติดดิน 75 มม."],
- ["ความหนาพื้นขั้นต่ำ","ใช้คุมการแอ่นตัว","พื้นหลักของโครงการ {slab} ม. ถ้าโปรแกรมแจ้งว่าแอ่นเกิน ให้เพิ่มความหนาหรือเพิ่มคานซอย"]]},
-{h:"7. ฐานราก · Foundation Design",w:"Settings Center → Foundation",i:[
- ["วัสดุฐานราก","ตั้งกำลังคอนกรีตและเหล็กของฐานราก (อาจต่างจากโครงสร้างส่วนบน)","fc′ {fc} ksc · เหล็ก {fy}"],
- ["ระยะหุ้มฐานราก","ผิวที่หล่อติดดิน","ACI 318: 75 มม."],
- ["กำลังดิน / กำลังเสาเข็ม","ค่าที่ใช้คำนวณขนาดฐานและจำนวนเข็ม ระวังหน่วย (ตัน กับ kN)","ชนิด: {fnd} · ดิน {qa} t/m² · เข็ม {pile} ตัน/ต้น (1 ตัน ≈ 9.81 kN)"],
- ["วิธีออกแบบฐานรากบนเข็ม","หน้าต่าง Pile Cap มีวิธี Deep Beam / Shallow Beam และตัวเลือกคิดผลของขนาดเสา","ใช้ค่าเริ่มต้นของ Template ก่อน เปลี่ยนเมื่อเข้าใจผลต่างแล้วเท่านั้น"]]},
-{h:"8. แบบจำลองวิเคราะห์ · Analytical Model",w:"Settings Center → Analytical Model · หน้าต่าง Model Options ตอนสั่งวิเคราะห์",i:[
- ["Rigid Diaphragm (แท็บ Slab Model)","ค่าเริ่มต้น Slabs To Define Rigid Diaphragm ให้โปรแกรมหาพื้นที่ทำหน้าที่ไดอะแฟรมแข็งเอง","บ้านพื้นหล่อในที่: คงค่าเริ่มต้น · ถ้าพื้นสำเร็จรูปทั้งชั้น ให้ปรึกษาวิศวกรก่อนเลือก"],
- ["ตัวคูณสติฟเนสหน้าตัดแตกร้าว","ใช้ลดความแข็งของคาน/เสาเพื่อสะท้อนการแตกร้าว","คงค่าตาม Template ไม่ปรับเองในงานแรก"],
- ["Rigid Zones","โปรแกรมคิดช่วงแข็งที่จุดต่อเสา-คานให้อัตโนมัติ","คงค่าเริ่มต้น"]]},
-{h:"9. น้ำหนักและชุดผสม · Load Editor",w:"Settings Center → Load Editor",i:[
- ["กรณีน้ำหนัก","มี DL, LL และลม/แผ่นดินไหวตามที่ต้องใช้","ตรวจว่าน้ำหนักตัวเองรวมอยู่ใน DL อัตโนมัติ (ไม่ต้องใส่ซ้ำ)"],
- ["ชุดผสมน้ำหนัก","ให้โปรแกรมสร้างจากมาตรฐาน","ตรวจตัวคูณให้ตรงมาตรฐานที่ระบุในรายการคำนวณ · แผ่นดินไหว: {seis}"]]},
-{h:"10. แบบและรายงาน · Drawing",w:"Settings Center → Drawing Settings",i:[
- ["มาตราส่วนและขนาดตัวอักษรในแบบ","ใช้กับแบบที่ส่งออกไป ProtaDetails/DWG","แปลน 1:100 · รายละเอียด 1:20–1:50 · ตัวอักษรอ่านได้เมื่อพิมพ์ A3"],
- ["ชื่อเรียกเหล็กในแบบ","ให้แสดงตามแบบไทย RB/DB","ตรวจในแบบตัวอย่างว่าแสดง DB12 ไม่ใช่ #4 หรือ T12"]]},
-{h:"11. บันทึกเป็น Template ของตัวเอง",w:"Building Setout → Project Templates · Template Management",i:[
- ["บันทึกค่าที่ตั้งทั้งหมดเป็น Template","ครั้งต่อไปสร้างโปรเจกต์ใหม่จาก Template นี้ ไม่ต้องตั้งใหม่","ตั้งชื่อเช่น TH_House_ACI_SD40 แล้วเลือกตอนสร้างโปรเจกต์ (ตัวเลือก Templates)"]]}
-];
-function renderSet(){st.set=st.set||{};st.setv=st.setv||{};let h="",n=0,t=0;
-  SET.forEach((g,gi)=>{h+=`<div class="card sg"><h2 class="s">${g.h}</h2><span class="where">ใน Prota 2026: ${g.w}</span>`;
-    g.i.forEach((it,ii)=>{const k=gi+"-"+ii;t++;if(st.set[k])n++;
-      h+=`<div class="si"><label class="h"><input type="checkbox" data-s="${k}" ${st.set[k]?"checked":""}><span>${it[0]}</span></label>${it[1]?`<div class="d">${it[1]}</div>`:""}<div class="r">${fill(it[2])}</div>
-      <div class="mine"><span class="small">ค่าที่ตั้งจริง</span><input data-v="${k}" value="${(st.setv[k]||"").replace(/"/g,"&quot;")}" placeholder="จดค่าที่ใส่ในโปรแกรม"></div></div>`});
-    h+=`</div>`});
-  $("setList").innerHTML=h;$("setT").textContent=`ตรวจแล้ว ${n} จาก ${t} รายการ`;$("setB").style.width=(n/t*100)+"%";
-  $("setList").querySelectorAll("[data-s]").forEach(el=>el.onchange=()=>{st.set[el.dataset.s]=el.checked;saveSt();renderSet()});
-  $("setList").querySelectorAll("[data-v]").forEach(el=>el.oninput=()=>{st.setv[el.dataset.v]=el.value;saveSt()});
-}
-$("q").oninput=renderList;
-/* font size & theme */
-const FS=[17,19,21,23,25];let fsi=2,thm="auto";try{fsi=+(localStorage.getItem("ps-fs")??2);thm=localStorage.getItem("ps-thm")||"auto"}catch(e){}
-const applyFs=()=>{fsi=Math.max(0,Math.min(FS.length-1,fsi));document.documentElement.style.setProperty("--fs",FS[fsi]+"px");try{localStorage.setItem("ps-fs",fsi)}catch(e){}};
-$("fsUp").onclick=()=>{fsi++;applyFs()};$("fsDn").onclick=()=>{fsi--;applyFs()};
-const applyThm=()=>{if(thm==="auto")document.documentElement.removeAttribute("data-theme");else document.documentElement.setAttribute("data-theme",thm);
-  $("thm").title="ธีม: "+({auto:"ตามเครื่อง",light:"สว่าง",dark:"มืด"})[thm];try{localStorage.setItem("ps-thm",thm)}catch(e){}};
-$("thm").onclick=()=>{thm=({auto:"light",light:"dark",dark:"auto"})[thm];applyThm()};
-/* glossary & troubleshooting */
-const GL=[["Axis","แกน / เส้นกริด","เส้นอ้างอิงที่ใช้วางเสาและคาน"],["Storey","ชั้น","แต่ละระดับของอาคาร มีความสูงชั้นของตัวเอง"],
-["Settings Center","ศูนย์ตั้งค่า","ที่ตั้งมาตรฐาน วัสดุ ระยะหุ้ม และค่าการออกแบบทั้งหมด"],["Self-weight","น้ำหนักตัวเอง","น้ำหนักคอนกรีตของชิ้นส่วน โปรแกรมคิดให้อัตโนมัติ"],
-["Dead load (DL)","น้ำหนักบรรทุกคงที่","น้ำหนักที่อยู่ถาวร เช่น ปูผิว ผนัง หลังคา"],["Live load (LL)","น้ำหนักบรรทุกจร","น้ำหนักจากการใช้งาน เช่น คน เฟอร์นิเจอร์"],
-["Area load","น้ำหนักแผ่บนพื้นที่","หน่วย kN/m² ใส่บนพื้น"],["Line load","น้ำหนักแผ่ตามยาว","หน่วย kN/m ใส่บนคาน เช่น ผนัง"],
-["Load combination","ชุดผสมน้ำหนัก","น้ำหนักแต่ละประเภทคูณตัวคูณแล้วรวมกัน เพื่อใช้ออกแบบ"],["Building Analysis","การวิเคราะห์อาคาร","คำนวณแรงในชิ้นส่วนทั้งหลัง"],
-["Reaction","แรงปฏิกิริยา","แรงที่ฐานรากรับจากโครงสร้าง ใช้ตรวจน้ำหนักรวม"],["Deflection","การแอ่นตัว","ระยะที่คานหรือพื้นแอ่นลงเมื่อรับน้ำหนัก"],
-["Rigid diaphragm","ไดอะแฟรมแข็ง","สมมติให้พื้นทั้งชั้นเคลื่อนที่ไปพร้อมกันในแนวราบ"],["Cover","ระยะหุ้มคอนกรีต","ระยะจากผิวคอนกรีตถึงผิวเหล็ก"],
-["One-way / Two-way slab","พื้นทางเดียว / สองทาง","พื้นที่ถ่ายแรงไปคานสองด้าน หรือสี่ด้าน"],["Transfer beam","คานรับเสาลอย","คานที่รับเสาชั้นบนซึ่งไม่มีเสาชั้นล่าง"],
-["Tie beam","คานคอดิน","คานระดับดินเชื่อมฐานราก และรับผนังชั้นล่าง"],["Pad footing","ฐานแผ่","ฐานรากวางบนดินโดยตรง"],
-["Pile cap","ฐานรากบนเข็ม","ฐานรากที่ถ่ายแรงลงเสาเข็ม"],["Punching shear","แรงเฉือนทะลุ","แรงที่เสาพยายามเจาะทะลุฐานรากหรือพื้น"],
-["Effective length","ความยาวประสิทธิผล","ความยาวที่ใช้ตรวจการโก่งเดาะของเสา"],["Cantilever","คานยื่น / พื้นยื่น","ชิ้นส่วนที่มีที่รองรับด้านเดียว"]];
-$("gloss").innerHTML=GL.map(g=>`<dt>${g[0]} <span>· ${g[1]}</span></dt><dd>${g[2]}</dd>`).join("");
-const TR=[["วิเคราะห์ไม่ผ่าน หรือแจ้งว่าโครงสร้างไม่เสถียร","ชิ้นส่วนไม่ต่อกัน มีเสาหรือคานลอย หรือฐานรากขาด → รันตรวจโมเดลแล้วซูมดูจุดต่อ (ขั้น 5.1)"],
-["คานหรือพื้นแอ่นมากผิดปกติ","ปลายคานไม่ได้ต่อกับเสา/คาน หรือใส่น้ำหนักผิดหน่วย (kg กับ kN ต่างกันเกือบ 10 เท่า)"],
-["แรงปฏิกิริยารวมต่างจากที่คิดด้วยมือมาก","มากเกิน: ใส่น้ำหนักพื้นซ้ำกับน้ำหนักตัวเอง · น้อยเกิน: ลืมผนัง หลังคา หรือพื้นบางแผ่นไม่มีน้ำหนัก"],
-["พื้นบางแผ่นไม่ได้รับน้ำหนักหรือไม่ถูกออกแบบ","พื้นไม่มีคานล้อมรอบครบ ทำให้โปรแกรมสร้างพื้นไม่ได้ → ตรวจคานรอบช่องนั้น"],
-["เสาได้เหล็กเยอะผิดปกติ","น้ำหนักเกินจริง เสาเล็กเกิน หรือเป็นเสาที่รับคานรับเสาลอย → ตรวจน้ำหนักก่อนเพิ่มขนาด"],
-["ฐานรากใหญ่ผิดปกติ","ใส่กำลังดิน/เข็มผิดหน่วย (ตัน กับ kN) หรือค่ากำลังดินต่ำเกินจริง"],
-["แก้ขนาดแล้วผลไม่เปลี่ยน","ยังไม่ได้วิเคราะห์ใหม่ → ทุกครั้งที่เปลี่ยนขนาดต้องวิเคราะห์และออกแบบใหม่ (ขั้น 6.5)"],
-["คานได้เหล็กหลายชั้นหรือใส่ไม่ลง","คานตื้นเกิน → เพิ่มความลึกคานก่อนเพิ่มเหล็ก"]];
-$("trouble").innerHTML=TR.map(t=>`<div class="ts"><b>${t[0]}</b>${t[1]}</div>`).join("");
-/* print summary */
-$("pPrint").onclick=()=>{const esc=x=>String(x??"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"})[c]);
-  let h=`<h1>สรุปโครงการ: ${esc(nb.name)}</h1><p>พิมพ์เมื่อ ${new Date().toLocaleDateString("th-TH-u-nu-latn",{year:"numeric",month:"long",day:"numeric"})} · ผ่านแล้ว ${S.filter((_,i)=>stepOk(i)).length}/${S.length} ขั้น</p>`;
-  h+=`<h2>ข้อมูลโครงการ</h2><table>${NB.map(([k,l])=>`<tr><td>${l}</td><td>${esc(nb[k])||"—"}</td></tr>`).join("")}</table>`;
-  P.forEach((name,pi)=>{h+=`<h2>${pi+1}. ${name}</h2><table>`;S.forEach((s,i)=>{if(s.p!==pi)return;
-    const nt=(st.notes||{})[s.id];h+=`<tr><td>${stepOk(i)?"☑":"☐"} ${s.code} ${s.t}${nt?`<br><small>บันทึก: ${esc(nt)}</small>`:""}</td></tr>`});h+=`</table>`});
-  st.set=st.set||{};st.setv=st.setv||{};h+=`<h2>การตั้งค่าโปรแกรม</h2><table>`;
-  SET.forEach((g,gi)=>g.i.forEach((it,ii)=>{const k=gi+"-"+ii;h+=`<tr><td>${st.set[k]?"☑":"☐"} ${g.h.split(" ")[0]} ${it[0]}</td><td>${esc(st.setv[k])||"—"}</td></tr>`}));h+=`</table>`;
-  $("print").innerHTML=h;window.print()};
-applyFs();applyThm();
-renderProj();setCp();renderNb();syncCalc();calc();render();renderSet();
+/* ===== start ===== */
+bind();applyFs();applyThm();setCp();renderProj();renderNb();syncCalc();calc();render();renderSet();
 </script>
-</body>
-</html>
+</body></html>
